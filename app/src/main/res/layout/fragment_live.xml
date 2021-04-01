@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashBoard.fragment.HomeLiveFragment">
+
+
+    <HorizontalScrollView
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="@dimen/_10sdp"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            app:singleSelection="true"
+            app:singleLine="true">
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver"
+                app:chipEndPadding="@dimen/_15sdp"
+                app:chipSurfaceColor="@android:color/transparent"
+                app:chipStartPadding="@dimen/_15sdp"/>
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gift"
+                app:chipEndPadding="@dimen/_16sdp"
+                app:chipStartPadding="@dimen/_16sdp"
+                />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patapata2" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:chipEndPadding="@dimen/_15sdp"
+                app:chipStartPadding="@dimen/_15sdp"
+                android:text=" yell " />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver"
+                />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="scroll" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textViewInProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_in_progress"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        android:padding="@dimen/_5sdp"
+        tools:ignore="MissingConstraints"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_home_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:padding="@dimen/_5sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/textViewInProgress"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/liveFrames"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

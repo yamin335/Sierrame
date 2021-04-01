@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashBoard.live.fragment.StremeMusicFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/textViewUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:elevation="@dimen/_10sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="User Name"
+                android:textColor="@color/textWhite"
+                android:textSize="@dimen/textHeadingPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/imageViewCard"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/imageViewCard"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:src="@drawable/background_2"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFF8371"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background_1" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/streameSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_5sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewCard"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/ImageViewProgram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:src="@drawable/ic_orange_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ImageViewRecomended"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:src="@drawable/ic_orange_bg"
+                    app:layout_constraintBottom_toBottomOf="@+id/ImageViewProgram"
+                    app:layout_constraintEnd_toStartOf="@+id/ImageViewChillNight"
+
+                    app:layout_constraintTop_toTopOf="@+id/ImageViewProgram" />
+
+                <ImageView
+                    android:id="@+id/ImageViewChillNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:src="@drawable/ic_orange_bg"
+                    app:layout_constraintBottom_toBottomOf="@+id/ImageViewProgram"
+                    app:layout_constraintEnd_toStartOf="@+id/ImageViewProgram"
+                    app:layout_constraintTop_toTopOf="@+id/ImageViewProgram" />
+
+                <ImageView
+                    android:id="@+id/ImageViewMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:src="@drawable/ic_orange_bg"
+                    app:layout_constraintBottom_toBottomOf="@+id/ImageViewProgram"
+                    app:layout_constraintStart_toEndOf="@+id/ImageViewProgram"
+                    app:layout_constraintTop_toTopOf="@+id/ImageViewProgram" />
+
+                <ImageView
+                    android:id="@+id/ImageViewEntertainmnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:src="@drawable/ic_orange_bg"
+                    app:layout_constraintBottom_toBottomOf="@+id/ImageViewProgram"
+                    app:layout_constraintStart_toEndOf="@+id/ImageViewMovie"
+                    app:layout_constraintTop_toTopOf="@+id/ImageViewProgram" />
+
+
+                <TextView
+                    android:id="@+id/textViewProgram"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/txt_program"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsmall8"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewProgram"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewProgram"
+                    app:layout_constraintTop_toBottomOf="@+id/ImageViewProgram" />
+
+                <TextView
+                    android:id="@+id/textViewRecomended"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/txt_recommended"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsmall8"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewProgram"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewRecomended"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewRecomended" />
+
+                <TextView
+                    android:id="@+id/textViewChillNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingLeft="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_2sdp"
+                    android:text="@string/txt_chill_night"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsmall8"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewProgram"
+                    app:layout_constraintEnd_toStartOf="@+id/ImageViewProgram"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewChillNight" />
+
+                <TextView
+                    android:id="@+id/textViewMovie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/txt_movie"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsmall8"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewProgram"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewMovie"
+                    app:layout_constraintStart_toEndOf="@+id/ImageViewProgram" />
+
+                <TextView
+                    android:id="@+id/textViewEntertainmnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:text="@string/txt_entertainment"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/textsmall8"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewProgram"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewEntertainmnt"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewEntertainmnt" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--    <androidx.constraintlayout.widget.Guideline-->
+            <!--        android:id="@+id/guidelineHalfPart"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:orientation="horizontal"-->
+            <!--        app:layout_constraintGuide_percent=".55" />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerviewStreaming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/streameSection" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

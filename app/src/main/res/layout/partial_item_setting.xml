@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/_8sdp"
+    android:paddingHorizontal="@dimen/_8sdp">
+
+    <TextView
+        android:id="@+id/textViewLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/gradiant_pink_yellow_textview_backgroud"
+        android:drawableLeft="@drawable/ic_fav"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_2sdp"
+android:textSize="@dimen/_10sdp"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewText"
+        app:layout_constraintStart_toEndOf="@+id/textViewLike"
+        android:textSize="@dimen/_11sdp"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/textViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView......."
+        android:paddingVertical="@dimen/_2sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/textViewLike"
+        android:textSize="@dimen/_10sdp"
+        android:maxLines="1"
+        android:textColor="@color/textSecondary"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

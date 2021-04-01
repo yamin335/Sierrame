@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashBoard.profile.activity.EditProfileActivity">
+
+    <include
+        android:id="@+id/toolbarEdit"
+        layout="@layout/partial_toolbar_with_menuicon" />
+
+    <EditText
+        android:id="@+id/editTextStremeId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text=""
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarEdit" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:background="@drawable/btn_white_bg_black_corner"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:text="@string/confirmation"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextStremeId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/editTextStremeId" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:text="@string/txt_you_can_change_the_id"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStremeId" />
+
+    <EditText
+        android:id="@+id/editTextTextweb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:textSize="@dimen/textSecondary"
+        android:drawablePadding="@dimen/_5sdp"
+        android:inputType="textPersonName"
+        android:padding="@dimen/_8sdp"
+        android:drawableLeft="@drawable/ic_comment_active"
+        android:drawableTint="@color/textSecondary"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <EditText
+        android:id="@+id/editTextComments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:drawablePadding="@dimen/_5sdp"
+        android:inputType="textPersonName"
+        android:textSize="@dimen/textSecondary"
+        android:drawableLeft="@drawable/ic_comment_active"
+        android:drawableTint="@color/textSecondary"
+        android:padding="@dimen/_8sdp"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextweb" />
+
+    <EditText
+        android:id="@+id/editTextMultitext"
+        android:layout_width="0dp"
+        android:layout_height="103dp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:layout_marginTop="20dp"
+        android:gravity="left"
+        android:maxHeight="@dimen/_100sdp"
+        android:hint="text"
+        android:textSize="@dimen/textSecondary"
+        android:drawablePadding="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextComments" />
+
+    <TextView
+        android:id="@+id/textViewId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text="Id"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextMultitext" />
+
+    <TextView
+        android:id="@+id/textViewGander"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:hint="@string/edt_hint_gender"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:inputType="textPersonName"
+        android:padding="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewId" />
+
+    <TextView
+        android:id="@+id/textViewBirthDay"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:hint="@string/edt_hint_birthday"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGander" />
+
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:drawablePadding="@dimen/_5sdp"
+        android:hint="@string/edt_hint_email"
+        android:inputType="textPersonName"
+        android:focusable="false"
+        android:editable="false"
+        android:clickable="false"
+        android:padding="@dimen/_8sdp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBirthDay" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/btn_white_bg_black_corner"
+        android:paddingHorizontal="@dimen/_30sdp"
+        android:text="@string/btn_completetion"
+        android:gravity="center_vertical"
+        android:textAllCaps="false"
+        android:textColor="@color/textPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEmail"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

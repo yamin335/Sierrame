@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutItem"
+    android:paddingVertical="@dimen/_8sdp"
+    android:paddingHorizontal="@dimen/_8sdp">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:src="@drawable/ic_dmmy_user"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDesc"
+        app:layout_constraintTop_toTopOf="@+id/textViewName"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"/>
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:paddingHorizontal="@dimen/_2sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDesc"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        android:textSize="@dimen/_11sdp"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/textViewDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView......."
+        android:paddingVertical="@dimen/_2sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        android:textSize="@dimen/_10sdp"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/ImageViewCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/textview_round_ractangle_background"
+       />
+
+    <TextView
+        android:id="@+id/textFollowTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/follower"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        android:background="@drawable/gradiant_pink_yellow_textview_backgroud"
+       />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

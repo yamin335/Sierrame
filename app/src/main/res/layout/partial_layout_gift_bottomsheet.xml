@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_210sdp"
+    android:minHeight="@dimen/_210sdp"
+    android:maxHeight="@dimen/_210sdp"
+    android:background="@drawable/background_bottomsheet_gift">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewGifts"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4"
+        android:paddingVertical="@dimen/_8sdp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/containerGiftCoin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerGiftCoin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recyclerviewGifts">
+
+        <TextView
+            android:id="@+id/textView_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Coins"
+            tools:text="My Coins"
+            android:paddingHorizontal="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewCoinCount"/>
+
+        <TextView
+            android:id="@+id/textViewCoinCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/defaultString"
+            tools:text="546"
+            android:paddingHorizontal="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textView_4"/>
+
+
+        <Button
+            android:id="@+id/buttonBottomSheetGiftBuy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:backgroundTint="@color/switchTrack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

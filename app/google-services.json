@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "315598580688",
+    "project_id": "streame-56aa6",
+    "storage_bucket": "streame-56aa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315598580688:android:8e536c78a3f182edc8a7d5",
+        "android_client_info": {
+          "package_name": "com.mmfinfotech.streameApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315598580688-j709mtsfgonb7icvb9ut945qa25i7vtl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mmfinfotech.streameApp",
+            "certificate_hash": "67cc421108f7a4692c5957c759c310760a3fbac9"
+          }
+        },
+        {
+          "client_id": "315598580688-l5hh0vet5o5utpsc65taeq88aup94ej6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMsUOdRcxDpKkhDvegE_eMl-dFSNEKBG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315598580688-l5hh0vet5o5utpsc65taeq88aup94ej6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "315598580688-ladl1mitio7krnqpdpnb5ijr490fq5f7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mmfInfotech.streame"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

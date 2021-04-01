@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashBoard.streme.activity.AuthenticationActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/linearPhoneNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRules">
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/imageViewSend"
+            android:layout_toEndOf="@+id/textViewCountryCode"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:digits="1234567890"
+            android:paddingVertical="@dimen/_5sdp"
+            android:background="@android:color/transparent"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:textSize="@dimen/textPrimary" />
+
+        <ImageView
+            android:id="@+id/imageViewSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/ic_send" />
+
+        <TextView
+            android:id="@+id/textViewCountryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="91"
+            android:paddingVertical="@dimen/_5sdp"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/editTextPhone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:drawableEndCompat="@drawable/ic_downarrow24" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editTextPhoneVarification"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_ractangle_whitebg"
+        android:ems="10"
+        android:text="111111"
+        android:inputType="phone"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:textSize="@dimen/textPrimary"
+        android:paddingVertical="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="@+id/linearPhoneNo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linearPhoneNo"
+        app:layout_constraintTop_toBottomOf="@+id/linearPhoneNo" />
+
+    <ImageView
+        android:id="@+id/imageBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:src="@drawable/ic_arrow_gray_back"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+        />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/txt_phone_authentication"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textToolbarTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textViewRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="We need your mobile Phone number to send your varification codes when you choose the SMS methode or in cases where the Authenticatore App on your phone is unavailable"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:background="@drawable/btn_white_bg_gray_corner"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:text="@string/btnCancel"
+        android:textAllCaps="false"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonComplete"
+        app:layout_constraintEnd_toStartOf="@+id/buttonComplete"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextPhoneVarification"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneVarification"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonComplete"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:background="@drawable/btn_white_bg_black_corner"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:text="@string/btn_complete"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPhoneVarification"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneVarification" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

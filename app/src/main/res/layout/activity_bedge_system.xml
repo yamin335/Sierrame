@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bedge_bg"
+    tools:context=".dashBoard.profile.activity.MyBabyCoinActivity">
+
+    <include
+        android:id="@+id/includeToolbarBadgeSystem"
+        layout="@layout/partial_toolbar_back_title" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerGiftRecord"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toggleLayout"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.39" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/cloud"
+        android:src="@drawable/bedge_bg"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbarBadgeSystem"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:background="@color/viewcolore"
+        android:paddingHorizontal="@dimen/_1sdp"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toggleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ToggleButton
+            android:id="@+id/togglebtnMysearch"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@color/toggle_button_background"
+            android:focusable ="false"
+            android:focusableInTouchMode="false"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:textColor="@drawable/textview_selectore"
+            android:textOff="@string/my_search"
+            android:textOn="@string/my_search"
+            android:checked="true"
+            app:layout_constraintEnd_toStartOf="@+id/viewVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <View
+            android:id="@+id/viewVertical"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:background="@color/viewcolore"
+            app:layout_constraintBottom_toBottomOf="@+id/togglebtnMysearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/togglebtnMysearch"
+            />
+
+        <ToggleButton
+            android:id="@+id/togglebtnChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@color/toggle_button_background"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:textAllCaps="false"
+            android:textOff="@string/challenge"
+            android:textOn="@string/challenge"
+            android:textColor="@drawable/textview_selectore"
+            android:checked="false"
+            app:layout_constraintBottom_toBottomOf="@+id/viewVertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewVertical"
+            app:layout_constraintTop_toTopOf="@+id/viewVertical" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/viewcolore"
+        android:paddingHorizontal="@dimen/_1sdp"
+        tools:layout_editor_absoluteX="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameToggleBedge"
+        app:layout_constraintTop_toBottomOf="@+id/toggleLayout" />
+
+    <FrameLayout
+        android:id="@+id/frameToggleBedge"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

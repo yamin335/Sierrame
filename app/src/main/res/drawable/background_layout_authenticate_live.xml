@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:top="0dp">
+        <bitmap
+            android:src="@drawable/background_2"
+            android:gravity="fill" />
+    </item>
+
+    <item>
+        <color android:color="@color/black_half_transparent"/>
+    </item>
+
+</layer-list>

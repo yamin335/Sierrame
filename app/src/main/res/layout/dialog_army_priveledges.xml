@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="@dimen/_5sdp"
+        android:textAllCaps="true"
+        android:text="@string/txt_priviledge"
+        android:textColor="@color/textWhite"
+        android:textSize="@dimen/textPrimary"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonPartakePrev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:layout_marginVertical="@dimen/_10sdp"
+        android:background="@drawable/background_black_button"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="ParTake"
+        android:textColor="@color/textWhite"
+        android:foregroundGravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPr" />
+
+    <TextView
+        android:id="@+id/textViewPr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 text1.."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewArmy"
+android:layout_marginBottom="@dimen/_30sdp"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPartakePrev"/>
+
+    <ImageView
+        android:id="@+id/imageViewArmy"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginVertical="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+       app:srcCompat="@drawable/im_army_badge" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

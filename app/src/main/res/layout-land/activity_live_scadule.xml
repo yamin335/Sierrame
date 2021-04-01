@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/includeToolbarLiveSceduling"
+        layout="@layout/partial_toolbar_back_title" />
+
+    <HorizontalScrollView
+        android:id="@+id/tableview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbarLiveSceduling">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_5sdp">
+
+            <TextView
+                android:id="@+id/txtViewToday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/today"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/txtViewWeek"
+                app:layout_constraintEnd_toStartOf="@id/view1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtViewWeek"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="(Wed)"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/txtViewToday"
+                app:layout_constraintStart_toStartOf="@id/txtViewToday"
+                app:layout_constraintTop_toBottomOf="@id/txtViewToday" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate1"
+                app:layout_constraintStart_toEndOf="@+id/txtViewToday"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday" />
+
+            <TextView
+                android:id="@+id/txtViewDate1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toStartOf="@id/view2"
+                app:layout_constraintStart_toEndOf="@id/view1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek1"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate1"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate1"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate1" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewDate1"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate2"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate1"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDate1" />
+
+            <TextView
+                android:id="@+id/txtViewDate2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toStartOf="@id/view3"
+                app:layout_constraintStart_toEndOf="@id/view2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek2"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate2"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate2"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate2" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewDate2"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate3"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate2"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDate2" />
+
+            <TextView
+                android:id="@+id/txtViewDate3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toStartOf="@id/view4"
+                app:layout_constraintStart_toEndOf="@id/view3"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek3"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate3"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate3"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate3" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewDate3"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate4"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate3"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDate3" />
+
+            <TextView
+                android:id="@+id/txtViewDate4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toStartOf="@id/view5"
+                app:layout_constraintStart_toEndOf="@id/view4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek4"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate4"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate4"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate4" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewDate4"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate5"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate4"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDate4" />
+
+            <TextView
+                android:id="@+id/txtViewDate5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toStartOf="@id/view6"
+                app:layout_constraintStart_toEndOf="@id/view5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek5"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate5"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate5"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate5" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewDate5"
+                app:layout_constraintEnd_toStartOf="@id/txtViewDate6"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate5"
+                app:layout_constraintTop_toTopOf="@+id/txtViewDate5" />
+
+            <TextView
+                android:id="@+id/txtViewDate6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/view6"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek6"/>
+
+            <TextView
+                android:id="@+id/txtViewWeek6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:singleLine="true"
+                android:text="@string/defaultString"
+                android:textAlignment="center"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate6"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate6"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate6" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerLivescaduling"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableview" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

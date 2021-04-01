@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="@dimen/_24sdp"
+    tools:context=".onBoarding.SignInActivity">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/imgButtonBack"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/_8sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/textView_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_50sdp"
+        android:paddingVertical="@dimen/_15sdp"
+        android:text="Please fill information to create an account and sign up to continue"
+        android:textAlignment="center"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textDescription"
+        app:layout_constraintBottom_toTopOf="@id/edittextSignUpName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittextSignUpName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:drawableStart="@drawable/ic_baseline_user"
+        android:drawablePadding="@dimen/_6sdp"
+        android:hint="@string/name"
+        android:imeOptions="actionGo"
+        android:inputType="text"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/_13sdp"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:textSize="@dimen/textInputfield"
+        app:layout_constraintBottom_toTopOf="@id/edittextSignUpEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView_3" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittextSignUpEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:drawableStart="@drawable/ic_mail"
+        android:drawablePadding="@dimen/_6sdp"
+        android:hint="Email"
+        android:imeOptions="actionGo"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/_13sdp"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:textSize="@dimen/textInputfield"
+        app:layout_constraintBottom_toTopOf="@id/edittextSignUpPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edittextSignUpName" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edittextSignUpPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:drawableStart="@drawable/ic_baseline_password"
+        android:drawablePadding="@dimen/_6sdp"
+        android:hint="Password"
+        android:imeOptions="actionGo"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingBottom="@dimen/_13sdp"
+        android:textColor="@color/textPrimary"
+        android:textColorHint="@color/textSecondary"
+        android:textSize="@dimen/textInputfield"
+        app:layout_constraintBottom_toTopOf="@id/containerGender"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edittextSignUpEmail" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerGender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        app:layout_constraintBottom_toTopOf="@id/buttonSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edittextSignUpPassword">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/radioGroupSignUpGender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_gender" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageView_2"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroupSignUpGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioFeMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:text="@string/female"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/textInputfield" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/colorPrimaryDark"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:text="@string/male"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="@dimen/textInputfield" />
+            </RadioGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_6sdp"
+        android:background="@drawable/background_black_button"
+        android:text="@string/sign_up"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/textbutton"
+        app:layout_constraintBottom_toTopOf="@id/container_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/containerGender" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonSignUp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_2sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="Already have an account?"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textViewSignUpLogin"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewSignUpLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_2sdp"
+            android:paddingVertical="@dimen/_10sdp"
+            android:text="Login"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textView_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <androidx.appcompat.widget.AppCompatImageView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/guidelineQuatorTop"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:srcCompat="@drawable/icon" />-->
+
+    <!--    <androidx.appcompat.widget.AppCompatTextView-->
+    <!--        android:id="@+id/textView_3"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:paddingHorizontal="@dimen/_50sdp"-->
+    <!--        android:paddingVertical="@dimen/_15sdp"-->
+    <!--        android:text="Please fill information to create an account and sign up to continue"-->
+    <!--        android:textAlignment="center"-->
+    <!--        android:textColor="@color/textSecondary"-->
+    <!--        android:textSize="@dimen/textDescription"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineQuatorTop" />-->
+
+    <!--    <androidx.appcompat.widget.AppCompatEditText-->
+    <!--        android:id="@+id/edittextSignUpName"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="@dimen/_50sdp"-->
+    <!--        android:backgroundTint="@android:color/darker_gray"-->
+    <!--        android:drawableStart="@drawable/ic_baseline_user"-->
+    <!--        android:drawablePadding="@dimen/_6sdp"-->
+    <!--        android:hint="@string/name"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:paddingBottom="@dimen/_13sdp"-->
+    <!--        android:textColor="@color/textPrimary"-->
+    <!--        android:textColorHint="@color/textSecondary"-->
+    <!--        android:textSize="@dimen/textInputfield"-->
+    <!--        android:imeOptions="actionGo"-->
+    <!--        android:inputType="text"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/edittextSignUpEmail"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/textView_3" />-->
+
+    <!--    <androidx.appcompat.widget.AppCompatEditText-->
+    <!--        android:id="@+id/edittextSignUpEmail"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="@dimen/_50sdp"-->
+    <!--        android:backgroundTint="@android:color/darker_gray"-->
+    <!--        android:drawableStart="@drawable/ic_mail"-->
+    <!--        android:drawablePadding="@dimen/_6sdp"-->
+    <!--        android:hint="Email"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:paddingBottom="@dimen/_13sdp"-->
+    <!--        android:textColor="@color/textPrimary"-->
+    <!--        android:textColorHint="@color/textSecondary"-->
+    <!--        android:imeOptions="actionGo"-->
+    <!--        android:inputType="textEmailAddress"-->
+    <!--        android:textSize="@dimen/textInputfield"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/edittextSignUpPassword"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/edittextSignUpName" />-->
+
+
+    <!--    <androidx.appcompat.widget.AppCompatEditText-->
+    <!--        android:id="@+id/edittextSignUpPassword"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="@dimen/_50sdp"-->
+    <!--        android:backgroundTint="@android:color/darker_gray"-->
+    <!--        android:drawableStart="@drawable/ic_baseline_password"-->
+    <!--        android:drawablePadding="@dimen/_6sdp"-->
+    <!--        android:hint="Password"-->
+    <!--        android:maxLines="1"-->
+    <!--        android:paddingBottom="@dimen/_13sdp"-->
+    <!--        android:textColor="@color/textPrimary"-->
+    <!--        android:textColorHint="@color/textSecondary"-->
+    <!--        android:textSize="@dimen/textInputfield"-->
+    <!--        android:imeOptions="actionGo"-->
+    <!--        android:inputType="textPassword"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/containerGender"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/edittextSignUpEmail" />-->
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/containerGender"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="@dimen/_50sdp"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/guidelineQuatorBottom"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/edittextSignUpPassword">-->
+
+    <!--        <RadioGroup-->
+
+    <!--            android:id="@+id/radioGroupSignUpGender"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layoutDirection="rtl"-->
+    <!--            android:orientation="horizontal"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@id/imageView_1"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:layout_constrainedWidth="true">-->
+
+
+    <!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+    <!--                android:id="@+id/radioFeMale"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:buttonTint="@color/colorPrimaryDark"-->
+    <!--                android:paddingHorizontal="@dimen/_12sdp"-->
+    <!--                android:text="@string/female"-->
+    <!--                android:textColor="@color/textSecondary"-->
+    <!--                android:textSize="@dimen/textInputfield" />-->
+
+    <!--            <androidx.appcompat.widget.AppCompatRadioButton-->
+    <!--                android:id="@+id/radioMale"-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:buttonTint="@color/colorPrimaryDark"-->
+    <!--                android:paddingHorizontal="@dimen/_12sdp"-->
+    <!--                android:text="@string/male"-->
+    <!--                android:textColor="@color/textSecondary"-->
+    <!--                android:textSize="@dimen/textInputfield" />-->
+    <!--        </RadioGroup>-->
+
+    <!--        <androidx.appcompat.widget.AppCompatImageView-->
+    <!--            android:id="@+id/imageView_1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toStartOf="@id/radioGroupSignUpGender"-->
+    <!--            app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent"-->
+    <!--            app:srcCompat="@drawable/ic_gender" />-->
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/buttonSignUp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginHorizontal="@dimen/_50sdp"-->
+    <!--        android:layout_marginBottom="@dimen/_6sdp"-->
+    <!--        android:background="@drawable/background_black_button"-->
+    <!--        android:text="@string/sign_up"-->
+    <!--        android:textAllCaps="false"-->
+    <!--        android:textColor="@color/colorAccent"-->
+    <!--        android:textSize="@dimen/textbutton"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/guidelineQuatorBottom" />-->
+
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/buttonSignUp">-->
+
+    <!--        <androidx.appcompat.widget.AppCompatTextView-->
+    <!--            android:id="@+id/textView_2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingHorizontal="@dimen/_2sdp"-->
+    <!--            android:paddingVertical="@dimen/_10sdp"-->
+    <!--            android:text="Already have an account?"-->
+    <!--            android:textColor="@color/textSecondary"-->
+    <!--            android:textSize="@dimen/textSecondary"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toStartOf="@id/textViewSignUpLogin"-->
+    <!--            app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <androidx.appcompat.widget.AppCompatTextView-->
+    <!--            android:id="@+id/textViewSignUpLogin"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:paddingHorizontal="@dimen/_2sdp"-->
+    <!--            android:paddingVertical="@dimen/_10sdp"-->
+    <!--            android:text="Login"-->
+    <!--            android:textColor="@color/blue"-->
+    <!--            android:textSize="@dimen/textSecondary"-->
+    <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@id/textView_2"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guidelineQuatorTop"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_percent="0.25" />-->
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guidlineHalf"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_percent="0.5" />-->
+
+
+    <!--    <androidx.constraintlayout.widget.Guideline-->
+    <!--        android:id="@+id/guidelineQuatorBottom"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintGuide_percent="0.75" />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

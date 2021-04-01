@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_live"
+        android:icon="@drawable/ic_live"
+        android:title="@string/txt_live" />
+
+    <item
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/txt_search" />
+
+    <item
+        android:id="@+id/navigation_streme"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_timeline"
+        android:icon="@drawable/ic_timeline"
+        android:title="@string/txt_time_line" />
+
+    <item
+        android:id="@+id/navigation_profile_page"
+        android:icon="@drawable/ic_my_page"
+        android:title="@string/txt_profile" />
+</menu>

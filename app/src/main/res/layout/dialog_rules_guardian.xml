@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/imageViewlogo"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_118sdp"
+        android:background="@drawable/circle_bgwhite"
+        android:elevation="@dimen/_3sdp"
+        android:padding="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/im_shield"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:padding="@dimen/_4sdp"
+        android:text="@string/guardian"
+        android:textColor="@color/textWhite"
+        android:textSize="@dimen/textToolbarTitle"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewlogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewlogo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+        tools:layout_editor_absoluteX="0dp">
+
+        <TextView
+            android:id="@+id/textViewGuarganRules"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:background="@android:color/white"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/titleGuardian_rules"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/view1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewR1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="1. Text....."
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textViewR2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2 Text......"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewR1" />
+
+        <TextView
+            android:id="@+id/textViewR3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_80sdp"
+            android:text="3. Text....."
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewR2" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:background="@color/viewcolore"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGuarganRules" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/imageViewlogo"
+        android:layout_width="@dimen/_118sdp"
+        android:layout_height="@dimen/_118sdp"
+        android:background="@drawable/circle_bgwhite"
+        android:elevation="@dimen/_3sdp"
+        android:padding="@dimen/_20sdp"
+        android:layout_marginBottom="-10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:srcCompat="@drawable/im_shield" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_2sdp"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTitle" />
+
+<TextView
+    android:id="@+id/textViewTitle"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:text="@string/guardian"
+    android:padding="@dimen/_3sdp"
+    android:textColor="@color/textWhite"
+    android:textSize="@dimen/textToolbarTitle"
+    android:textStyle="bold"
+    android:elevation="6dp"
+
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageViewlogo"
+    app:layout_constraintBottom_toBottomOf="@+id/imageViewlogo"
+    />
+
+    <ImageView
+        android:id="@+id/imageViewHelp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="7dp"
+        android:padding="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitle"
+        app:srcCompat="@drawable/ic_help_" />
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/bottomSection"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+    tools:layout_editor_absoluteX="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/groupGaurdian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@android:color/white"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textvirewSpecial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:elevation="@dimen/_4sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/txt_special"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewArmy"
+            app:layout_constraintEnd_toStartOf="@+id/textViewComments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewArmy" />
+
+        <TextView
+            android:id="@+id/textViewComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/txt_comment"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.555" />
+
+        <TextView
+            android:id="@+id/textViewGurdian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/guardian"
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewComments"
+            app:layout_constraintTop_toTopOf="@+id/textViewArmy" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/viewcolore"
+        app:layout_constraintTop_toBottomOf="@+id/groupGaurdian"/>
+    <TextView
+        android:id="@+id/textViewHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="@dimen/_5sdp"
+        android:textSize="@dimen/textPrimary"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/view1"  />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/groupHistoryGaurdianHistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_20sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHistory">
+
+        <TextView
+            android:id="@+id/textvirewSpecialHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:elevation="@dimen/_4sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/txt_special"
+            android:textAllCaps="true"
+            android:drawableTint="@color/textSecondary"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewArmy"
+            app:layout_constraintEnd_toStartOf="@+id/textViewCommentsHistory"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textViewArmy" />
+
+        <TextView
+            android:id="@+id/textViewCommentsHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/txt_comment"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:drawableTint="@color/textSecondary"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.555" />
+
+        <TextView
+            android:id="@+id/textViewGurdianHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_guardian"
+            android:drawablePadding="@dimen/_2sdp"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/guardian"
+            android:textAllCaps="true"
+            android:textColor="@color/textSecondary"
+            android:drawableTint="@color/textSecondary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewCommentsHistory"
+            app:layout_constraintTop_toTopOf="@+id/textViewArmy" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <TextView
+        android:id="@+id/textViewPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="100000"
+        android:textColor="@color/colorPrimary"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintStart_toEndOf="@+id/buttonMinus"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPlus"
+        android:paddingVertical="@dimen/_2sdp"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSmall9"
+        android:background="@drawable/textview_ractangle_whitebg"
+        app:layout_constraintTop_toBottomOf="@+id/groupHistoryGaurdianHistory" />
+
+    <ImageButton
+        android:id="@+id/buttonMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/textWhite"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPrice"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/groupHistoryGaurdianHistory" />
+
+    <ImageButton
+        android:id="@+id/buttonPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/textWhite"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewPrice"
+        app:layout_constraintTop_toBottomOf="@+id/groupHistoryGaurdianHistory" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonBid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:background="@drawable/background_black_button"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="BID"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:textColor="@color/textWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrice"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

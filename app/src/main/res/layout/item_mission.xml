@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/_8sdp"
+    android:paddingHorizontal="@dimen/_8sdp">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="59dp"
+        android:layout_height="51dp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:src="@drawable/ic_dmmy_user"
+        app:layout_constraintBottom_toBottomOf="@+id/seekbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewName"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:paddingHorizontal="@dimen/_2sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewText"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        android:textSize="@dimen/textDescription"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/textViewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView......."
+        android:paddingVertical="@dimen/_2sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        android:textSize="@dimen/textSmall9"
+        android:maxLines="3"
+        android:textColor="@color/colorPrimary"/>
+
+
+
+    <TextView
+        android:id="@+id/textViewHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/textbutton"
+        android:text="TextView"
+        android:textSize="@dimen/textHeadingPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/textView_textProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Text"
+        app:layout_constraintStart_toStartOf="@+id/seekbar"
+        app:layout_constraintTop_toBottomOf="@+id/textViewText" />
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="300"
+        android:progress="50"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:thumbOffset="@dimen/_5sdp"
+        android:splitTrack="true"
+        android:thumbTint="#FFC107"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:thumbTintMode="@android:integer/config_shortAnimTime"
+        app:layout_constraintEnd_toStartOf="@+id/textView_progressText"
+        app:layout_constraintStart_toStartOf="@+id/textViewText"
+        app:layout_constraintTop_toBottomOf="@+id/textView_textProgress" />
+
+    <TextView
+        android:id="@+id/textView_progressText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/1"
+        android:textSize="@dimen/textSecondary"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        app:layout_constraintEnd_toStartOf="@+id/textAcceptButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView_textProgress" />
+
+
+    <TextView
+        android:id="@+id/textAcceptButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradiant_pink_yellow_textview_backgroud"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:text="Accept"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_progressText"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_progressText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

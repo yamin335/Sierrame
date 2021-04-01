@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_dmmy_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:text="@string/defaultString"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toEndOf="@+id/imgProfile"
+        app:layout_constraintTop_toTopOf="@+id/imgProfile"
+        app:layout_constraintBottom_toTopOf="@+id/textViewPoints"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradiant_textview_backgroud"
+        android:drawableStart="@drawable/ic_diamond"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:text="@string/defaultString"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_10sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/imgProfile"
+        android:drawablePadding="@dimen/_2sdp"
+        app:layout_constraintStart_toStartOf="@+id/textViewName"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_money"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_5sdp"
+        android:text="@string/defaultString"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/_10sdp"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/textSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPoints"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="@dimen/_10sdp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

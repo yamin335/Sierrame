@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog_no_internet_connection"
+    android:padding="@dimen/_18sdp">
+
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:src="@drawable/no_internet_connection"/>
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:text="Whoops!"
+        android:padding="@dimen/_8sdp"
+        android:textSize="@dimen/_16sdp"
+        android:textStyle="bold"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:padding="@dimen/_8sdp"
+        android:layout_height="wrap_content"
+        android:text="No Internet connection found.\nCheck your connection or try again."
+        android:textAlignment="center"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/blue" />
+
+</LinearLayout>

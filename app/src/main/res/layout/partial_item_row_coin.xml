@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintParentContainerItemRowCoin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/_8sdp"
+    android:background="@android:color/darker_gray">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowCoinTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        tools:text="300c"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowCoinPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        tools:text="300c"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemRowCoinTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageViewItemRowBabyCoin"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:src="@drawable/baby_coin"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewItemRowCoinPrice"/>
+
+   <!-- <TextView
+        android:id="@+id/textViewItemRowCoinName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/_6sdp"
+        android:text="@string/defaultString"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewItemRowCoin"
+        android:maxLines="2"
+        tools:text="New_Gift-Icon-10p" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".dashBoard.profile.activity.AdvanceSettingActivity">
+    <include
+        android:id="@+id/includeToolbarAdvanceSetting"
+        layout="@layout/partial_toolbar_back_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/EditprivateAllowListText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="A private follow list means other people can't see your followers and who you follow."
+                android:maxLines="2"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switchViewPrivateAllowlist" />
+
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/editprivateAllowListText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="text------------------\n-----------------------"
+                android:maxLines="2"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switchViewPrivateAccount" />
+
+            <TextView
+                android:id="@+id/textViewEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/edit_profile"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewPhoneAuthentication"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_phone_authentication"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/textViewPhoneAuthenticationNumber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEditText" />
+
+            <TextView
+                android:id="@+id/textViewPhoneAuthenticationNumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text=""
+                android:singleLine="true"
+                android:textAlignment="textEnd"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewPhoneAuthentication"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEditText" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewNotificationSetting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_notification_settings"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPhoneAuthentication" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewEntranceAnimation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_entrance_notification_and_animation_setting"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switchSecretMode" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewBlacklist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_blacklist"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewEntranceAnimation" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewSelectRegion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/select_region"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editprivateAllowListText" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewRegion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/_10sdp"
+                android:text="india"
+                android:textColor="@color/textSecondary"
+                android:textSize="@dimen/textSecondary"
+                app:layout_constraintBottom_toTopOf="@+id/textViewUsageContract"
+                app:layout_constraintEnd_toEndOf="@+id/textViewSelectRegion"
+                app:layout_constraintTop_toBottomOf="@+id/editprivateAllowListText" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/textViewUsageContract"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/usage_contract"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSelectRegion" />
+
+            <TextView
+                android:id="@+id/textViewConactUs"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_contact_us"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewUsageContract" />
+
+            <TextView
+                android:id="@+id/textViewLogout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_logout"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewConactUs" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchSecretMode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_secret_mode"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                android:thumb="@drawable/selectore_custom_thumb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewNotificationSetting"
+                app:track="@drawable/selectore_custom_track" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchSaveTheOrignalPhoto"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/text_save_the_orignal_photo"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                android:thumb="@drawable/selectore_custom_thumb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBlacklist"
+                app:track="@drawable/selectore_custom_track" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchViewPrivateAllowlist"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="@string/private_follow_list"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                android:thumb="@drawable/selectore_custom_thumb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/switchSaveTheOrignalPhoto"
+                app:track="@drawable/selectore_custom_track" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchViewPrivateAccount"
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:text="@string/private_account"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                android:thumb="@drawable/selectore_custom_thumb"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/EditprivateAllowListText"
+                app:track="@drawable/selectore_custom_track" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</LinearLayout>

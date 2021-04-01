@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_20sdp"
+    android:elevation="@dimen/_5sdp"
+    app:cardBackgroundColor="#FFF"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="2dp"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/_10sdp">
+
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Caution"
+         android:textAlignment="center"
+        android:textStyle="bold"
+        android:drawableTop="@drawable/ic_shield"
+        android:drawableTint="#FFC107"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textViewText"/>
+
+    <TextView
+        android:id="@+id/textViewText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialogAuthenticationDescription"
+        android:maxLines="3"
+        android:padding="@dimen/_10sdp"
+        android:textSize="@dimen/textPrimary"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLater"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/btn_white_bg_gray_corner"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:textColor="@color/textSecondary"
+        android:text="@string/btn_txt_later"
+        android:textSize="@dimen/textPrimary"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAuthentication"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonAuthentication"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/btn_white_bg_black_corner"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:text="@string/btn_txt_authentication"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintStart_toEndOf="@+id/buttonLater"
+        app:layout_constraintTop_toBottomOf="@+id/textViewText"
+       />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

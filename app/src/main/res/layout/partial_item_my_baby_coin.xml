@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/_44sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/imageViewItemRowCheeringLiveProfile"
+        android:layout_width="@dimen/_44sdp"
+        android:layout_height="@dimen/_44sdp"
+        android:src="@drawable/baby_coin"
+        app:layout_constraintEnd_toStartOf="@id/textViewItemRowCheeringLiveName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowCheeringLiveName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewItemRowCheeringLiveDate"
+        app:layout_constraintEnd_toStartOf="@id/textViewItemRowCheeringLiveCount"
+        app:layout_constraintStart_toEndOf="@id/imageViewItemRowCheeringLiveProfile"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowCheeringLiveDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemRowCheeringLiveName"
+        app:layout_constraintEnd_toStartOf="@id/textViewItemRowCheeringLiveCount"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewItemRowCheeringLiveProfile"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowCheeringLiveCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        android:textColor="@color/black"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imageView_4"/>
+
+    <ImageView
+        android:id="@+id/imageView_4"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/im_gold_coin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

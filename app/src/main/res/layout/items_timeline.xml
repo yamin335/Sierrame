@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/_5sdp"
+    android:paddingVertical="@dimen/_5sdp"
+    tools:context=".dashBoard.activity.PostDescriptionActivity">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="@dimen/_34sdp"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:src="@drawable/ic_dmmy_user"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTime"
+        app:layout_constraintTop_toTopOf="@+id/textViewName"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:text="@string/defaultString"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTime"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textSecondary"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imagePost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background_1"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".7" />
+
+    <TextView
+        android:id="@+id/textViewTitles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text=""
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+    <TextView
+        android:id="@+id/textViewSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_2sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:text="@string/defaultString"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textSecondary"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitles" />
+
+
+    <TextView
+        android:id="@+id/textViewMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/_5sdp"
+        android:gravity="center_vertical|center"
+        android:maxLines="1"
+        android:paddingHorizontal="@dimen/_22sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text="@string/more"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textSecondary"
+        app:drawableRightCompat="@drawable/ic_righarrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubTitle" />
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:alpha=".4"
+        android:background="@color/viewcolore"
+
+        app:layout_constraintTop_toBottomOf="@+id/textViewMore" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonHeart"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_15sdp"
+        android:scaleType="center"
+        android:src="@drawable/ic__fillheart_24"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonComments"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_15sdp"
+        android:scaleType="center"
+        android:src="@drawable/ic_comments"
+        android:tint="@color/textSecondary"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageButtonHeart"
+        app:layout_constraintStart_toEndOf="@+id/ImageButtonHeart" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonShare"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_15sdp"
+        android:scaleType="center"
+        android:src="@drawable/ic_upload"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageButtonHeart"
+        app:layout_constraintStart_toEndOf="@+id/ImageButtonComments"
+        app:layout_constraintTop_toTopOf="@+id/ImageButtonHeart" />
+
+    <ImageButton
+        android:id="@+id/ImageButtonMenuDots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:paddingVertical="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:scaleType="center"
+        android:src="@drawable/ic_baseline_more_horiz"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageButtonHeart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="RtlSymmetry" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

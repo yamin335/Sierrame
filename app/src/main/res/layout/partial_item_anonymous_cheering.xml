@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewItemRowAnonymousCheeringProfile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_dmmy_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewItemRowAnonymousCheeringName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowAnonymousCheeringName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:text="@string/defaultString"
+        app:layout_constraintBottom_toTopOf="@id/imageView_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageViewItemRowAnonymousCheeringProfile"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_5"
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:src="@drawable/im_gold_coin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewItemRowAnonymousCheeringCoinCount"
+        app:layout_constraintStart_toEndOf="@id/imageViewItemRowAnonymousCheeringProfile"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemRowAnonymousCheeringName" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewItemRowAnonymousCheeringCoinCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/defaultString"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imageView_5"
+        app:layout_constraintTop_toBottomOf="@id/textViewItemRowAnonymousCheeringName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

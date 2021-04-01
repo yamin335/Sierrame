@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".dashBoard.profile.activity.PrimeUserActivity">
+    <include
+        android:id="@+id/includeToolbarPrimeUser"
+        layout="@layout/partial_toolbar_back_title" />
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="@dimen/_15sdp"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbarPrimeUser"
+        app:srcCompat="@drawable/ic_star_user" />
+
+    <TextView
+        android:id="@+id/textViewPrimeuserHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/prime_user_special"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/textPrimary"
+        android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_11sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
+
+    <TextView
+        android:id="@+id/textViewUser1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="1"
+        android:textColor="@color/textPrimary"
+        android:paddingHorizontal="@dimen/_11sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrimeuserHeading" />
+
+    <TextView
+        android:id="@+id/textViewUser2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/textPrimary"
+        android:paddingHorizontal="@dimen/_11sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUser1" />
+    <TextView
+        android:id="@+id/textViewUser3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/textPrimary"
+        android:paddingHorizontal="@dimen/_11sdp"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUser2" />
+
+    <TextView
+        android:id="@+id/textView9"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/gradiant_pink_yellow_textview_backgroud"
+        android:paddingHorizontal="@dimen/_45sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text="Y/math"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUser3" />
+
+    <TextView
+        android:id="@+id/textViewExplaination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explanation \n..\n..\n.."
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_11sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

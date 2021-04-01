@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/textHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:padding="@dimen/_5sdp"
+        android:text="in... days"
+        android:textColor="#808080"
+        android:textSize="@dimen/textSmall9"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayoutRequiter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewHeading" />
+
+    <TextView
+        android:id="@+id/textViewHeading"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/textPrimary"
+        android:gravity="center"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/txt_heading_event_requiting"
+        android:textColor="@color/textWhite"
+        android:textSize="@dimen/textHeadingPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textHeading" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewEventRequitingFrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHeading"
+         />
+</androidx.constraintlayout.widget.ConstraintLayout>

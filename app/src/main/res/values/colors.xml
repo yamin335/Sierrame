@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+    <color name="blue">#26A6D1</color>
+
+    <!--Progress Bar-->
+    <color name="progressBackgroundTint">#333333</color>
+
+    <!--Text-->
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#A19A9A</color>
+    <color name="unselectedDrawables">#fff</color>
+    <color name="textWhite">#f0f0f0</color>
+    <!-- views Colore-->
+    <color name="viewcolore">#E4777575</color>
+    <!--Button-->
+    <color name="buttonTextPrimary">#FFFFFF</color>
+    <color name="buttonTextPrimaryDark">#000000</color>
+    <color name="buttonTextSecondary">#FFFFFF</color>
+    <color name="buttonBackgroundPrimary">#FFFFFF</color>
+    <color name="buttonBackgroundPrimaryDark">#000000</color>
+    <color name="buttonBackgroundSecondary">#FFFFFF</color>
+
+    <!--switchButton-->
+    <color name="switchTrack">#FFC107</color>
+    <color name="switchThumb">#FFFFFF</color>
+
+
+
+    <color name="backgroundNoInternetConnection">#fff</color>
+    <color name="seletedTint">#D357A6</color>
+    <color name="unSeletedTint">#A89F9F</color>
+
+    <color name="black_half_transparent">#66000000</color>
+    <color name="black_half_transparent_1">#A4000000</color>
+
+    <color name="container_message_start">#66000000</color>
+    <color name="container_message_end">#1D000000</color>
+
+    <color name="dividerColor">#C6C6C6</color>
+</resources>

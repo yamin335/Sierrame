@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/imageViewlogo"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:background="@drawable/circle_bgwhite"
+        android:elevation="@dimen/_3sdp"
+        android:padding="@dimen/_18sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/im_army_badge" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+android:elevation="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTitle"
+        android:layout_height="@dimen/_2sdp"/>
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:padding="@dimen/_3sdp"
+        android:text="@string/defaultString"
+        android:textColor="@color/textWhite"
+        android:textSize="@dimen/textToolbarTitle"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewlogo"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSection"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/bottomSection"
+    android:background="@android:color/white"
+    app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerArmy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/textWhite"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/buttonPartake"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:paddingVertical="@dimen/_5sdp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonPartake"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_50sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:background="@drawable/background_black_button"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:stateListAnimator="@null"
+        android:text="ParTake"
+        android:textColor="@color/textWhite"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerArmy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

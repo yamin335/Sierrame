@@ -1,0 +1,235 @@
+<resources>
+    <string name="app_name" translatable="false">Streame</string>
+
+    <string name="facebook_app_id" translatable="false">277389843479696</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb277389843479696</string>
+    <!--Line Channel Id-->
+    <string name="channel_id" translatable="false">1654427103</string>
+    <!--Descriptions-->
+    <string name="signInDescription">Enter your email address and \n password to access your account</string>
+    <!--fcm ChannelId-->
+    <string name="default_notification_channel_id" translatable="false">com.mmfinfotech.streameApp.notifications</string>
+    <!-- Validations Error-->
+    <string name="edt_hint_email">Email</string>
+    <string name="edt_hint_password">Password</string>
+    <string name="edt_hint_confirm_password">Confirm Password</string>
+    <string name="edt_hint_verify_code">Verify Code</string>
+    <string name="edt_error_field_required">Field Required.</string>
+    <string name="edt_error_password_miss_match">Password Missmatch</string>
+    <string name="edt_error_otp_length_is_incorrect">Otp length is incorrect</string>
+
+    <!--EditText Hints-->
+    <string name="editTextHintEmail">Email</string>
+    <string name="editTextHintName">Name</string>
+    <string name="editTextHintPassword">Password</string>
+    <string name="editTextHintTypeMessage">Type your message…</string>
+
+    <!--Button Text-->
+    <string name="buttonEnter">Enter</string>
+
+    <!--Text-->
+    <string name="textForgotPassword">Forgot Password</string>
+    <string name="textForgotPasswordQuestionMark">Forgot Password?</string>
+    <string name="textClickHere">click here</string>
+
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="male">Male</string>
+    <string name="name">StreaMe ID</string>
+    <string name="female">Female</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="defaultString">N/A</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_are_you_sure_you_want_to_logout">Are you sure you want to exit the app?</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="btnSave">Save</string>
+    <string name="txt_what_is_anonymouse_support">What is Anonymous support?</string>
+    <string name="txt_explaination">Explanation</string>
+    <string name="txt_age_verification">Age-verification</string>
+    <string name="btnOk">Ok</string>
+
+    <string name="radiobtn_under_40">Under 40</string>
+    <string name="radiobtn_over_20">Over 20</string>
+
+    <string name="prime_user_special">Prime user special</string>
+    <string name="my_search">My Search</string>
+    <string name="challenge">Challenge</string>
+    <string name="level">Level</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="like">Like</string>
+    <string name="schedule">Schedule</string>
+    <string name="army">Army</string>
+    <string name="guardian">Guardian</string>
+    <string name="menu">Menu</string>
+    <string name="live_schedule">Live Schedule</string>
+    <string name="mission">Mission</string>
+    <string name="badge_system">Badge System</string>
+    <string name="prime_user">Prime User</string>
+    <string name="my_baby_coin">My Baby Coin</string>
+    <string name="cheering_live">Cheering Live</string>
+    <string name="my_collection">My Collection</string>
+    <string name="anonymous_cheering">Anonymous Cheering</string>
+    <string name="advance_setting">Advance Settings</string>
+    <string name="more">More</string>
+    <string name="post">Post</string>
+    <string name="device_os">Device OS</string>
+    <string name="device">Device</string>
+    <string name="case_name">Case Name</string>
+    <string name="contact_us_category">Contact Us Category</string>
+    <string name="id">ID</string>
+    <string name="app_version">App Version</string>
+
+    <string name="menu_title_search">Search</string>
+
+    <string name="msg_please_selectgender">Please select gender</string>
+
+    <string name="titleExit">Exit</string>
+    <string name="titleRanking">Ranking</string>
+    <string name="titleCheering">Cheering</string>
+    <string name="titleToolbarUsername">User Name</string>
+    <string name="titleToolbarContact">Contact Us</string>
+    <string name="problem_occures_time">Problem occurs time</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="txt_you_can_change_the_id">You can change the Id</string>
+    <string name="txt_title_live_schedule_set">Live Schedule Set</string>
+    <string name="txt_new_schedule">New Schedule</string>
+    <string name="hint_search">Search</string>
+    <string name="txt_priviledge">Privilege</string>
+    <string name="edt_hint_birthday">Birthday</string>
+    <string name="edt_hint_gender">Gender</string>
+    <string name="btn_complete">Complete</string>
+    <string name="btn_completetion">Completion</string>
+    <string name="btn_txt_later">     Later   </string>
+    <string name="btn_txt_authentication">Authentication</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btnResponse">Response</string>
+    <string name="btnRecording">Recording</string>
+
+    <string name="txt_live">Live</string>
+    <string name="txt_recording">Recording</string>
+    <string name="txt_post">Post</string>
+    <string name="txt_phone_authentication">Phone Authentication</string>
+    <string name="txt_specified">Specified</string>
+    <string name="btn_create">Create</string>
+    <string name="txt_my_event">My Event</string>
+    <string name="txt_streme_music">Streme Music</string>
+    <string name="txt_streme">Streme pro</string>
+    <string name="txt_hot_theme">Hot theme</string>
+    <string name="txt_events">Events</string>
+    <string name="txt_event">Event</string>
+    <string name="txt_recommended">Recommended</string>
+    <string name="txt_program">Program</string>
+    <string name="txt_chill_night">Chill Night</string>
+    <string name="txt_movie">Movie</string>
+    <string name="txt_entertainment">Entertainment</string>
+    <string name="txt_follow">Follow</string>
+    <string name="txt_special">Special</string>
+    <string name="txt_comment">Comment</string>
+    <string name="txt_hint_type_your_message">Type your message</string>
+    <string name="txt_title_memo">Memo</string>
+    <string name="category">Category</string>
+    <string name="dialogDescriptionPassUserGoLive">Please share this password with users whom you want to join in your live.</string>
+    <string name="dialogDescriptionPassUserLiveJoin">Please enter the password to join live.</string>
+
+
+    <string name="private_app_id">9641cde867ea4c1da045494e0f6ca77c</string>
+    <!-- Obtain a temp Access Token at https://dashboard.agora.io -->
+    <!-- You will need to deploy your own token server for production release -->
+    <!-- Leave this value empty if Security keys/Token is not enabled for your project -->
+    <string name="agora_access_token" translatable="false">0069641cde867ea4c1da045494e0f6ca77cIADYDKSnpFk2O+KXCZjYygYagNsPFC+h81BlYf+oYL8uuKDrVE0AAAAAIgB8GwEACLFQXwQAAQCYbU9fAwCYbU9fAgCYbU9fBACYbU9f</string>
+
+    <string name="txt_entrance_notification_and_animation_setting">Entrance Notification &amp; Animation Settings</string>
+    <string name="text_save_the_orignal_photo">Save the Original Photo</string>
+    <string name="alrt_txt_heading">Posted</string>
+    <string name="txt_notification_settings">Notification Settings</string>
+    <string name="txt_blacklist">Blacklist</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="txt_secret_mode">Secret Mode</string>
+    <string name="private_follow_list">Private Follow List</string>
+    <string name="private_account">Private Account</string>
+    <string name="select_region">Select Region</string>
+    <string name="usage_contract">Usage Contract</string>
+    <string name="txt_contact_us">Contact Us</string>
+    <string name="txt_heading_event_requiting">Event Recruiting</string>
+    <string name="txt_clip">Clips</string>
+
+    <string name="dialogAuthenticationDescription">This feature requires phone number verification.Please verify your phone number to go live</string>
+    <string name="txt_complete">Complete</string>
+    <string name="btn_txtshare">Share</string>
+    <string name="edi_hint_let_s_chat">Let\'s Chat!</string>
+    <string name="title_txt_comments">Comments</string>
+    <string name="txt_shot_movie">Shot movie</string>
+    <string name="txt_details">Details</string>
+    <string name="txt_title_sendto">Send To</string>
+    <string name="description">Description</string>
+    <string name="sent">sent</string>
+    <string name="titleGuardian_rules">Guardian Rules</string>
+
+    <string name="today">Today</string>
+    <string name="my_event">My Event</string>
+    <string name="follow">Follow</string>
+    <string name="txt_requiting">Requiting</string>
+    <string name="txt_gifno">GifNo %s</string>
+    <string name="txt_only_ten_schedule_can_add">Only 10 Schedule can be Add</string>
+    <string name="txt_join">Join</string>
+    <string name="txt_cant_be_empty">Can\'t be empty</string>
+    <string name="title_empty">Title empty</string>
+    <string name="empty_hashTags">Empty HashTags</string>
+    <string name="please_choose_category">Please choose category</string>
+    <string name="camera_exception_reason_unknown">Unknown error. No further info available.</string>
+    <string name="camera_exception_reason_failed_connect">We failed to connect to the camera service.The camera might be in use by another app.</string>
+    <string name="camera_exception_reason_start_preview">Failed to start the camera preview.Again, the camera might be in use by another app.</string>
+    <string name="camera_exception_reason_disconnected">Camera was forced to disconnect.In Camera1, this is thrown when android.hardware.Camera.CAMERA_ERROR_EVICTED is caught.</string>
+    <string name="camera_exception_reason_picture_failed">Could not take a picture or a picture snapshot,for some not specified reason.</string>
+    <string name="camera_exception_reason_video_failed">Could not take a video or a video snapshot,for some not specified reason.</string>
+    <string name="camera_exception_reason_no_camera">Indicates that we could not find a camera for the current {@link Facing} value. This can be solved by changing the facing value and starting again.</string>
+    <string name="got_camera_exception">Got CameraException #</string>
+    <string name="error_while_writing_file">Error while writing file.</string>
+    <string name="txt_this_month">This Month</string>
+    <string name="txt_total">Total</string>
+    <string name="card_holder">Card Holder</string>
+    <string name="txt_card_no_incorrect">Card number is not correct</string>
+    <string name="txt_invalid_date">invalid date</string>
+    <string name="video_longer_please_try_another_limitation">"This video is longer than \n 189, please try another limitation 3sec ~ 6sec "</string>
+    <string name="woman">Women</string>
+    <string name="txt_private">Private</string>
+    <string name="please_select_birthdate">Please select the Birthdate</string>
+    <string name="sucessfully_updated">Successfully Updated</string>
+    <string name="enter_valid_email_address">Enter a valid email address</string>
+    <string name="password_must_have_characters">Password must have at least 8 characters.</string>
+    <string name="enter_valid_mobile_number">Enter a valid mobile Number</string>
+    <string name="enter_valid_name">Enter a valid name</string>
+    <string name="enter_validp_rice_number">Enter a valid Price Number</string>
+    <string name="txt_gift">Gift</string>
+    <string name="please_select_members">Please Select the Members</string>
+    <string name="only_user_at_time">Only 4 user At a time</string>
+    <string name="txt_month">Month</string>
+    <string name="txt_day">Day</string>
+    <string name="gifted_you_coins">%s gifted you coins</string>
+    <string name="please_select_language">Please select Language</string>
+    <string name="please_select_hash">Please Select Hash</string>
+    <string name="txt_sunday">(Sun)</string>
+    <string name="txt_monday">(Mon)</string>
+    <string name="txt_tuesday">(Tue)</string>
+    <string name="txt_wednesday">(Wed)</string>
+    <string name="txt_thursday">(Thu)</string>
+    <string name="txt_friday">(Fri)</string>
+    <string name="txt_saturday">(Sat)</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="txt_recruiting">Recruiting</string>
+    <string name="txt_liveing">Liveing</string>
+    <string name="txt_search">Search</string>
+    <string name="txt_time_line">Time Line</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_in_progress">In Progress</string>
+    <string name="txt_invitation">Invitation</string>
+    <string name="btnAccept">Accept</string>
+    <string name="btnReject">Reject</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_desc_delete_post">Are you sure want to delete this post?</string>
+    <string name="txt_desc_delete_clip">Are you sure want to delete this clip?</string>
+    <string name="txt_alert">Alert</string>
+</resources>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <include
+        android:id="@+id/includeToolbarLiveSceduling"
+        layout="@layout/partial_toolbar_back_title" />
+
+    <HorizontalScrollView
+        android:id="@+id/tableview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingStart="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbarLiveSceduling">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingTop="@dimen/_2sdp">
+
+            <TextView
+                android:id="@+id/txtViewToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="Today"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="wed"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/textSecondary"
+                android:textAlignment="center"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/view1"
+                app:layout_constraintStart_toStartOf="@+id/txtViewToday"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewToday" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintStart_toEndOf="@+id/txtViewToday"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingTop="@dimen/_2sdp"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="18/15"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintStart_toEndOf="@+id/view1"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewWeek1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(thu)"
+                android:maxLines="1"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate1"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate1" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate1"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:maxLength="5"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="19/15"
+                android:paddingTop="@dimen/_2sdp"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek"
+                app:layout_constraintStart_toEndOf="@+id/view2"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewWeek2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(sat)"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate2"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate2"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate2" />
+
+            <TextView
+                android:id="@+id/txtViewWeek3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(sun)"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate3"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate3"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate3" />
+
+            <TextView
+                android:id="@+id/txtViewWeek4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(Mon)"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate4"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate4"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate4" />
+
+            <TextView
+                android:id="@+id/txtViewWeek5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(tue)"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate5"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate5"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate5" />
+
+            <TextView
+                android:id="@+id/txtViewWeek6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/_5sdp"
+                android:paddingRight="@dimen/_5sdp"
+                android:text="(tue)"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toEndOf="@+id/txtViewDate6"
+                app:layout_constraintStart_toStartOf="@+id/txtViewDate6"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDate6" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate2"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="20/15"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintStart_toEndOf="@+id/view3"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate3"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingTop="@dimen/_2sdp"
+                android:text="21/15"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek"
+                app:layout_constraintStart_toEndOf="@+id/view4"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate4"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="22/15"
+                android:paddingTop="@dimen/_2sdp"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@+id/txtViewWeek"
+                app:layout_constraintStart_toEndOf="@+id/view5"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                tools:ignore="MissingConstraints" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="@dimen/_1sdp"
+                android:layout_height="0dp"
+                android:background="@color/textPrimary"
+                app:layout_constraintTop_toTopOf="@+id/txtViewToday"
+                app:layout_constraintBottom_toBottomOf="@+id/txtViewToday"
+
+                app:layout_constraintStart_toEndOf="@+id/txtViewDate5"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/txtViewDate6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:text="22/15"
+                android:paddingTop="@dimen/_2sdp"
+                android:textColor="@drawable/textview_selectore"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintStart_toEndOf="@+id/view6"
+                tools:ignore="MissingConstraints" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerLivescaduling"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/tableview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

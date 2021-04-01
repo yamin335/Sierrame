@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/searchFrag"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".dashBoard.fragment.SerchFragment">
+
+    <include
+        android:id="@+id/toolbarLiversDetail"
+        layout="@layout/partial_toolbar_with_menuicon" />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        style="@style/MyToolbar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/edit_background_slight_round_corner"
+        android:ems="10"
+        android:paddingVertical="@dimen/_5sdp"
+        app:queryBackground="@android:color/transparent"
+        app:closeIcon="@android:color/transparent"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:searchIcon="@drawable/ic_search_gray"
+        android:iconifiedByDefault="false"
+        android:inputType="textPersonName"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:queryHint="Search Here"
+        android:textColor="@color/textPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:textSize="@dimen/textPrimary"
+        app:iconifiedByDefault="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerSelectedLivers"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSelectedLivers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:minHeight="@dimen/_20sdp"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:padding="@dimen/_5sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLiversDetail"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/buttonDone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="Done"
+        android:textColor="@color/textPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerSelectedLivers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerSelectedLivers"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarLiversDetail" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintViewBroadcastersLivers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerviewLivers"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:padding="@dimen/_5sdp"
+            android:background="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:ignore="MissingConstraints" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

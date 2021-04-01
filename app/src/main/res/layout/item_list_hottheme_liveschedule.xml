@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        android:paddingVertical="@dimen/_10sdp"
+        android:paddingLeft="@dimen/_5sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        android:paddingVertical="@dimen/_5sdp"
+        android:paddingHorizontal="@dimen/_10sdp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTime"
+        app:layout_constraintTop_toTopOf="@+id/textViewday"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewday"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:textSize="@dimen/textPrimary"
+        android:paddingRight="@dimen/_5sdp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="@+id/textViewday"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewday"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

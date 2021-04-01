@@ -1,0 +1,146 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+
+    defaultConfig {
+        applicationId "com.mmfinfotech.streameApp"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        def commentFormatDateTime = '"dd MMM yyyy"'
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("boolean", "LOG", "true")
+            buildConfigField("boolean", "TOAST", "true")
+            buildConfigField("boolean", "SNACKBAR", "true")
+            buildConfigField("String", "CommentDateTimeFormat", commentFormatDateTime)
+            buildConfigField("int", "OS", "1") //AN
+        }
+
+        release {
+            buildConfigField("boolean", "LOG", "false")
+            buildConfigField("boolean", "TOAST", "false")
+            buildConfigField("boolean", "POSTMAN", "false")
+            buildConfigField("String", "CommentDateTimeFormat", commentFormatDateTime)
+            buildConfigField("int", "OS", "1") //AN
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+
+    implementation 'com.google.android.material:material:1.2.1'
+    /**
+     * Multiple ScreenSizes design dimensions and Text sizes
+     * */
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    /**
+     * Networking.
+     * */
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    /**
+     * Loading images.
+     * */
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    /**
+     * FaceBook Login SDK
+     * */
+    implementation 'com.facebook.android:facebook-android-sdk:5.9.0'
+
+    /**
+     * Google Login SDK
+     * */
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    /**
+     * Line Login SDK
+     * */
+    implementation 'com.linecorp:linesdk:5.0.1'
+
+    /**
+     * Agora Video SDK
+     **/
+    implementation 'io.agora.rtc:full-sdk:3.1.0'
+
+    /**
+     * Agora Messaging SDK
+     * */
+    implementation 'io.agora.rtm:rtm-sdk:1.2.2'
+
+    /**
+     * To make TextView show option of ReadMore and Less in comment.
+     **/
+    implementation 'com.borjabravo:readmoretextview:2.0.1'
+
+    /**
+     * Camera Customization
+     **/
+    api 'com.otaliastudios:cameraview:2.6.4'
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.4.21"
+
+    /**
+     * GIF loader for Live Broadcasting gifts.
+     * */
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+    /**
+     *
+     * Google Translatore
+     * */
+    implementation 'com.google.api-client:google-api-client:1.30.10'
+    implementation 'com.google.cloud:google-cloud-translate:1.95.2'
+
+    implementation 'com.google.firebase:firebase-analytics:18.0.0'
+}

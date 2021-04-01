@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_10sdp">
+
+    <TextView
+        android:id="@+id/textViewGallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_image_gallery"
+        android:padding="@dimen/_5sdp"
+        android:text="Gallery"
+        android:drawablePadding="@dimen/_5sdp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCamera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewCamera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_image_camera"
+        android:padding="@dimen/_5sdp"
+        android:text="Camera"
+        android:drawablePadding="@dimen/_5sdp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_image_remove"
+        android:padding="@dimen/_5sdp"
+        android:drawablePadding="@dimen/_5sdp"
+        android:text="Remove"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewCamera" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

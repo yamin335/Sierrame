@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Icon Sizes-->
+    <dimen name="signInLogoSize">@dimen/_28sdp</dimen>
+
+    <!--Text Sizes-->
+    <dimen name="textDescription">@dimen/_11ssp</dimen>
+    <dimen name="textPrimary">@dimen/textDescription</dimen>
+    <dimen name="textSecondary">@dimen/_10ssp</dimen>
+    <dimen name="textInputfield">@dimen/_12ssp</dimen>
+    <dimen name="textbutton">@dimen/_14ssp</dimen>
+    <dimen name="textHeadingPrimary">@dimen/_13ssp</dimen>
+    <dimen name="textSmall9">@dimen/_9ssp</dimen>
+    <dimen name="textsmall8">@dimen/_6ssp</dimen>
+
+    <dimen name="textToolbarTitle">@dimen/_12ssp</dimen>
+
+
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+
+    <!-- Live Activity -->
+    <dimen name="live_top_layout_height">76dp</dimen>
+    <dimen name="live_leave_btn_size">36dp</dimen>
+    <dimen name="live_leave_btn_icon_size">15dp</dimen>
+    <dimen name="live_top_layout_margin">22dp</dimen>
+    <dimen name="live_name_board_width">186dp</dimen>
+    <dimen name="live_name_board_height">48dp</dimen>
+    <dimen name="live_name_board_icon_size">44dp</dimen>
+    <dimen name="live_name_board_icon_margin">2dp</dimen>
+    <dimen name="live_name_board_fav_icon_margin">6dp</dimen>
+    <dimen name="live_name_board_fav_icon_size">36dp</dimen>
+    <dimen name="live_name_board_radius">36dp</dimen>
+    <dimen name="live_name_text_height">24dp</dimen>
+    <dimen name="live_name_text_margin_left">8dp</dimen>
+    <dimen name="live_bottom_btn_size">44dp</dimen>
+    <dimen name="live_bottom_layout_margin">18dp</dimen>
+    <dimen name="live_bottom_btn_margin">12dp</dimen>
+    <dimen name="live_stat_margin_bottom">68dp</dimen>
+    <dimen name="live_room_bg_icon_size">180dp</dimen>
+    <dimen name="live_bottom_icon">@dimen/_11sdp</dimen>
+
+    <dimen name="messageUserName">@dimen/_10ssp</dimen>
+    <dimen name="messageText">@dimen/_10ssp</dimen>
+
+</resources>

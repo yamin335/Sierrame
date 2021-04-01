@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/app_icon_size"
+        android:scrollbars="none"   android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
+        tools:layout_editor_absoluteX="0dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            app:chipSpacingHorizontal="@dimen/_10sdp"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver"
+                app:chipEndPadding="@dimen/_15sdp"
+                app:chipStartPadding="@dimen/_15sdp"
+                app:chipSurfaceColor="@android:color/transparent" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gift"
+                app:chipEndPadding="@dimen/_16sdp"
+                app:chipStartPadding="@dimen/_16sdp" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Patapata2" />
+
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" yell "
+                app:chipEndPadding="@dimen/_15sdp"
+                app:chipStartPadding="@dimen/_15sdp" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liver" />
+
+            <com.google.android.material.chip.Chip
+                style="@style/CustomChipChoice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="scroll" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/textViewInstruction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="To choose 4"
+        android:textColor="@color/textSecondary"
+        android:textSize="@dimen/textSecondary"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatButton"
+        app:layout_constraintEnd_toStartOf="@+id/appCompatButton"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerviewGifts" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_30sdp" android:visibility="gone"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@drawable/btn_white_bg_black_corner"
+        android:padding="@dimen/_5sdp"
+        android:text="@string/btn_confirm"
+        app:layout_constraintEnd_toEndOf="@+id/horizontalLayout"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerviewGifts" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewGifts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalLayout"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

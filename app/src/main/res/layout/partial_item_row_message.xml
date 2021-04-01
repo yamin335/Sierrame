@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_6sdp"
+    android:background="@drawable/background_message_container">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewMessageProfile"
+        android:layout_width="@dimen/_26sdp"
+        android:layout_height="@dimen/_26sdp"
+        android:src="@drawable/placeholder_profile_circle"
+        app:layout_constraintDimensionRatio="W, 1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewMessageName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:singleLine="true"
+        android:text="@string/defaultString"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/messageUserName"
+        app:layout_constraintBottom_toTopOf="@+id/textViewMessageMessage"
+        app:layout_constraintStart_toEndOf="@id/imageViewMessageProfile"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_default="wrap" />
+
+    <TextView
+        android:id="@+id/textViewMessageMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:ellipsize="marquee"
+        android:text="@string/defaultString"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/messageText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMessageProfile"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMessageName"
+        app:layout_constraintWidth_default="wrap" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/imageViewMessageProfile"
+    app:layout_constraintTop_toTopOf="parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textViewMessageName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="user name "
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_8ssp" />
+
+    <TextView
+        android:id="@+id/textViewMessageMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="mesage mesage mesage mesage  "
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_8ssp" />
+
+    </LinearLayout>-->

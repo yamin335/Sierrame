@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:elevation="@dimen/_5sdp"
+    app:cardBackgroundColor="#FFF"
+    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/_10sdp">
+
+        <EditText
+            android:id="@+id/editTextEventName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="@dimen/_5sdp"
+android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewtEventHeading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewtEventHeading"
+            app:layout_constraintTop_toTopOf="@+id/textViewtEventHeading" />
+
+        <TextView
+            android:id="@+id/textViewLastDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewLastDayHeading"
+            app:layout_constraintEnd_toEndOf="@+id/editTextEventName"
+            app:layout_constraintStart_toStartOf="@+id/editTextEventName"
+            app:layout_constraintTop_toTopOf="@+id/textViewLastDayHeading" />
+
+        <TextView
+            android:id="@+id/textViewGift"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewGiftHeading"
+            app:layout_constraintEnd_toEndOf="@+id/editTextEventName"
+            app:layout_constraintStart_toStartOf="@+id/editTextEventName"
+            app:layout_constraintTop_toTopOf="@+id/textViewGiftHeading" />
+
+        <EditText
+            android:id="@+id/editTextDailyGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewDailyGoalHeading"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDailyGoal"
+            app:layout_constraintStart_toStartOf="@+id/editTextEventName"
+            app:layout_constraintTop_toTopOf="@+id/textViewDailyGoalHeading" />
+
+
+        <TextView
+            android:id="@+id/textViewDailyGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:text="c"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimary"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextDailyGoal"
+            app:layout_constraintEnd_toEndOf="@+id/textViewGift"
+            app:layout_constraintTop_toTopOf="@+id/editTextDailyGoal"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/editTextDailyGoal"/>
+
+        <TextView
+            android:id="@+id/textViewCommutativeGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:maxLines="1"
+            android:padding="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:text="c"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextCommulativeGoal"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDailyGoal"
+            app:layout_constraintHorizontal_bias="0.981"
+            app:layout_constraintStart_toEndOf="@+id/editTextCommulativeGoal"
+            app:layout_constraintTop_toTopOf="@+id/editTextCommulativeGoal"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editTextCommulativeGoal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCommulativeHeading"
+         app:layout_constraintEnd_toStartOf="@+id/textViewCommutativeGoal"
+            app:layout_constraintStart_toEndOf="@+id/textViewCommulativeHeading"
+            app:layout_constraintTop_toTopOf="@+id/textViewCommulativeHeading"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/editTextMultiLineCommulativeGoal"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:background="@drawable/textview_ractangle_whitebg"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:maxHeight="@dimen/_200sdp"
+            android:maxLines="3"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/textSecondary"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCommulativeHeadingMultiline"
+            app:layout_constraintEnd_toEndOf="@+id/editTextEventName"
+            app:layout_constraintHorizontal_bias="0.461"
+            app:layout_constraintStart_toEndOf="@+id/textViewCommulativeHeadingMultiline"
+            app:layout_constraintTop_toTopOf="@+id/textViewCommulativeHeadingMultiline"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:paddingVertical="@dimen/_4sdp"
+            android:text="@string/txt_my_event"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textInputfield"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewsubHeading"
+            android:layout_width="117dp"
+            android:layout_height="21dp"
+            android:text="Build your own events"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textSmall9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+        <TextView
+            android:id="@+id/textViewtEventHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Event Name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewsubHeading" />
+
+        <TextView
+            android:id="@+id/textViewLastDayHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Last Day"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewtEventHeading" />
+
+        <TextView
+            android:id="@+id/textViewGiftHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Gift"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLastDayHeading" />
+
+        <TextView
+            android:id="@+id/textViewDailyGoalHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Daily Goal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewGiftHeading" />
+
+        <TextView
+            android:id="@+id/textViewCommulativeHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="Commulative Goal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDailyGoalHeading" />
+
+
+        <TextView
+            android:id="@+id/textViewCommulativeHeadingMultiline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:text="Commulative Goal"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/textSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCommulativeHeading" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@color/viewcolore"
+            app:layout_constraintBottom_toTopOf="@+id/textViewtEventHeading"
+            app:layout_constraintTop_toBottomOf="@+id/textViewsubHeading" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:background="@drawable/btn_white_bg_gray_corner"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:text="@string/btnCancel"
+            android:textAllCaps="false"
+            android:textColor="@color/textSecondary"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonComplete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buttonComplete" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginVertical="@dimen/_15sdp"
+            android:background="@drawable/btn_white_bg_black_corner"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:text="@string/btn_complete"
+            android:textAllCaps="false"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextMultiLineCommulativeGoal" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

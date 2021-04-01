@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewClips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:src="@drawable/ic_post"
+            app:layout_constraintBottom_toTopOf="@id/textViewClip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewClip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_post"
+            android:textAlignment="center"
+            android:textColor="@color/textWhite"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewClips"
+            app:layout_constraintStart_toStartOf="@+id/imageViewClips"
+            tools:textColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_Live"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/container_clips"
+        app:layout_constraintTop_toBottomOf="@id/container_post">
+
+        <ImageView
+            android:id="@+id/imageViewLive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:src="@drawable/ic_live_stream"
+            app:layout_constraintBottom_toTopOf="@id/textViewLive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewLive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_live"
+            android:textAlignment="center"
+            android:textColor="@color/textWhite"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewLive"
+            app:layout_constraintStart_toStartOf="@+id/imageViewLive"
+            tools:textColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_clips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/container_Live"
+        app:layout_constraintTop_toBottomOf="@id/container_post">
+
+        <ImageView
+            android:id="@+id/imageViewRecording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_12sdp"
+            android:src="@drawable/ic_recording_stream"
+            app:layout_constraintBottom_toTopOf="@id/textViewRecording"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewRecording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_clip"
+            android:textAlignment="center"
+            android:textColor="@color/textWhite"
+            android:textSize="@dimen/textPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageViewRecording"
+            app:layout_constraintStart_toStartOf="@+id/imageViewRecording"
+            tools:textColor="@color/black" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- <ImageView
+         android:id="@+id/imageViewClips"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:background="@drawable/ic_empty"
+         android:padding="@dimen/_12sdp"
+         android:src="@drawable/ic_clip"
+         app:layout_constraintEnd_toEndOf="@+id/textViewRecording"
+         app:layout_constraintStart_toStartOf="@+id/textViewRecording"
+         app:layout_constraintTop_toTopOf="@+id/textViewPost" />
+
+     <TextView
+         android:id="@+id/textViewClip"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginVertical="@dimen/_20sdp"
+         android:text="@string/txt_clip"
+         android:textAlignment="center"
+         android:textColor="@color/textWhite"
+         android:textSize="@dimen/textPrimary"
+         app:layout_constraintBottom_toBottomOf="@+id/textViewPost"
+         app:layout_constraintEnd_toEndOf="@+id/textViewRecording"
+         app:layout_constraintStart_toStartOf="@+id/imageViewClips"
+         app:layout_constraintTop_toBottomOf="@+id/imageViewClips" />
+
+     <TextView
+         android:id="@+id/textViewPost"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginVertical="@dimen/_20sdp"
+         android:drawableTop="@drawable/ic_post"
+         android:text="@string/txt_post"
+         android:textAlignment="center"
+         android:textColor="@color/textWhite"
+         android:textSize="@dimen/textPrimary"
+         app:layout_constraintBottom_toTopOf="@+id/guidelineHalfUp"
+         app:layout_constraintEnd_toEndOf="@+id/textViewLive"
+         app:layout_constraintStart_toStartOf="@+id/textViewLive"
+         app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
+         android:id="@+id/textViewRecording"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:drawableTop="@drawable/ic_recording_stream"
+         android:text="@string/txt_recording"
+         android:textAlignment="center"
+         android:textColor="@color/textWhite"
+         android:textSize="@dimen/textPrimary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:layout_marginVertical="@dimen/_10sdp"
+         app:layout_constraintStart_toStartOf="@+id/guidelineHalfVertical"
+         app:layout_constraintTop_toTopOf="@+id/guidelineHalfUp" />
+
+
+     <TextView
+         android:id="@+id/textViewLive"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginVertical="@dimen/_10sdp"
+         android:drawableTop="@drawable/ic_live_stream"
+         android:text="@string/txt_live"
+         android:textAlignment="center"
+         android:textColor="@color/textWhite"
+         android:textSize="@dimen/textPrimary"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toStartOf="@+id/guidelineHalfVertical"
+         app:layout_constraintHorizontal_bias="0.496"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/guidelineHalfUp"
+         app:layout_constraintVertical_bias="0.509" />
+
+     <androidx.constraintlayout.widget.Guideline
+         android:id="@+id/guidelineHalfUp"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         app:layout_constraintGuide_percent=".5"/>
+
+
+     <androidx.constraintlayout.widget.Guideline
+         android:id="@+id/guidelineHalfVertical"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:orientation="vertical"
+         app:layout_constraintGuide_percent=".5" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>
