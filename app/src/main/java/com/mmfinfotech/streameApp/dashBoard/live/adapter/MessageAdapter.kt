@@ -12,7 +12,7 @@ import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.MessageBean
+import com.mmfinfotech.streameApp.models.MessageBean
 
 /**
  * Created by Somil Rawal on Mon-07-September-2020.

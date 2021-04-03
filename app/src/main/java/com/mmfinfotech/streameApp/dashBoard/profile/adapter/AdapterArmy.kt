@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 
 class AdapterArmy(
     val context: Context?,

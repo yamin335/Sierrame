@@ -17,10 +17,10 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.agora.base.BaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
-import com.mmfinfotech.streameApp.model.Category
-import com.mmfinfotech.streameApp.model.Hashtags
-import com.mmfinfotech.streameApp.model.HomeLive
-import com.mmfinfotech.streameApp.model.LiversProfile
+import com.mmfinfotech.streameApp.models.Category
+import com.mmfinfotech.streameApp.models.Hashtags
+import com.mmfinfotech.streameApp.models.HomeLive
+import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnDialogPasswordListner
 import com.mmfinfotech.streameApp.util.listners.OnMemoAddListners
@@ -28,7 +28,6 @@ import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.AppToast
-import io.agora.rtc.Constants
 import kotlinx.android.synthetic.main.activity_authentication_process.*
 import okhttp3.MediaType
 import okhttp3.RequestBody

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import com.facebook.*
@@ -18,22 +17,23 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.gson.JsonObject
 import com.linecorp.linesdk.LineApiResponseCode
-import com.linecorp.linesdk.LoginDelegate
 import com.linecorp.linesdk.Scope
 import com.linecorp.linesdk.api.LineApiClient
 import com.linecorp.linesdk.api.LineApiClientBuilder
 import com.linecorp.linesdk.auth.LineAuthenticationParams
 import com.linecorp.linesdk.auth.LineLoginApi
 import com.linecorp.linesdk.auth.LineLoginResult
-//import com.mmfinfotech.streameApp.BuildConfig
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.OnBoardingBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
-import com.mmfinfotech.streameApp.model.SocialLogin
+import com.mmfinfotech.streameApp.models.LoginResponse
+import com.mmfinfotech.streameApp.models.SocialLogin
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
-
 import com.mmfinfotech.streameApp.utils.AppConstants
+import com.mmfinfotech.streameApp.utils.AppConstants.Companion.LINE_CHANNEL_ID
+import com.mmfinfotech.streameApp.utils.AppConstants.Companion.OS_TYPE
+import com.mmfinfotech.streameApp.utils.dismissSafely
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.json.JSONObject
 import retrofit2.Call
@@ -45,11 +45,11 @@ class SignInActivity : OnBoardingBaseActivity() {
     private var callbackManager: CallbackManager? = null
     var mGoogleSignInClient: GoogleSignInClient? = null
 
-    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private val gso: GoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestEmail()
         .build()
     private var lineApiClient: LineApiClient? = null
-    private val loginDelegate: LoginDelegate? = LoginDelegate.Factory.create();
+    //private val loginDelegate: LoginDelegate? = LoginDelegate.Factory.create();
 
     companion object {
         fun getInstance(context: Context?) = Intent(context, SignInActivity::class.java)
@@ -64,13 +64,13 @@ class SignInActivity : OnBoardingBaseActivity() {
         LoginManager.getInstance().logOut()
         callbackManager = CallbackManager.Factory.create()
 
-        val apiClientBuilder = LineApiClientBuilder(applicationContext, "1654427103")
+        val apiClientBuilder = LineApiClientBuilder(applicationContext, LINE_CHANNEL_ID)
         lineApiClient = apiClientBuilder.build()
 
-        setListners()
+        setListeners()
     }
 
-    private fun setListners() {
+    private fun setListeners() {
         textViewSignInForgotPassword.setOnClickListener {
             startActivity(ForgotPasswordActivity.getInstance(this@SignInActivity))
         }
@@ -78,7 +78,6 @@ class SignInActivity : OnBoardingBaseActivity() {
             if (validation()) {
                 loginApiCalling()
 //                startActivity(DashBoardActivity.getInstance(this@SignInActivity))
-            } else {
             }
 //            startActivity(DashBoardActivity.getInstance(this@SignInActivity))
         }
@@ -111,89 +110,43 @@ class SignInActivity : OnBoardingBaseActivity() {
     }
 
     private fun loginApiCalling() {
-        val sendParams: JsonObject? = JsonObject()
-        sendParams?.addProperty("email", edittextSignInEmail.text.toString())
-        sendParams?.addProperty("password", edittextSignInPassword.text.toString().trim())
-        sendParams?.addProperty("fcm_token", appPreferences?.getFcmToken(this@SignInActivity))
-        sendParams?.addProperty("device_id", "")
-        sendParams?.addProperty("os_type", "AN")
-        sendParams?.addProperty("device_name", "")
-        sendParams?.addProperty("device_modal", "")
+        val body = JsonObject().apply {
+            addProperty("email", edittextSignInEmail.text.toString())
+            addProperty("password", edittextSignInPassword.text.toString().trim())
+            addProperty("fcm_token", appPreferences?.getFcmToken(this@SignInActivity))
+            addProperty("device_id", "")
+            addProperty("os_type", OS_TYPE)
+            addProperty("device_name", "")
+            addProperty("device_modal", "")
+        }
 
-        val apiService: MyApiEndpointInterface? =
-            ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSignin: Call<JsonObject?>? = apiService?.callSignin(sendParams)
-        callApi(true, callSignin, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val token = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "token",
-                            ""
-                        )
-                        val email = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "email",
-                            ""
-                        )
-                        val userNameId = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "username",
-                            ""
-                        )
-                        val gender = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "gender",
-                            ""
-                        )
-                        val profile = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "profile",
-                            ""
-                        )
-                        if (token != null && !TextUtils.isEmpty(token))
-                            appPreferences?.setAuthToken(this@SignInActivity, token)
-                        appPreferences?.setEmail(this@SignInActivity, email)
-                        appPreferences?.setFullName(
-                            this@SignInActivity,
-                            AppConstants.Defaults.string
-                        )
-                        appPreferences?.setGander(this@SignInActivity, gender)
-                        appPreferences?.setStremeID(this@SignInActivity, userNameId)
-                        appPreferences?.setProfileImage(this@SignInActivity, profile)
-                        startActivity(DashBoardActivity.getInstance(this@SignInActivity))
-                        finishAffinity()
-                    }
-                    NotFound -> {
-                        val msg =
-                            getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@SignInActivity, msg, Toast.LENGTH_LONG).show()
-                    }
-                    ValidationError -> {
-                        val msg = mainObject?.get("message")?.asString
-                        ShowAlertFailed(this@SignInActivity, msg)
-                    }
-                    else -> {
-                    }
-                }
-//                val otpType: String? =
-//                getStringFromJson(record, otpType, AppConstants.Defaults.string)
-//                val otp: Int? = getIntFromJson(record, otp, AppConstants.Defaults.integer)
-//                appPreferences?.setEmail(mContext, email)
-//                appPreferences?.setCountryCode(mContext, country?.countryCode)
-//                appPreferences?.setPhone(mContext, edt_signup_mobile_number.text.toString().trim())
-//                appPreferences?.setOtpType(mContext, otpType)
-
-//                val intent = Intent(mContext, VerifyOtpActivity::class.java)
-//                intent.action = AppConstants.IntentActions.actionSignUp
-//                intent.putExtra(AppConstants.IntentExtras.otp, otp)
-//                startActivity(intent)
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val apiService: MyApiEndpointInterface? = ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
+        val callSignIn: Call<LoginResponse?>? = apiService?.callLogin(body)
+        callRemoteApi(true, callSignIn, object : ApiClient.ApiCallbackListener<LoginResponse> {
+            override fun onDataFetched(response: LoginResponse?) {
+                appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
+                appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
+                appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
+                appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
+                appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
+                appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
+                startActivity(DashBoardActivity.getInstance(this@SignInActivity))
+                finishAffinity()
+                dialog.dismissSafely()
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                val msg = message ?: resources.getString(R.string.something_went_wrong)
+                when(status) {
+                    NotFound -> {
+                        Toast.makeText(this@SignInActivity, msg, Toast.LENGTH_LONG).show()
+                    }
+                    else -> {
+                        ShowAlertFailed(this@SignInActivity, msg)
+                    }
+                }
+                dialog.dismissSafely()
+            }
         })
     }
 
@@ -203,7 +156,7 @@ class SignInActivity : OnBoardingBaseActivity() {
     }
 
     private fun googleLogin() {
-        val signInIntent: Intent? = mGoogleSignInClient?.getSignInIntent()
+        val signInIntent: Intent? = mGoogleSignInClient?.signInIntent
         startActivityForResult(signInIntent, AppConstants.RequestCode.GoogleLoginRequestCode)
     }
 
@@ -291,79 +244,122 @@ class SignInActivity : OnBoardingBaseActivity() {
         sendParams?.addProperty("device_name", Build.BRAND)
 //        sendParams?.addProperty("os_type", BuildConfig.OS.toString())
         sendParams?.addProperty("os_type","1")
-        Log.d("httt", "jslj Token $sendParams")
-        Log.d("httt", "Token ${appPreferences?.getFcmToken(this@SignInActivity)}")
-        val apiService: MyApiEndpointInterface? =
-            ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSignin: Call<JsonObject?>? = apiService?.callSocialLogin(sendParams)
-        callApi(true, callSignin, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val token = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "token",
-                            ""
-                        )
-                        if (token != null && !TextUtils.isEmpty(token))
-                            appPreferences?.setAuthToken(this@SignInActivity, token)
-                        val email = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "email",
-                            ""
-                        )
-                        val userNameId = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "username",
-                            ""
-                        )
-                        val profile = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "profile",
-                            ""
-                        )
-                        val gender = getStringFromJson(
-                            getJsonObjFromJson(mainObject, record, JsonObject()),
-                            "gender",
-                            ""
-                        )
-                        if (token != null && !TextUtils.isEmpty(token))
-                            appPreferences?.setAuthToken(this@SignInActivity, token)
-                        appPreferences?.setEmail(this@SignInActivity, email)
-                        appPreferences?.setFullName(
-                            this@SignInActivity,
-                            AppConstants.Defaults.string
-                        )
-                        appPreferences?.setGander(this@SignInActivity, gender)
-                        appPreferences?.setStremeID(this@SignInActivity, userNameId)
-                        appPreferences?.setProfileImage(this@SignInActivity, profile)
-                        startActivity(DashBoardActivity.getInstance(this@SignInActivity))
-                        finishAffinity()
-                    }
-                    NotFound -> {
-                        val msg =
-                            getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@SignInActivity, msg)
-//                        Toast.makeText(this@SignInActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-                        appPreferences?.setEmail(this@SignInActivity, SocialDetail.socialemail)
-                        startActivity(SignUpActivity.getInstance(this@SignInActivity, SocialDetail))
-                    }
-                    ValidationError -> {
-                        val msg = mainObject?.get("message")?.asString
-                        ShowAlertFailed(this@SignInActivity, msg)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val apiService: MyApiEndpointInterface? = ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
+        val callSocialSignIn: Call<LoginResponse?>? = apiService?.callSocialLogin(sendParams)
+        callRemoteApi(true, callSocialSignIn, object : ApiClient.ApiCallbackListener<LoginResponse> {
+            override fun onDataFetched(response: LoginResponse?) {
+                appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
+                appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
+                appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
+                appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
+                appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
+                appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
+                startActivity(DashBoardActivity.getInstance(this@SignInActivity))
+                finishAffinity()
+                dialog.dismissSafely()
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                val msg = message ?: resources.getString(R.string.something_went_wrong)
+                when(status) {
+                    NotFound -> {
+                        Toast.makeText(this@SignInActivity, msg, Toast.LENGTH_LONG).show()
+                    }
+                    else -> {
+                        ShowAlertFailed(this@SignInActivity, msg)
+                    }
+                }
+                dialog.dismissSafely()
+            }
         })
     }
+
+//    private fun socialLoginApi(SocialDetail: SocialLogin) {
+//        val sendParams: JsonObject? = JsonObject()
+//        sendParams?.addProperty("email", SocialDetail.socialemail)
+//        sendParams?.addProperty("social_id", SocialDetail.socialId)
+//        sendParams?.addProperty("login_type", SocialDetail.socialType)
+//        sendParams?.addProperty("username", SocialDetail.socialFullName)
+//        sendParams?.addProperty("gender", "")
+//        sendParams?.addProperty("fcm_token", appPreferences?.getFcmToken(this@SignInActivity))
+//        sendParams?.addProperty("device_id", getDeviceId(this@SignInActivity))
+//        sendParams?.addProperty("device_modal", Build.BOARD)
+//        sendParams?.addProperty("device_name", Build.BRAND)
+////        sendParams?.addProperty("os_type", BuildConfig.OS.toString())
+//        sendParams?.addProperty("os_type","1")
+//        Log.d("httt", "jslj Token $sendParams")
+//        Log.d("httt", "Token ${appPreferences?.getFcmToken(this@SignInActivity)}")
+//        val apiService: MyApiEndpointInterface? =
+//            ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
+//        val callSignin: Call<JsonObject?>? = apiService?.callSocialLogin(sendParams)
+//        callApi(true, callSignin, object : OnApiResponse {
+//            override fun onSuccess(status: String?, mainObject: JsonObject?) {
+//                when (status) {
+//                    Sccess -> {
+//                        val token = getStringFromJson(
+//                            getJsonObjFromJson(mainObject, record, JsonObject()),
+//                            "token",
+//                            ""
+//                        )
+//                        if (token != null && !TextUtils.isEmpty(token))
+//                            appPreferences?.setAuthToken(this@SignInActivity, token)
+//                        val email = getStringFromJson(
+//                            getJsonObjFromJson(mainObject, record, JsonObject()),
+//                            "email",
+//                            ""
+//                        )
+//                        val userNameId = getStringFromJson(
+//                            getJsonObjFromJson(mainObject, record, JsonObject()),
+//                            "username",
+//                            ""
+//                        )
+//                        val profile = getStringFromJson(
+//                            getJsonObjFromJson(mainObject, record, JsonObject()),
+//                            "profile",
+//                            ""
+//                        )
+//                        val gender = getStringFromJson(
+//                            getJsonObjFromJson(mainObject, record, JsonObject()),
+//                            "gender",
+//                            ""
+//                        )
+//                        if (token != null && !TextUtils.isEmpty(token))
+//                            appPreferences?.setAuthToken(this@SignInActivity, token)
+//                        appPreferences?.setEmail(this@SignInActivity, email)
+//                        appPreferences?.setFullName(
+//                            this@SignInActivity,
+//                            AppConstants.Defaults.string
+//                        )
+//                        appPreferences?.setGander(this@SignInActivity, gender)
+//                        appPreferences?.setStremeID(this@SignInActivity, userNameId)
+//                        appPreferences?.setProfileImage(this@SignInActivity, profile)
+//                        startActivity(DashBoardActivity.getInstance(this@SignInActivity))
+//                        finishAffinity()
+//                    }
+//                    NotFound -> {
+//                        val msg =
+//                            getStringFromJson(mainObject, message, AppConstants.Defaults.string)
+//                        ShowAlertInformation(this@SignInActivity, msg)
+////                        Toast.makeText(this@SignInActivity, "${msg}", Toast.LENGTH_LONG).show()
+//                    }
+//                    NotVerify -> {
+//                        appPreferences?.setEmail(this@SignInActivity, SocialDetail.socialemail)
+//                        startActivity(SignUpActivity.getInstance(this@SignInActivity, SocialDetail))
+//                    }
+//                    ValidationError -> {
+//                        val msg = mainObject?.get("message")?.asString
+//                        ShowAlertFailed(this@SignInActivity, msg)
+//                    }
+//                    else -> {
+//                    }
+//                }
+//                if (dialog?.isShowing == true)
+//                    dialog?.dismiss()
+//            }
+//
+//            override fun onFailure() {}
+//        })
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager?.onActivityResult(requestCode, resultCode, data)

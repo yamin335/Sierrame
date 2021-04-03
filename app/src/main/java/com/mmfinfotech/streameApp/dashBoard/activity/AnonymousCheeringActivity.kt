@@ -3,7 +3,6 @@ package com.mmfinfotech.streameApp.dashBoard.activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.widget.ImageButton
@@ -11,15 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.tabs.TabLayout
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AnonymousCheeringAdapter
-import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterEventRecruiting
-import com.mmfinfotech.streameApp.model.AnonymousCheering
-import com.mmfinfotech.streameApp.model.Rank
+import com.mmfinfotech.streameApp.models.AnonymousCheering
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
@@ -31,9 +27,6 @@ import com.mmfinfotech.streameApp.utils.SpaceItemDecoration
 import kotlinx.android.synthetic.main.activity_annonymous_cheering.*
 import kotlinx.android.synthetic.main.activity_cheering_live.*
 import kotlinx.android.synthetic.main.activity_leader_board.*
-import kotlinx.android.synthetic.main.activity_leader_board.tabLayoutLeaderBoard
-import okhttp3.MediaType
-import okhttp3.RequestBody
 import retrofit2.Call
 import java.util.HashMap
 

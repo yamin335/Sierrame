@@ -11,7 +11,7 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.OnBoardingBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
-import com.mmfinfotech.streameApp.model.SocialLogin
+import com.mmfinfotech.streameApp.models.SocialLogin
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.live.activity.RecomendationActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterEventLiving
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.fragment_streme_plus.*
 
 class StremePlusFragment : Fragment() {

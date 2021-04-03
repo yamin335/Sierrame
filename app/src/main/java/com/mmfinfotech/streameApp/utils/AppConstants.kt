@@ -16,6 +16,9 @@ class AppConstants {
         const val appSecret = "SHA15AHYVSGJ3#"
         const val resendOtpTime = 31000L
 
+        const val LINE_CHANNEL_ID = "1654427103"
+        const val OS_TYPE = "AN"
+
         const val PREF_NAME = "com.mmfinfotech.streame"
         const val DEFAULT_PROFILE_IDX = 2
         const val PREF_RESOLUTION_IDX = "pref_profile_index"

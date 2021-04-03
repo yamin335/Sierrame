@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.adapter.GiftAdapter
-import com.mmfinfotech.streameApp.model.Gift
+import com.mmfinfotech.streameApp.models.Gift
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.GridSpacingItemDecoration
 import com.mmfinfotech.streameApp.utils.RecyclerTouchListener

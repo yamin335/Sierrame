@@ -27,7 +27,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
-import com.mmfinfotech.streameApp.model.Clips
+import com.mmfinfotech.streameApp.models.Clips
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -82,7 +82,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
             .apply(RequestOptions.circleCropTransform())
             .into(live_name_board_icon)
 
-        tvLikeCount.text = Clip?.like_count
+        tvLikeCount.text = Clip?.like_count.toString()
     }
 
     private fun setPreview() {
@@ -146,7 +146,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@PlayStreamingActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@PlayStreamingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callDeleteClip: Call<JsonObject?>? = apiService?.callDeleteClip(headers, Clip?.id)
+        val callDeleteClip: Call<JsonObject?>? = apiService?.callDeleteClip(headers, Clip?.id?.toString())
 
         callApi(true, callDeleteClip, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
@@ -297,7 +297,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
             ApiClient(this@PlayStreamingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(headers, Clip?.id, AppConstants.LikeTypes.TypeClips)
+        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(headers, Clip?.id?.toString(), AppConstants.LikeTypes.TypeClips)
         callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {

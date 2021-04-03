@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 
 class AdapterHomeLive (val mContext: Context?,
                        val arrHomeLive: ArrayList<HomeLive?>?,

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.FolloweNLikeAdapter
 import com.mmfinfotech.streameApp.dashBoard.profile.activity.RankingCharringProfileActivity
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.fragment_cheering_total.*
 
 class CheeringProfileFragment : Fragment() {

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.LiveHotThemeSchedule
+import com.mmfinfotech.streameApp.models.LiveHotThemeSchedule
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

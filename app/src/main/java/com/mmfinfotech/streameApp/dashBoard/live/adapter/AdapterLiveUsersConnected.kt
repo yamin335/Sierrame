@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.LiveUserConnected
+import com.mmfinfotech.streameApp.models.LiveUserConnected
 
 class AdapterLiveUsersConnected(var mContext: Context?,
                                 val arrLiveUserConnected: ArrayList<LiveUserConnected?>?,

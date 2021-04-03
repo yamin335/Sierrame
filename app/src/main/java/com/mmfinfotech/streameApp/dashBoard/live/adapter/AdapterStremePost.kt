@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Post
+import com.mmfinfotech.streameApp.models.Post
 
 class AdapterStremePost(var mContext: Context?,
                         val arrPost: ArrayList<Post?>?,

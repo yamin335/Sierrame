@@ -15,7 +15,7 @@ import com.mmfinfotech.streameApp.agora.stats.RemoteStatsData
 import com.mmfinfotech.streameApp.agora.stats.StatsData
 import com.mmfinfotech.streameApp.agora.ui.VideoGridContainer
 import com.mmfinfotech.streameApp.dashBoard.live.activity.SearchBrodcasterActivity
-import com.mmfinfotech.streameApp.model.LiversProfile
+import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.util.showRequestBrodcaterDialog

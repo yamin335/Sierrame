@@ -13,7 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
-import com.mmfinfotech.streameApp.model.Coin
+import com.mmfinfotech.streameApp.models.Coin
 import com.mmfinfotech.streameApp.ui.creditCard.CreditCardEditText
 import com.mmfinfotech.streameApp.ui.creditCard.CreditCardExpireEditText
 import com.mmfinfotech.streameApp.util.getStringFromJson

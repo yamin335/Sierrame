@@ -31,7 +31,7 @@ import com.mmfinfotech.streameApp.dashBoard.bottomsheet.BuyCoinsBottomSheet
 import com.mmfinfotech.streameApp.dashBoard.bottomsheet.GiftBottomSheet
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AutoMessageAdapter
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.MessageAdapter
-import com.mmfinfotech.streameApp.model.*
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.ui.OnMessageInputLayoutListener
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnAutoMessageSelectListner

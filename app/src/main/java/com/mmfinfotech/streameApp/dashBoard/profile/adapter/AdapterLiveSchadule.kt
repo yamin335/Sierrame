@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.LiveSChedule
+import com.mmfinfotech.streameApp.models.LiveSChedule
 
 class AdapterLiveSchadule(
         val context: Context?,

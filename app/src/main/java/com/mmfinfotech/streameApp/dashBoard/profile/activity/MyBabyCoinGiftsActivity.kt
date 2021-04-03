@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterGistsRecord
 import com.mmfinfotech.streameApp.dashBoard.profile.fragment.PurchasRecordFragment
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.activity_my_baby_coin_gifts.*
 
 class MyBabyCoinGiftsActivity : AppCompatActivity() {

@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Coin
+import com.mmfinfotech.streameApp.models.Coin
 
 class CoinAdapter(
     val mContext: Context?,

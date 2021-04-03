@@ -6,14 +6,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Vibrator
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
-import com.mmfinfotech.streameApp.model.LiversProfile
+import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*

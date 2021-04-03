@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/searchFrag"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".dashBoard.fragment.SerchFragment">
+    tools:context=".dashBoard.fragment.SearchFragment">
 
     <include
         android:id="@+id/toolbarLiversDetail"

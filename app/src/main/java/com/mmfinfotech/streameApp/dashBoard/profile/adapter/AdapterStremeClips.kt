@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Clips
+import com.mmfinfotech.streameApp.models.Clips
 import java.util.*
 import kotlin.collections.ArrayList
 

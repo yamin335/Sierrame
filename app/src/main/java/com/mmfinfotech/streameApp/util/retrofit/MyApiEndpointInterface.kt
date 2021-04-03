@@ -1,6 +1,8 @@
 package com.mmfinfotech.streameApp.util.retrofit
 
 import com.google.gson.JsonObject
+import com.mmfinfotech.streameApp.models.LatestClipResponse
+import com.mmfinfotech.streameApp.models.LoginResponse
 import com.mmfinfotech.streameApp.utils.AppConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -15,16 +17,16 @@ interface MyApiEndpointInterface {
     fun callSignup(@Body jsonObject: JsonObject?): Call<JsonObject?>
 
     /**
-     * API  using for Signin
+     * API using for SignIn
      * */
     @POST(AppConstants.Endpoint.signin)
-    fun callSignin(@Body jsonObject: JsonObject?): Call<JsonObject?>
+    fun callLogin(@Body jsonObject: JsonObject?): Call<LoginResponse?>
 
     /**
      * API  using for SocialLogin
      * */
     @POST(AppConstants.Endpoint.socialLogin)
-    fun callSocialLogin(@Body jsonObject: JsonObject?): Call<JsonObject?>
+    fun callSocialLogin(@Body jsonObject: JsonObject?): Call<LoginResponse?>
 
     /**
      * Request to refresh the token after token expires.
@@ -367,7 +369,7 @@ interface MyApiEndpointInterface {
     fun callLatestClips(
         @HeaderMap header: Map<String, String>,
         @Query("page") page: String
-    ): Call<JsonObject?>
+    ): Call<LatestClipResponse?>
     /**
      * send Invition to add my  Live
      **/

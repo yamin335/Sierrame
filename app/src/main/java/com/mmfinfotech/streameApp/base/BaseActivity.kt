@@ -22,7 +22,6 @@ import com.mmfinfotech.streameApp.util.networkWatcher.NetworkConnectionChecker
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
-import com.mmfinfotech.streameApp.utils.Functions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,7 +32,6 @@ import retrofit2.Response
 open class BaseActivity : AppCompatActivity() {
     private val tag = BaseActivity::class.java.simpleName
     var networkConnectionChecker: NetworkConnectionChecker? = null
-    var function: Functions? = null
     var appPreferences: AppPreferences? = null
     var dialog: Dialog? = null
 
@@ -44,7 +42,6 @@ open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (appPreferences == null) appPreferences = AppPreferences()
-        if (function == null) function = Functions()
         if (dialog == null) dialog = progressDialog(this@BaseActivity)
         registerReceiver(Receiver(), IntentFilter("InvitationToJoinLive"))
 //        ShowAlertInvitationToJoinLive(this@BaseActivity, "Message") { Toast.makeText(this, "click", Toast.LENGTH_SHORT).show() }
@@ -55,15 +52,77 @@ open class BaseActivity : AppCompatActivity() {
         super.onResume()
         if (networkConnectionChecker == null) networkConnectionChecker =
             NetworkConnectionChecker(application)
-        if (function == null) function = Functions()
         if (appPreferences == null) appPreferences = AppPreferences()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         networkConnectionChecker = null
-        function = null
         appPreferences = null
+    }
+
+    fun <T> callRemoteApi(
+        showProgressDialog: Boolean?,
+        call: Call<T?>?,
+        onApiResponse: ApiClient.ApiCallbackListener<T>?
+    ) {
+        if (showProgressDialog == true && dialog?.isShowing == false) dialog?.show()
+        call?.clone()?.enqueue(object : Callback<T?> {
+            override fun onFailure(call: Call<T?>, t: Throwable) {
+                onApiResponse?.onFailed(ValidationError, t.message)
+                if (dialog?.isShowing == true) dialog?.dismiss()
+                ShowAlertRequestFailed(this@BaseActivity)
+            }
+
+            override fun onResponse(p0: Call<T?>, response: Response<T?>) {
+                val msg = response.message() ?: resources.getString(R.string.something_went_wrong)
+                if (response.isSuccessful) {
+                    when (response.code().toString()) {
+                        Sccess -> {
+                            onApiResponse?.onDataFetched(response = response.body())
+                        }
+                        AppConstants.Defaults.string -> {
+                            ShowAlertFailed(
+                                this@BaseActivity,
+                                msg
+                            )
+                        }
+                        Anauthorized -> {
+                            appPreferences?.clearPreferences(this@BaseActivity)
+                            startActivity(Intent(this@BaseActivity, SplashActivity::class.java))
+                            finishAffinity()
+                        }
+                        NotFound -> {
+                            onApiResponse?.onFailed(NotFound, msg)
+                        }
+                        OtpExpire -> {
+                            onApiResponse?.onFailed(OtpExpire, msg)
+                        }
+                        NotVerify -> {
+                            val authToken: String? = response.headers().get(authtoken)
+                            if (authToken != null && !TextUtils.isEmpty(authToken))
+                                appPreferences?.setAuthToken(this@BaseActivity, authToken)
+                            onApiResponse?.onFailed(NotVerify, msg)
+                        }
+                        AnotherDevice -> {
+                            onApiResponse?.onFailed(AnotherDevice, msg)
+                        }
+                        ValidationError -> {
+                            onApiResponse?.onFailed(ValidationError, msg)
+                        }
+                        PerameterNotProper -> {
+                            onApiResponse?.onFailed(PerameterNotProper, msg)
+                        }
+                        else -> {
+                            ShowAlertFailed(this@BaseActivity, msg)
+                        }
+                    }
+                } else {
+                    ShowAlertFailed(this@BaseActivity, msg)
+                }
+                if (dialog?.isShowing == true) dialog?.dismiss()
+            }
+        })
     }
 
     fun callApi(

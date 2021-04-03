@@ -11,8 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.BabyCoin
-import com.mmfinfotech.streameApp.model.Cheering
+import com.mmfinfotech.streameApp.models.Cheering
 
 class CheeringLiveAdapter(val context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val LiveData: Int = 0

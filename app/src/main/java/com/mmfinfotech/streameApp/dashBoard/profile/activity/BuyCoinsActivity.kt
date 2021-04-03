@@ -2,7 +2,6 @@ package com.mmfinfotech.streameApp.dashBoard.profile.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.google.gson.JsonArray
@@ -11,8 +10,7 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.CreditCardActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.CoinAdapter
-import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
-import com.mmfinfotech.streameApp.model.Coin
+import com.mmfinfotech.streameApp.models.Coin
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson

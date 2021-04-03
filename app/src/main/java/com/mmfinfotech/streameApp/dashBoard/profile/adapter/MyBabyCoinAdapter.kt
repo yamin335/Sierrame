@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.BabyCoin
+import com.mmfinfotech.streameApp.models.BabyCoin
 
 class MyBabyCoinAdapter(
     val context: Context?,

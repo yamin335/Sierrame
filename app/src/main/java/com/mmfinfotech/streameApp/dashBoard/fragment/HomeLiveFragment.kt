@@ -51,7 +51,7 @@ class HomeLiveFragment : Fragment() {
 //        callHotThemeList(false, true, pageNo)
     }
 
-    private fun getLiveFragment(): Fragment? {
+    private fun getLiveFragment(): Fragment {
         return when (liveItemIndex) {
             AppConstants.FragmentLiveIndex.FragmentLive -> LiveFragment()
             AppConstants.FragmentLiveIndex.FragmentLiveHotTheme -> HotThemeFragment()

@@ -3,7 +3,6 @@ package com.mmfinfotech.streameApp.dashBoard.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +12,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
-import com.mmfinfotech.streameApp.model.Post
 import com.mmfinfotech.streameApp.util.getFormattedDate
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson

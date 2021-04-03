@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Hashtags
+import com.mmfinfotech.streameApp.models.Hashtags
 import com.mmfinfotech.streameApp.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_add_hash_tags.*
 

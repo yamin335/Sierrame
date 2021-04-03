@@ -18,7 +18,7 @@ import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.CommentsActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.PostDescriptionActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AdapterTimeLine
-import com.mmfinfotech.streameApp.model.Post
+import com.mmfinfotech.streameApp.models.Post
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson

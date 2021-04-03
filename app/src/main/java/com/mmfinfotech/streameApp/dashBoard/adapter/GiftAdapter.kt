@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Gift
+import com.mmfinfotech.streameApp.models.Gift
 
 class GiftAdapter(
     val mContext: Context?,

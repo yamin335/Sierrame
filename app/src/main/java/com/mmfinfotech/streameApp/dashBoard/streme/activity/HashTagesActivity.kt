@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.chip.Chip
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Hashtags
+import com.mmfinfotech.streameApp.models.Hashtags
 import com.mmfinfotech.streameApp.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_hash_tages.*
 import kotlin.collections.ArrayList

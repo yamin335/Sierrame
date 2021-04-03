@@ -13,7 +13,7 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.NotificationAdapter
-import com.mmfinfotech.streameApp.model.Notification
+import com.mmfinfotech.streameApp.models.Notification
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson

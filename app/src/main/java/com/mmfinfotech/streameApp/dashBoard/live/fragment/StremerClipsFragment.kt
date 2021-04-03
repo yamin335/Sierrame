@@ -15,7 +15,7 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.live.activity.UserMoreDetailActivity
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterStremeClips
 import com.mmfinfotech.streameApp.dashBoard.activity.PlayStreamingActivity
-import com.mmfinfotech.streameApp.model.Clips
+import com.mmfinfotech.streameApp.models.Clips
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
@@ -125,79 +125,80 @@ class StremerClipsFragment : Fragment() {
      * Show Clips of all Stremer
      **/
     private fun apiStremerClip(pageno: Int?) {
-        val headers = HashMap<String, String>()
-        headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
-        val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(
-            MyApiEndpointInterface::class.java
-        )
-        val callStreamPost: Call<JsonObject?>? = apiService?.callStreamClip(headers, StreamerId.toString(), "1")
-        (mContext as UserMoreDetailActivity).callApi(true, callStreamPost, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
-                        if (pageNo == 1) {
-                            arrayMyClips?.clear()
-                        }
-
-                        for (i in 0 until dataArray?.size()!!) {
-                            val recordData = getJsonObjFromJson(dataArray, i, JsonObject())
-
-                          val id:String?= recordData?.get("id")?.asInt.toString()
-                            val user_id:String?= getStringFromJson(recordData,"user_id",AppConstants.Defaults.string)
-                            val title:String?= getStringFromJson(recordData,"title",AppConstants.Defaults.string)
-                            val description:String?= getStringFromJson(recordData,"description",AppConstants.Defaults.string)
-                            val file:String?= getStringFromJson(recordData,"file",AppConstants.Defaults.string)
-                            val thumb:String?= getStringFromJson(recordData,"thumb",AppConstants.Defaults.string)
-                            val file_type:String?= getStringFromJson(recordData,"file_type",AppConstants.Defaults.string)
-                            val category:String?= getStringFromJson(recordData,"category",AppConstants.Defaults.string)
-                            val status:String?= getStringFromJson(recordData,"status",AppConstants.Defaults.string)
-                            val added_on:String?= getStringFromJson(recordData,"added_on",AppConstants.Defaults.string)
-                            val update_on:String?= getStringFromJson(recordData,"update_on",AppConstants.Defaults.string)
-                            val user_name:String?= getStringFromJson(recordData,"user_name",AppConstants.Defaults.string)
-                            val user_profile:String?= getStringFromJson(recordData,"user_profile",AppConstants.Defaults.string)
-                            val profile_status:String?= getStringFromJson(recordData,"profile_status",AppConstants.Defaults.string)
-                            val like_count:String?= recordData?.get("like_count")?.asInt.toString()
-                            val comment_count:String?= recordData?.get("comment_count")?.asInt.toString()
-                            arrayMyClips?.add(
-                                Clips(
-                                    id,
-                                    user_id,
-                                    title,
-                                    description,
-                                    file,
-                                    thumb,
-                                    file_type,
-                                    category,
-                                    status,
-                                    added_on,
-                                    update_on,
-                                    user_name,
-                                    user_profile,
-                                    profile_status,
-                                    like_count,
-                                    comment_count
-                                )
-                            )
-                        }
-
-                        adapterStremeCLip?.notifyDataSetChanged()
-                    }
-                    NotFound -> {
-                        arrayMyClips?.clear()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-
-                    else -> {
-                    }
-                }
-                if ((mContext as UserMoreDetailActivity).dialog?.isShowing == true)
-                    (mContext as UserMoreDetailActivity).dialog?.dismiss()
-            }
-
-            override fun onFailure() {}
-        })
+        // Need_to_fix
+//        val headers = HashMap<String, String>()
+//        headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
+//        val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(
+//            MyApiEndpointInterface::class.java
+//        )
+//        val callStreamPost: Call<JsonObject?>? = apiService?.callStreamClip(headers, StreamerId.toString(), "1")
+//        (mContext as UserMoreDetailActivity).callApi(true, callStreamPost, object : OnApiResponse {
+//            override fun onSuccess(status: String?, mainObject: JsonObject?) {
+//                when (status) {
+//                    Sccess -> {
+//                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
+//                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
+//                        if (pageNo == 1) {
+//                            arrayMyClips?.clear()
+//                        }
+//
+//                        for (i in 0 until dataArray?.size()!!) {
+//                            val recordData = getJsonObjFromJson(dataArray, i, JsonObject())
+//
+//                          val id:String?= recordData?.get("id")?.asInt.toString()
+//                            val user_id:String?= getStringFromJson(recordData,"user_id",AppConstants.Defaults.string)
+//                            val title:String?= getStringFromJson(recordData,"title",AppConstants.Defaults.string)
+//                            val description:String?= getStringFromJson(recordData,"description",AppConstants.Defaults.string)
+//                            val file:String?= getStringFromJson(recordData,"file",AppConstants.Defaults.string)
+//                            val thumb:String?= getStringFromJson(recordData,"thumb",AppConstants.Defaults.string)
+//                            val file_type:String?= getStringFromJson(recordData,"file_type",AppConstants.Defaults.string)
+//                            val category:String?= getStringFromJson(recordData,"category",AppConstants.Defaults.string)
+//                            val status:String?= getStringFromJson(recordData,"status",AppConstants.Defaults.string)
+//                            val added_on:String?= getStringFromJson(recordData,"added_on",AppConstants.Defaults.string)
+//                            val update_on:String?= getStringFromJson(recordData,"update_on",AppConstants.Defaults.string)
+//                            val user_name:String?= getStringFromJson(recordData,"user_name",AppConstants.Defaults.string)
+//                            val user_profile:String?= getStringFromJson(recordData,"user_profile",AppConstants.Defaults.string)
+//                            val profile_status:String?= getStringFromJson(recordData,"profile_status",AppConstants.Defaults.string)
+//                            val like_count:String?= recordData?.get("like_count")?.asInt.toString()
+//                            val comment_count:String?= recordData?.get("comment_count")?.asInt.toString()
+//                            arrayMyClips?.add(
+//                                Clips(
+//                                    id,
+//                                    user_id,
+//                                    title,
+//                                    description,
+//                                    file,
+//                                    thumb,
+//                                    file_type,
+//                                    category,
+//                                    status,
+//                                    added_on,
+//                                    update_on,
+//                                    user_name,
+//                                    user_profile,
+//                                    profile_status,
+//                                    like_count,
+//                                    comment_count
+//                                )
+//                            )
+//                        }
+//
+//                        adapterStremeCLip?.notifyDataSetChanged()
+//                    }
+//                    NotFound -> {
+//                        arrayMyClips?.clear()
+//                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
+////                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
+//                    }
+//
+//                    else -> {
+//                    }
+//                }
+//                if ((mContext as UserMoreDetailActivity).dialog?.isShowing == true)
+//                    (mContext as UserMoreDetailActivity).dialog?.dismiss()
+//            }
+//
+//            override fun onFailure() {}
+//        })
     }
 }

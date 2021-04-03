@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.Category
+import com.mmfinfotech.streameApp.models.Category
 
 class AdapterLiveList(
     val context: Context?,

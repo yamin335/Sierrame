@@ -11,8 +11,8 @@ import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.CountryListActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.getCountryCodes
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.models.Country
-import com.mmfinfotech.streameApp.model.Category
-import com.mmfinfotech.streameApp.model.Hashtags
+import com.mmfinfotech.streameApp.models.Category
+import com.mmfinfotech.streameApp.models.Hashtags
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants

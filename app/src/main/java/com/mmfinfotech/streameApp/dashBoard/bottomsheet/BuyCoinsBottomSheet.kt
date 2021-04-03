@@ -19,8 +19,8 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.activity.CreditCardActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.CoinAdapter
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
-import com.mmfinfotech.streameApp.model.Coin
-import com.mmfinfotech.streameApp.model.Gift
+import com.mmfinfotech.streameApp.models.Coin
+import com.mmfinfotech.streameApp.models.Gift
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson

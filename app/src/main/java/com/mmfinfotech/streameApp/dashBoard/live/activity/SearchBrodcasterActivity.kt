@@ -21,7 +21,7 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterRequestToAddLivers
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterSelectedLivers
-import com.mmfinfotech.streameApp.model.Liver
+import com.mmfinfotech.streameApp.models.Liver
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnMemoAddListners
 import com.mmfinfotech.streameApp.util.retrofit.*

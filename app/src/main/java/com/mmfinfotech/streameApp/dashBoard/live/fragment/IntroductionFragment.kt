@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterRecomended
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.fragment_introduction.*
 
 class IntroductionFragment : Fragment() {

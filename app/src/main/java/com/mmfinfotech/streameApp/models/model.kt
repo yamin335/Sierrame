@@ -1,4 +1,4 @@
-package com.mmfinfotech.streameApp.model
+package com.mmfinfotech.streameApp.models
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -610,24 +610,15 @@ data class Post(
  * this Model For Clips
  * */
 data class Clips(
-    val id: String?,
-    val user_id: String?,
-    val title: String?,
-    val description: String?,
-    val file: String?,
-    val thumb: String?,
-    val file_type: String?,
-    val category: String?,
-    val status: String?,
-    val added_on: String?,
-    val update_on: String?,
-    val user_name: String?,
-    val user_profile: String?,
-    val profile_status: String?,
-    val like_count: String?,
-    val comment_count: String?
+    val id: Int?, val user_id: String?, val title: String?,
+    val description: String?, val file: String?, val thumb: String?,
+    val file_type: String?, val category: String?, val status: Int?,
+    val added_on: String?, val update_on: String?, val user_name: String?,
+    val user_profile: String?, val profile_status: String?, val like_status: String?,
+    val follow_status: String?, val like_count: Int?, val comment_count: Int?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -635,6 +626,7 @@ data class Clips(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -642,13 +634,12 @@ data class Clips(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
+        parcel.readInt(),
+        parcel.readInt()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
+        parcel.writeInt(id ?: 0)
         parcel.writeString(user_id)
         parcel.writeString(title)
         parcel.writeString(description)
@@ -656,14 +647,16 @@ data class Clips(
         parcel.writeString(thumb)
         parcel.writeString(file_type)
         parcel.writeString(category)
-        parcel.writeString(status)
+        parcel.writeInt(status ?: 0)
         parcel.writeString(added_on)
         parcel.writeString(update_on)
         parcel.writeString(user_name)
         parcel.writeString(user_profile)
         parcel.writeString(profile_status)
-        parcel.writeString(like_count)
-        parcel.writeString(comment_count)
+        parcel.writeString(like_status)
+        parcel.writeString(follow_status)
+        parcel.writeInt(like_count ?: 0)
+        parcel.writeInt(comment_count ?: 0)
     }
 
     override fun describeContents(): Int {

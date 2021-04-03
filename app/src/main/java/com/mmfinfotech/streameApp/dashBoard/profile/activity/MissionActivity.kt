@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterMission
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.activity_mission.*
 
 class MissionActivity : AppCompatActivity() {

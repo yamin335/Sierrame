@@ -11,7 +11,7 @@ import com.google.android.material.tabs.TabLayout
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterEventRecruiting
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.fragment_event_recruiting.*
 
 /**

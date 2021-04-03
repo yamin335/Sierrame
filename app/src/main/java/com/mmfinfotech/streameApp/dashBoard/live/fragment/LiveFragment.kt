@@ -1,21 +1,16 @@
 package com.mmfinfotech.streameApp.dashBoard.live.fragment
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.adapter.AdapterHomeLive
 import com.mmfinfotech.streameApp.dashBoard.live.activity.EventActivity
-import com.mmfinfotech.streameApp.model.HomeLive
-import com.mmfinfotech.streameApp.util.listners.OnTestListner
-import com.mmfinfotech.streameApp.util.showTestDialog
+import com.mmfinfotech.streameApp.models.HomeLive
 import kotlinx.android.synthetic.main.fragment_live.*
 
 class LiveFragment : Fragment() {

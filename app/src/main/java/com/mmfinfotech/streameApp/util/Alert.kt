@@ -2,7 +2,6 @@ package com.mmfinfotech.streameApp.util
 
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
 import android.graphics.Color
@@ -33,7 +32,7 @@ import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterArmy
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterPurchaseRecord
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterSchedule
 import com.mmfinfotech.streameApp.dashBoard.streme.adapter.AdapterLiveList
-import com.mmfinfotech.streameApp.model.*
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.listners.*
 import com.mmfinfotech.streameApp.utils.OverlapDecoration
 import kotlinx.android.synthetic.main.fragment_hot_theme.*
@@ -800,7 +799,7 @@ fun showGIFSheet(context: Context?, gifList: ArrayList<String?>?, listners: OnGi
  * Alert for Live user Dialog
  *
  * @param context Instance of the class calling this function.
- * @param liversProfile model class contains all view
+ * @param liversProfile models class contains all view
  *  @param listener through id get the view and perform ation
  *
  **/

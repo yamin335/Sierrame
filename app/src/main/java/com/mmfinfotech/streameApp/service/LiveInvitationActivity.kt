@@ -10,15 +10,13 @@ import android.widget.Toast
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.agora.base.BaseActivity
-import com.mmfinfotech.streameApp.agora.base.RtcBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
-import com.mmfinfotech.streameApp.model.LiversProfile
+import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
-import io.agora.rtc.Constants
 import kotlinx.android.synthetic.main.activity_authentication_process.*
 import kotlinx.android.synthetic.main.activity_live_invitation.*
 import okhttp3.MediaType

@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.profile.activity.FollowNLikeActivity
 import com.mmfinfotech.streameApp.dashBoard.profile.activity.RankingCharringProfileActivity
-import com.mmfinfotech.streameApp.model.HomeLive
+import com.mmfinfotech.streameApp.models.HomeLive
 
 class FolloweNLikeAdapter(
     val context: Context?,

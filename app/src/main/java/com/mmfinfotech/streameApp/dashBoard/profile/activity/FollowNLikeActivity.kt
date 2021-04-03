@@ -18,7 +18,7 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.UserMoreDetailActivity
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterCommonForThree
-import com.mmfinfotech.streameApp.model.Following
+import com.mmfinfotech.streameApp.models.Following
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants

@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.live.activity.StremerFollowNLikeActivity
-import com.mmfinfotech.streameApp.model.Following
+import com.mmfinfotech.streameApp.models.Following
 
 class AdapterStreamerFolloweNLike(
     val context: Context?,

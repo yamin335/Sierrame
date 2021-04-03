@@ -1,21 +1,17 @@
 package com.mmfinfotech.streameApp.dashBoard.live.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterEventLiving
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterEventRecruiting
 import com.mmfinfotech.streameApp.dashBoard.profile.activity.RankingCharringProfileActivity
-import com.mmfinfotech.streameApp.model.HomeLive
-import com.mmfinfotech.streameApp.model.Rank
+import com.mmfinfotech.streameApp.models.Rank
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson

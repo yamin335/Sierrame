@@ -1,7 +1,6 @@
 package com.mmfinfotech.streameApp.agora.base
 
 import android.content.Context
-import android.content.ContextWrapper
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
@@ -15,11 +14,10 @@ import com.mmfinfotech.streameApp.agora.stats.StatsManager
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
 import io.agora.rtc.IRtcEngineEventHandler.*
 import io.agora.rtc.RtcEngine
-import java.util.*
 
 abstract class BaseActivity : NetworkBaseActivity(), EventHandler {
-    protected var mDisplayMetrics = DisplayMetrics()
-    protected var mStatusBarHeight = 0
+    private var mDisplayMetrics = DisplayMetrics()
+    private var mStatusBarHeight = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +55,7 @@ abstract class BaseActivity : NetworkBaseActivity(), EventHandler {
     protected fun onGlobalLayoutCompleted() {}
 
     private val displayMetrics: Unit
-        private get() {
+        get() {
             windowManager.defaultDisplay.getMetrics(mDisplayMetrics)
         }
 
@@ -71,7 +69,7 @@ abstract class BaseActivity : NetworkBaseActivity(), EventHandler {
         return if (id > 0) context.resources.getDimensionPixelSize(id) else id
     }
 
-    protected fun application(): AppController {
+    private fun application(): AppController {
         return application as AppController
     }
 

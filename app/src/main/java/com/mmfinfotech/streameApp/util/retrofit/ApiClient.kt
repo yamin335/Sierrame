@@ -13,18 +13,18 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class ApiClient(val ctx: Context?) {
-    private val tag: String? = ApiClient::class.java.simpleName
+class ApiClient(private val ctx: Context?) {
     private var retrofit: Retrofit? = null
-    private val gson: Gson? = GsonBuilder().setLenient().create()
+    private val gson: Gson get() = GsonBuilder().setLenient().create()
 
     private var clientBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
 //        .readTimeout(3600, TimeUnit.SECONDS) //1 Min
 //        .connectTimeout(3600, TimeUnit.SECONDS) ////1 Min
+
     private val headerAuthorizationInterceptor : Interceptor = Interceptor { chain ->
         var request: Request = chain.request()
-        val headers: Headers?
-        headers = if (request.url().toString().contains(AppConstants.Endpoint.signin)
+
+        val headers: Headers = if (request.url().toString().contains(AppConstants.Endpoint.signin)
             || request.url().toString().contains(AppConstants.Endpoint.signup)
             || request.url().toString().contains(AppConstants.Endpoint.socialLogin)
             || request.url().toString().contains(AppConstants.Endpoint.verifyEmail)
@@ -44,8 +44,8 @@ class ApiClient(val ctx: Context?) {
 
         }
 
-    request = request.newBuilder().headers(headers).build()
-    chain.proceed(request)
+        request = request.newBuilder().headers(headers).build()
+        chain.proceed(request)
     }
 
     fun getClient(): Retrofit? {
@@ -53,11 +53,15 @@ class ApiClient(val ctx: Context?) {
             clientBuilder.addInterceptor(headerAuthorizationInterceptor)
             retrofit = Retrofit.Builder()
                 .baseUrl(AppConstants.Baseurl.url.trim { it <= ' ' })
-                .addConverterFactory(GsonConverterFactory.create(gson!!))
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(clientBuilder.build())
                 .build()
         }
         return retrofit
     }
 
+    interface ApiCallbackListener<T> {
+        fun onDataFetched(response: T?)
+        fun onFailed(status: String, message: String?)
+    }
 }

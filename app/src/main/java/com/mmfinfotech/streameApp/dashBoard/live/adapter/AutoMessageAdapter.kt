@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.AutoMessage
+import com.mmfinfotech.streameApp.models.AutoMessage
 import com.mmfinfotech.streameApp.util.listners.OnAutoMessageSelectListner
 
 /**

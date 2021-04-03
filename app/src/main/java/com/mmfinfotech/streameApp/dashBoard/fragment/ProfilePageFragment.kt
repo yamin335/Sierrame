@@ -29,8 +29,8 @@ import com.mmfinfotech.streameApp.dashBoard.profile.activity.*
 import com.mmfinfotech.streameApp.dashBoard.profile.fragment.ClipsFragment
 import com.mmfinfotech.streameApp.dashBoard.profile.fragment.PostFragment
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.CameraActivity
-import com.mmfinfotech.streameApp.model.HomeLive
-import com.mmfinfotech.streameApp.model.Schadule
+import com.mmfinfotech.streameApp.models.HomeLive
+import com.mmfinfotech.streameApp.models.Schadule
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnScaduleClickListners
 import com.mmfinfotech.streameApp.util.retrofit.*

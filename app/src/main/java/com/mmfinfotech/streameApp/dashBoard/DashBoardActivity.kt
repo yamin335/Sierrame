@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
@@ -29,9 +28,9 @@ import com.mmfinfotech.streameApp.dashBoard.streme.activity.AddClipActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticatLive
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticationActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.CameraActivity
-import com.mmfinfotech.streameApp.model.Category
-import com.mmfinfotech.streameApp.model.Hashtags
-import com.mmfinfotech.streameApp.model.LiversProfile
+import com.mmfinfotech.streameApp.models.Category
+import com.mmfinfotech.streameApp.models.Hashtags
+import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
@@ -44,7 +43,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DashBoardActivity : DashBoardBaseActivity() {
-    private val TAG: String? = DashBoardActivity::class.java.simpleName
     var navItemIndex: Int? = AppConstants.FragmentIndex.FragmentHomeLive
     var currentTag: String? = AppConstants.FragmentTag.TagHomeLive
     private var mHandler: Handler? = null
@@ -85,10 +83,9 @@ class DashBoardActivity : DashBoardBaseActivity() {
 //            startActivity(intentGo)
             Toast.makeText(this@DashBoardActivity, "OnCreate Intent Notification", Toast.LENGTH_LONG).show()
 
-             showDialogAcceptReject(intent.getStringExtra(AppConstants.IntentExtras.NotifictnRemoteRefrenceId),
+            showDialogAcceptReject(intent.getStringExtra(AppConstants.IntentExtras.NotifictnRemoteRefrenceId),
                 intent.getStringExtra(AppConstants.IntentExtras.NotifictnRemoteMsg))
         }
-
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -102,10 +99,8 @@ class DashBoardActivity : DashBoardBaseActivity() {
                 currentTag = AppConstants.FragmentTag.TagSearch
             }
             R.id.navigation_streme -> {
-                showAlertStreame(this@DashBoardActivity, View.OnClickListener { view ->
+                showAlertStreame(this@DashBoardActivity) { view ->
                     when (view?.id) {
-                        //    clip = vides
-//            post = photo
                         R.id.container_post -> {
                             startActivity(CameraActivity.getInstance(this))
                         }
@@ -120,12 +115,16 @@ class DashBoardActivity : DashBoardBaseActivity() {
                                 galleryIntent.type = "video/*"
                                 startActivityForResult(galleryIntent, AppConstants.RequestCode.videoPicker)
                             } else {
-                                requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE), AppConstants.Permission.multiplePermissions)
+                                requestPermissions(
+                                    arrayOf(
+                                        Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                        Manifest.permission.READ_EXTERNAL_STORAGE
+                                    ), AppConstants.Permission.multiplePermissions
+                                )
                             }
                         }
                     }
-                })
+                }
             }
             R.id.navigation_timeline -> {
                 navItemIndex = AppConstants.FragmentIndex.FragmentTimeLine
@@ -223,7 +222,7 @@ class DashBoardActivity : DashBoardBaseActivity() {
             alertDialog.dismiss()
 //            vibrator.cancel()
         }
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             if(alertDialog.isShowing) {
                 if(this.isDestroyed) {
                 } else {
@@ -357,7 +356,7 @@ class DashBoardActivity : DashBoardBaseActivity() {
     private fun getHomeFragment(): Fragment? {
         return when (navItemIndex) {
             AppConstants.FragmentIndex.FragmentHomeLive -> HomeLiveFragment()
-            AppConstants.FragmentIndex.FragmentSearch -> SerchFragment()
+            AppConstants.FragmentIndex.FragmentSearch -> SearchFragment()
             AppConstants.FragmentIndex.FragmentTimeLine -> TimeLineFragment()
             AppConstants.FragmentIndex.FragmentProfilePage -> ProfilePageFragment()
             AppConstants.FragmentIndex.FragmentStreame -> StreameFragment()

@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.CommentsChet
+import com.mmfinfotech.streameApp.models.CommentsChet
 import com.mmfinfotech.streameApp.util.getFormattedDate
 
 class AdapterComments(

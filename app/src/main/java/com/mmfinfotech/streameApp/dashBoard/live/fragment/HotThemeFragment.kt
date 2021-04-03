@@ -1,7 +1,6 @@
 package com.mmfinfotech.streameApp.dashBoard.live.fragment
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,11 +15,10 @@ import com.google.android.material.chip.Chip
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.agora.LiveTwoActivity
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterHotTheme
-import com.mmfinfotech.streameApp.model.*
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.listners.OnDialogPasswordListner
