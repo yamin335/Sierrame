@@ -17,9 +17,9 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.agora.base.BaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
-import com.mmfinfotech.streameApp.models.Category
-import com.mmfinfotech.streameApp.models.Hashtags
 import com.mmfinfotech.streameApp.models.HomeLive
+import com.mmfinfotech.streameApp.models.LiveStreamCategory
+import com.mmfinfotech.streameApp.models.LiveStreamHashTag
 import com.mmfinfotech.streameApp.models.LiversProfile
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnDialogPasswordListner
@@ -37,8 +37,8 @@ import kotlin.collections.ArrayList
 
 class AuthenticatLive : BaseActivity() {
     private val tag: String? = AuthenticatLive::class.java.simpleName
-    var hasTagArray: ArrayList<Hashtags?>? = null
-    var arrSelectedHashTag: ArrayList<Hashtags?>? = null
+    var hasTagArray: ArrayList<LiveStreamHashTag?>? = null
+    var arrSelectedHashTag: ArrayList<LiveStreamHashTag?>? = null
     private var StremerUserID: String? = null
     private var CategoryId: String? = ""
 
@@ -55,8 +55,8 @@ class AuthenticatLive : BaseActivity() {
         fun getInstance(
             context: Context?,
             uuId: String?,
-            hastags: ArrayList<Hashtags?>?,
-            categorys: ArrayList<Category?>?
+            hastags: ArrayList<LiveStreamHashTag?>?,
+            categorys: ArrayList<LiveStreamCategory?>?
         ) = Intent(context, AuthenticatLive::class.java).apply {
             putParcelableArrayListExtra(Hastags, hastags)
             putParcelableArrayListExtra(Category, categorys)
@@ -136,15 +136,15 @@ class AuthenticatLive : BaseActivity() {
         }
     }
 
-    private fun setHashTagChipGroup(hashTagsList: ArrayList<Hashtags?>?) {
+    private fun setHashTagChipGroup(hashTagsList: ArrayList<LiveStreamHashTag?>?) {
         for (i in 0 until (hashTagsList?.size ?: 0)) {
             val chip = Chip(this@AuthenticatLive)
-            chip.text = hashTagsList?.get(i)?.Tag
+            chip.text = hashTagsList?.get(i)?.tag_name
             // necessary to get single selection working
             chip.isClickable = false
             chip.isCheckable = false
             chip.setOnClickListener {
-                if (hashTagsList?.get(i)?.id == "") {
+                if (hashTagsList?.get(i)?.id == 0) {
                     chip.isClickable = true
                     hashTagsList.remove(hashTagsList[i])
                     chipGroupSelectedHashTagList.removeView(chip)
@@ -161,7 +161,7 @@ class AuthenticatLive : BaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@AuthenticatLive)}"
 
         val list: ArrayList<String?>? = ArrayList()
-        for (i in 0 until arrSelectedHashTag?.size!!) list?.add(arrSelectedHashTag?.get(i)?.Tag)
+        for (i in 0 until arrSelectedHashTag?.size!!) list?.add(arrSelectedHashTag?.get(i)?.tag_name)
         list?.joinToString()
         val requestChennelId: RequestBody = RequestBody.create(MediaType.parse("text/plain"), StremerUserID ?: AppConstants.Defaults.string)
         val requestTitle: RequestBody = RequestBody.create(MediaType.parse("text/plain"), textViewAuthenticateLiveTitle.text.toString())
@@ -240,7 +240,7 @@ class AuthenticatLive : BaseActivity() {
                         arrSelectedHashTag?.removeAll(Collections.singleton(null))
                         arrSelectedHashTag?.clear()
                         val status = data?.getStringExtra(AppConstants.IntentExtras.selectedStatus)
-                        val list: ArrayList<Hashtags?>? = ArrayList()
+                        val list: ArrayList<LiveStreamHashTag?>? = ArrayList()
                         list?.addAll(data?.getParcelableArrayListExtra(AppConstants.IntentExtras.selectedHashTags)!!)
                         for (i in 0 until (list?.size ?: 0)) {
                             if (list?.get(i)?.selectedValue == true) arrSelectedHashTag?.add(list[i])

@@ -232,45 +232,6 @@ data class HotThemeFilter(
 }
 
 /**
- * HashTags for streme
- * */
-
-data class Hashtags(
-    val id: String? = AppConstants.Defaults.string,
-    val Tag: String? = AppConstants.Defaults.string,
-    var selectedValue: Boolean? = false
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
-    ) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(Tag)
-        parcel.writeValue(selectedValue)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Hashtags> {
-        override fun createFromParcel(parcel: Parcel): Hashtags {
-            return Hashtags(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Hashtags?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
-
-
-/**
  * Data class for HotTheme
  * */
 data class HotTheme(
@@ -495,33 +456,6 @@ data class LiveHotThemeSchedule(
         }
 
         override fun newArray(size: Int): Array<LiveHotThemeSchedule?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
-
-data class Category(val id: String?, val name: String?) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString()
-    ) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Category> {
-        override fun createFromParcel(parcel: Parcel): Category {
-            return Category(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Category?> {
             return arrayOfNulls(size)
         }
     }
@@ -1079,3 +1013,5 @@ data class AnonymousCheering(
     val score : Int? = AppConstants.Defaults.integer,
     val updatedAt : String? = AppConstants.Defaults.string
 )
+
+data class CommonResponse(val status: String?, val message: String?)

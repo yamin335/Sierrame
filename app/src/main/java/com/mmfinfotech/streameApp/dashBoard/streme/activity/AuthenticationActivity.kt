@@ -4,15 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.gson.JsonArray
+import android.widget.Toast
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.CountryListActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.getCountryCodes
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.models.Country
-import com.mmfinfotech.streameApp.models.Category
-import com.mmfinfotech.streameApp.models.Hashtags
+import com.mmfinfotech.streameApp.models.CommonResponse
+import com.mmfinfotech.streameApp.models.LiveStreamCategory
+import com.mmfinfotech.streameApp.models.LiveStreamHashTag
+import com.mmfinfotech.streameApp.models.LiveStreamHashTagCategoryResponse
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
@@ -52,9 +54,8 @@ class AuthenticationActivity : DashBoardBaseActivity() {
             if ((validationEmptyField(this@AuthenticationActivity, editTextPhone) == true)) {
                 sendVerification()
             } else {
-
+                Toast.makeText(this, "Please enter phone number!", Toast.LENGTH_LONG).show()
             }
-
         }
         buttonComplete.setOnClickListener {
             sendCompleteVerification()
@@ -63,49 +64,39 @@ class AuthenticationActivity : DashBoardBaseActivity() {
     }
 
     private fun sendCompleteVerification() {
-        val hasTagArray: ArrayList<Hashtags?>? = ArrayList()
-        val arrcategoryArray: ArrayList<Category?>? = ArrayList()
+        val hasTagArray: ArrayList<LiveStreamHashTag?> = ArrayList()
+        val arrcategoryArray: ArrayList<LiveStreamCategory?> = ArrayList()
 
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val sendParams: JsonObject? = JsonObject()
         sendParams?.addProperty("verify_code", editTextPhoneVarification.text.toString())
         val apiService: MyApiEndpointInterface? = ApiClient(this@AuthenticationActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSignup: Call<JsonObject?>? = apiService?.callVerifyCode(headers, sendParams)
-        callApi(true, callSignup, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val recordObj = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val uuid = getStringFromJson(recordObj, "uuid", "")
-                        val hashArray = getJsonArrayFromJson(recordObj, "hashtags", JsonArray())
+        val callSignUp: Call<LiveStreamHashTagCategoryResponse?>? = apiService?.callVerifyCode(headers, sendParams)
+        callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<LiveStreamHashTagCategoryResponse> {
+            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?) {
+                val uuid = response?.record?.uuid
+                val hashArray = response?.record?.hashtags ?: return
+                val categoryArray = response.record.category ?: return
 
-                        for (i in 0 until hashArray!!.size()) {
-                            val hashTagsObjects = getJsonObjFromJson(hashArray, i, JsonObject())
-                            val id = getStringFromJson(hashTagsObjects, "id", AppConstants.Defaults.string)
-                            val tag_name = getStringFromJson(hashTagsObjects, "tag_name", AppConstants.Defaults.string)
-                            hasTagArray?.add(Hashtags(id, tag_name))
-                        }
-                        val categoryArray = getJsonArrayFromJson(recordObj, "category", JsonArray())
-                        for (i in 0 until categoryArray!!.size()) {
-                            val categoryObjects = getJsonObjFromJson(categoryArray, i, JsonObject())
-                            val id = getStringFromJson(categoryObjects, "id", AppConstants.Defaults.string)
-                            val name = getStringFromJson(categoryObjects, "name", AppConstants.Defaults.string)
-                            arrcategoryArray?.add(Category(id, name))
-                        }
+                for (tag in hashArray) {
+                    hasTagArray.add(tag)
+                }
 
-                        if (intent?.action == ActionLive)
-                            startActivity(AuthenticatLive.getInstance(this@AuthenticationActivity, uuid, hasTagArray, arrcategoryArray))
+                for (category in categoryArray) {
+                    arrcategoryArray.add(category)
+                }
+
+                if (intent?.action == ActionLive)
+                    startActivity(AuthenticatLive.getInstance(this@AuthenticationActivity, uuid, hasTagArray, arrcategoryArray))
 //                        else if (intent?.action == ActionSettings)
 //                            startActivity(AuthenticationActivity.getInstance(this@AuthenticationActivity, AuthenticationActivity.ActionLive))
-                        finish()
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                finish()
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertInformation(this@AuthenticationActivity, message)
+            }
         })
     }
 
@@ -119,26 +110,15 @@ class AuthenticationActivity : DashBoardBaseActivity() {
 
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@AuthenticationActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSignup: Call<JsonObject?>? = apiService?.callSendVarification(headers, sendParams)
-        callApi(true, callSignup, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText(this@AuthenticationActivity, "${msg}", Toast.LENGTH_LONG).show()
-                        ShowAlertInformation(this@AuthenticationActivity,msg)
-                    }
-                    NotVerify -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AuthenticationActivity,msg)
-//                        Toast.makeText(this@AuthenticationActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val callSignUp: Call<CommonResponse?>? = apiService?.callSendVarification(headers, sendParams)
+        callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<CommonResponse> {
+            override fun onDataFetched(response: CommonResponse?) {
+                ShowAlertInformation(this@AuthenticationActivity, response?.message)
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertInformation(this@AuthenticationActivity, message)
+            }
         })
     }
 

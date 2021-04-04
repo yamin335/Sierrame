@@ -694,7 +694,7 @@ fun showMyEvents(context: Context?, arrayList: ArrayList<HomeLive?>?) {
  **/
 fun showChetegoryLiveList(
     context: Context?,
-    arrayList: ArrayList<Category?>?,
+    arrayList: ArrayList<LiveStreamCategory?>?,
     textView: TextView?,
     listners: OnMemoAddListners
 ) {

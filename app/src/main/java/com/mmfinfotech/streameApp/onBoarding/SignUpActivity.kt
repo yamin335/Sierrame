@@ -11,6 +11,7 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.OnBoardingBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
+import com.mmfinfotech.streameApp.models.SignUpResponse
 import com.mmfinfotech.streameApp.models.SocialLogin
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -59,7 +60,7 @@ class SignUpActivity : OnBoardingBaseActivity() {
         buttonSignUp.setOnClickListener {
             if (validate()) {
                 if (radioGroupSignUpGender.checkedRadioButtonId != -1) {
-                    signupApi("${findViewById<RadioButton>(radioGroupSignUpGender.checkedRadioButtonId).text}")
+                    signUpApi("${findViewById<RadioButton>(radioGroupSignUpGender.checkedRadioButtonId).text}")
                 } else {
                     ShowAlertInformation(this@SignUpActivity,getString(R.string.msg_please_selectgender))
                 }
@@ -71,60 +72,42 @@ class SignUpActivity : OnBoardingBaseActivity() {
         imgButtonBack?.setOnClickListener { onBackPressed() }
     }
 
-    private fun signupApi(gender: String?) {
-        val sendParams: JsonObject? = JsonObject()
-        sendParams?.addProperty("username", edittextSignUpName.text.toString())
-        sendParams?.addProperty("email", edittextSignUpEmail.text.toString().trim())
-        sendParams?.addProperty("password", edittextSignUpPassword.text.toString().trim())
-        sendParams?.addProperty("gender", gender.toString())
-//        sendParams?.addProperty("device_id", getDeviceId(this))
-        sendParams?.addProperty("device_id", "d3269c9f69162a30")
-        sendParams?.addProperty("fcm_token",appPreferences?.getFcmToken(this@SignUpActivity))
-//        sendParams?.addProperty("os_type", Build.VERSION.SDK_INT.toString())
-        sendParams?.addProperty("os_type", "28")
-//        sendParams?.addProperty("device_name", Build.BRAND)
-        sendParams?.addProperty("device_name", "1")
-//        sendParams?.addProperty("device_modal", Build.BOARD)
-        sendParams?.addProperty("device_modal", "1")
+    private fun signUpApi(gender: String?) {
+        val sendParams: JsonObject = JsonObject().apply {
+            addProperty("username", edittextSignUpName.text.toString())
+            addProperty("email", edittextSignUpEmail.text.toString().trim())
+            addProperty("password", edittextSignUpPassword.text.toString().trim())
+            addProperty("gender", gender.toString())
+            addProperty("fcm_token",appPreferences?.getFcmToken(this@SignUpActivity))
+            addProperty("device_id", "d3269c9f69162a30")
+            addProperty("os_type", "28")
+            addProperty("device_name", "1")
+            addProperty("device_modal", "1")
+        }
 
-        Log.d(tag, "signup sendparams request : $sendParams")
 
         val apiService: MyApiEndpointInterface? =
             ApiClient(this@SignUpActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSignup: Call<JsonObject?>? = apiService?.callSignup(sendParams)
-        callApi(true, callSignup, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val token = getStringFromJson(getJsonObjFromJson(mainObject, record, JsonObject()),"token","")
-                        if (token != null && !TextUtils.isEmpty(token))
-                            appPreferences?.setAuthToken(this@SignUpActivity, token)
-//                      Toast.makeText(this@SignUpActivity, "$status", Toast.LENGTH_LONG).show()
-                        val email = getStringFromJson(getJsonObjFromJson(mainObject, record, JsonObject()),"email","")
-                        val userNameId = getStringFromJson(getJsonObjFromJson(mainObject, record, JsonObject()),"username","")
-                        val gender = getStringFromJson(getJsonObjFromJson(mainObject, record, JsonObject()),"gender","")
-                        if (token != null && !TextUtils.isEmpty(token))
-                        appPreferences?.setEmail(this@SignUpActivity, email)
-                        appPreferences?.setFullName(this@SignUpActivity, AppConstants.Defaults.string)
-                        appPreferences?.setGander(this@SignUpActivity, gender)
-                        appPreferences?.setStremeID(this@SignUpActivity, userNameId)
-                        startActivity(DashBoardActivity.getInstance(this@SignUpActivity))
-                        finishAffinity()
-                    }
-                    ValidationError->{
-                        var str:String?=null
-                        val errorArray= mainObject?.get("error")?.asJsonArray
-                        for (i in 0 until errorArray?.size()!!){
-                          str = errorArray.get(i).asString
-                        }
-                        ShowAlertFailed(this@SignUpActivity, str)
-                    }
+        val callSignUp: Call<SignUpResponse?>? = apiService?.callSignUp(sendParams)
+        callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<SignUpResponse> {
+            override fun onDataFetched(response: SignUpResponse?) {
+                val token = response?.record?.token
+                if (token.isNullOrBlank()) {
+                    ShowAlertFailed(this@SignUpActivity, response?.message)
+                    return
                 }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                appPreferences?.setAuthToken(this@SignUpActivity, token)
+                appPreferences?.setEmail(this@SignUpActivity, response.record.email)
+                appPreferences?.setFullName(this@SignUpActivity, response.record.name)
+                appPreferences?.setGander(this@SignUpActivity, response.record.gender)
+                appPreferences?.setStremeID(this@SignUpActivity, response.record.username)
+                startActivity(DashBoardActivity.getInstance(this@SignUpActivity))
+                finishAffinity()
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertFailed(this@SignUpActivity, message)
+            }
         })
     }
 

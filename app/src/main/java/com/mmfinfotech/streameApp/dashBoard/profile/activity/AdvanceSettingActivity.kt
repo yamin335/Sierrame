@@ -17,11 +17,15 @@ import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticationActivi
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.CountryListActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.getCountryCodes
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.models.Country
+import com.mmfinfotech.streameApp.models.CommonResponse
+import com.mmfinfotech.streameApp.models.PrivateFollowerListResponse
+import com.mmfinfotech.streameApp.models.SecretModeResponse
 import com.mmfinfotech.streameApp.onBoarding.WelComeActivity
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import com.mmfinfotech.streameApp.utils.dismissSafely
 import kotlinx.android.synthetic.main.activity_advance_setting.*
 import retrofit2.Call
 import java.util.*
@@ -99,9 +103,9 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
             callPrivateAccount()
         }
 
-        switchSecretMode.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+        switchSecretMode.setOnCheckedChangeListener { buttonView, isChecked ->
             callApiSecret()
-        })
+        }
     }
 
     private fun callApiLogout() {
@@ -109,30 +113,17 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLogout(headers)
-        callApi(true, callLogout, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        appPreferences?.clearPreferences(this@AdvanceSettingActivity)
-                        appPreferences?.setAuthToken(this@AdvanceSettingActivity, AppConstants.Defaults.string)
-                        startActivity(WelComeActivity.getInstance(this@AdvanceSettingActivity))
-                        finishAffinity()
-                    }
-
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val callLogout: Call<CommonResponse?>? = apiService?.callLogout(headers)
+        callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<CommonResponse> {
+            override fun onDataFetched(response: CommonResponse?) {
+                appPreferences?.clearPreferences(this@AdvanceSettingActivity)
+                appPreferences?.setAuthToken(this@AdvanceSettingActivity, AppConstants.Defaults.string)
+                startActivity(WelComeActivity.getInstance(this@AdvanceSettingActivity))
+                finishAffinity()
             }
 
-            override fun onFailure() {
-
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertInformation(this@AdvanceSettingActivity, message)
             }
         })
     }
@@ -142,33 +133,15 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callSecretMode: Call<JsonObject?>? = apiService?.callsettingSecret(headers)
-        callApi(true, callSecretMode, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        val secretMode = getStringFromJson(record, "secret_mode", AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
-                        appPreferences?.setSecretMode(this@AdvanceSettingActivity, secretMode)
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val callSecretMode: Call<SecretModeResponse?>? = apiService?.callSettingSecret(headers)
+        callRemoteApi(true, callSecretMode, object : ApiClient.ApiCallbackListener<SecretModeResponse> {
+            override fun onDataFetched(response: SecretModeResponse?) {
+                ShowAlertInformation(this@AdvanceSettingActivity, response?.message)
+                appPreferences?.setSecretMode(this@AdvanceSettingActivity, response?.record?.secret_mode)
             }
 
-            override fun onFailure() {
-
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertInformation(this@AdvanceSettingActivity, message)
             }
         })
     }
@@ -212,31 +185,14 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callprivateFollow: Call<JsonObject?>? = apiService?.callsettingPrivateFollowerList(headers)
-        callApi(true, callprivateFollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+        val callPrivateFollow: Call<PrivateFollowerListResponse?>? = apiService?.callSettingPrivateFollowerList(headers)
+        callRemoteApi(true, callPrivateFollow, object : ApiClient.ApiCallbackListener<PrivateFollowerListResponse> {
+            override fun onDataFetched(response: PrivateFollowerListResponse?) {
+                ShowAlertInformation(this@AdvanceSettingActivity, response?.message)
             }
 
-            override fun onFailure() {
-
+            override fun onFailed(status: String, message: String?) {
+                ShowAlertInformation(this@AdvanceSettingActivity, message)
             }
         })
     }

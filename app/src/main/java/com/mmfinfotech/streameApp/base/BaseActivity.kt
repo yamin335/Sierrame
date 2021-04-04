@@ -22,6 +22,7 @@ import com.mmfinfotech.streameApp.util.networkWatcher.NetworkConnectionChecker
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import com.mmfinfotech.streameApp.utils.dismissSafely
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,7 +71,7 @@ open class BaseActivity : AppCompatActivity() {
         call?.clone()?.enqueue(object : Callback<T?> {
             override fun onFailure(call: Call<T?>, t: Throwable) {
                 onApiResponse?.onFailed(ValidationError, t.message)
-                if (dialog?.isShowing == true) dialog?.dismiss()
+                dialog?.dismissSafely()
                 ShowAlertRequestFailed(this@BaseActivity)
             }
 
@@ -120,7 +121,7 @@ open class BaseActivity : AppCompatActivity() {
                 } else {
                     ShowAlertFailed(this@BaseActivity, msg)
                 }
-                if (dialog?.isShowing == true) dialog?.dismiss()
+                dialog?.dismissSafely()
             }
         })
     }

@@ -28,13 +28,12 @@ import com.mmfinfotech.streameApp.dashBoard.streme.activity.AddClipActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticatLive
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticationActivity
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.CameraActivity
-import com.mmfinfotech.streameApp.models.Category
-import com.mmfinfotech.streameApp.models.Hashtags
-import com.mmfinfotech.streameApp.models.LiversProfile
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import com.mmfinfotech.streameApp.utils.dismissSafely
 import kotlinx.android.synthetic.main.activity_dash_board.*
 import retrofit2.Call
 import java.io.ByteArrayOutputStream
@@ -105,7 +104,7 @@ class DashBoardActivity : DashBoardBaseActivity() {
                             startActivity(CameraActivity.getInstance(this))
                         }
                         R.id.container_Live -> {
-                            LiveAthentication()
+                            liveAuthentication()
                         }
                         R.id.container_clips -> {
                             if (checkHasPermission(this@DashBoardActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == true &&
@@ -364,99 +363,69 @@ class DashBoardActivity : DashBoardBaseActivity() {
         }
     }
 
-    private fun LiveAthentication() {
-        val hasTagArray: ArrayList<Hashtags?>? = ArrayList()
-        val arrcategoryArray: ArrayList<Category?>? = ArrayList()
+    //      headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDBiMDc
+//      1NjgyYzNhMTViMTA2ZmNmYTJkNjNiZDNlZTA2OGMxMjBmZjU4ODYzMDAxNTAyMDRjNGJjMWI3MDIwNzI1OGIyZWE5OWNkYzEzNmEiLC
+//      JpYXQiOjE1OTc0MDY0NDksIm5iZiI6MTU5NzQwNjQ0OSwiZXhwIjoxNjI4OTQyNDQ5LCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.
+//      pF_G1N3P2Td8GAm1I-WYZ2hbR_WmmhvjhaRWi9qaP_fTUHXQnGBrE7HpAw3QIg_4_X2FMWjZiPmc4dg3l2Z0ddAwgdIsHYnmk5mtz2bC
+//      4ib1kQDIih2bSZZcZ2zx3bcy5c_kbTkvivLzzFutSBbZ4mXKRls7JgQMayx0kxH1AT-yoXC3I1jMEoZqk7xVx_vA4IDxdNKijkOvLDH3
+//      YkcvHcbRrC1ck9Dc3KGtIhhDgAraCF3v1LPiVJ6Sf2arTyM7i5T7asE_uFnvwmcxQ3kYYWIIB-KgwR2hTQy6MwoYBPgYDyl0E8k1PO5z7
+//      2T_qXxFR_r0YVnvk9xFDN0mou9qBaQwKWs6YIhMAp2mBWu22Yx0p6ymYw82Xr4nIlWpUWjSiR1IrvB1W7B0xyJhL35fOhT-dDA55DQcLC
+//      O60keYCyyNchnyy2X7JtnGQ6rmaPu9dUmwHJ0atb91YWsrzLtKSsQ8efoN7vUMCdLCoQF_m3hpo0_NB0jFX0CqZU84wLSu7-Mw57Y0H0x
+//      QqRXVGY7RAgmEZtTgiFK_XumUOntIiDhydkwayXg3JukTqp_gMosiO4tQgO3eQotNYwlm-sz91tw-q-wEBXT1poDtmJ7vQSRlNvxJyY1O
+//      HMACRRpGPJhbb27NFI1tHtqeZz4xFunJsEHns0Dm326f3_1XVIeY_qM"
+
+    private fun liveAuthentication() {
+        val hasTagArray: ArrayList<LiveStreamHashTag?> = ArrayList()
+        val arrCategoryArray: ArrayList<LiveStreamCategory?> = ArrayList()
         val headers = HashMap<String, String>()
-//      headers["Authorization"] = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDBiMDc1NjgyYzNhMTViMTA2ZmNmYTJkNjNiZDNlZTA2OGMxMjBmZjU4ODYzMDAxNTAyMDRjNGJjMWI3MDIwNzI1OGIyZWE5OWNkYzEzNmEiLCJpYXQiOjE1OTc0MDY0NDksIm5iZiI6MTU5NzQwNjQ0OSwiZXhwIjoxNjI4OTQyNDQ5LCJzdWIiOiI5Iiwic2NvcGVzIjpbXX0.pF_G1N3P2Td8GAm1I-WYZ2hbR_WmmhvjhaRWi9qaP_fTUHXQnGBrE7HpAw3QIg_4_X2FMWjZiPmc4dg3l2Z0ddAwgdIsHYnmk5mtz2bC4ib1kQDIih2bSZZcZ2zx3bcy5c_kbTkvivLzzFutSBbZ4mXKRls7JgQMayx0kxH1AT-yoXC3I1jMEoZqk7xVx_vA4IDxdNKijkOvLDH3YkcvHcbRrC1ck9Dc3KGtIhhDgAraCF3v1LPiVJ6Sf2arTyM7i5T7asE_uFnvwmcxQ3kYYWIIB-KgwR2hTQy6MwoYBPgYDyl0E8k1PO5z72T_qXxFR_r0YVnvk9xFDN0mou9qBaQwKWs6YIhMAp2mBWu22Yx0p6ymYw82Xr4nIlWpUWjSiR1IrvB1W7B0xyJhL35fOhT-dDA55DQcLCO60keYCyyNchnyy2X7JtnGQ6rmaPu9dUmwHJ0atb91YWsrzLtKSsQ8efoN7vUMCdLCoQF_m3hpo0_NB0jFX0CqZU84wLSu7-Mw57Y0H0xQqRXVGY7RAgmEZtTgiFK_XumUOntIiDhydkwayXg3JukTqp_gMosiO4tQgO3eQotNYwlm-sz91tw-q-wEBXT1poDtmJ7vQSRlNvxJyY1OHMACRRpGPJhbb27NFI1tHtqeZz4xFunJsEHns0Dm326f3_1XVIeY_qM"
+
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@DashBoardActivity)}"
 
         val apiService: MyApiEndpointInterface? = ApiClient(this@DashBoardActivity).getClient()?.create(
             MyApiEndpointInterface::class.java
         )
-        val callStremeData: Call<JsonObject?>? = apiService?.callStremeData(headers)
-        callApi(true, callStremeData, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val recordObj = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val hashArray = getJsonArrayFromJson(recordObj, "hashtags", JsonArray())
-                        val uuid = getStringFromJson(recordObj, "uuid", "")
+        val callStreamData: Call<LiveStreamHashTagCategoryResponse?>? = apiService?.callLiveStreamData(headers)
+        callRemoteApi(true, callStreamData, object : ApiClient.ApiCallbackListener<LiveStreamHashTagCategoryResponse> {
+            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?) {
+                val uuid = response?.record?.uuid
+                val hashTags = response?.record?.hashtags ?: return
+                val categories = response.record.category ?: return
 
-                        for (i in 0 until hashArray!!.size()) {
-                            val hashTagsObjects = getJsonObjFromJson(hashArray, i, JsonObject())
-                            val id = getStringFromJson(
-                                hashTagsObjects,
-                                "id",
-                                AppConstants.Defaults.string
-                            )
-                            val tag_name = getStringFromJson(
-                                hashTagsObjects,
-                                "tag_name",
-                                AppConstants.Defaults.string
-                            )
-                            hasTagArray?.add(Hashtags(id, tag_name))
-                        }
-                        val categoryArray = getJsonArrayFromJson(recordObj, "category", JsonArray())
-                        for (i in 0 until categoryArray!!.size()) {
-                            val categoryObjects = getJsonObjFromJson(categoryArray, i, JsonObject())
-                            val id = getStringFromJson(
-                                categoryObjects,
-                                "id",
-                                AppConstants.Defaults.string
-                            )
-                            val name = getStringFromJson(
-                                categoryObjects,
-                                "name",
-                                AppConstants.Defaults.string
-                            )
-                            arrcategoryArray?.add(Category(id, name))
-                        }
-                        startActivity(
-                            AuthenticatLive.getInstance(
-                                this@DashBoardActivity,
-                                uuid,
-                                hasTagArray,
-                                arrcategoryArray
-                            )
-                        )
-                        val msg = getStringFromJson(
-                            mainObject,
-                            message,
-                            AppConstants.Defaults.string
-                        )
-//                        Toast.makeText(this@DashBoardActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-                        showAlertCoutionLiveStreame(
-                            this@DashBoardActivity,
-                            object : View.OnClickListener {
-                                override fun onClick(v: View?) {
-                                    when (v?.id) {
-                                        R.id.buttonAuthentication -> {
-                                            val recordObj = getJsonObjFromJson(
-                                                mainObject,
-                                                record,
-                                                JsonObject()
-                                            )
-                                            startActivity(AuthenticationActivity.getInstance(this@DashBoardActivity, AuthenticationActivity.ActionLive))
-                                        }
-                                    }
-                                }
-                            })
-                        val msg = getStringFromJson(
-                            mainObject,
-                            message,
-                            AppConstants.Defaults.string
-                        )
-                        Toast.makeText(this@DashBoardActivity, msg, Toast.LENGTH_LONG).show()
-                    }
+                for (tag in hashTags) {
+                    hasTagArray.add(tag)
                 }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+
+                for (category in categories) {
+                    arrCategoryArray.add(category)
+                }
+                startActivity(
+                    AuthenticatLive.getInstance(
+                        this@DashBoardActivity,
+                        uuid,
+                        hasTagArray,
+                        arrCategoryArray
+                    )
+                )
+                dialog?.dismissSafely()
             }
 
-            override fun onFailure() {}
+            override fun onFailed(status: String, message: String?) {
+                when(status) {
+                    NotVerify -> {
+                        showAlertCoutionLiveStreame(
+                            this@DashBoardActivity
+                        ) { v ->
+                            when (v?.id) {
+                                R.id.buttonAuthentication -> {
+                                    startActivity(AuthenticationActivity.getInstance(this@DashBoardActivity, AuthenticationActivity.ActionLive))
+                                }
+                            }
+                        }
+
+                        Toast.makeText(this@DashBoardActivity, message, Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
         })
     }
 

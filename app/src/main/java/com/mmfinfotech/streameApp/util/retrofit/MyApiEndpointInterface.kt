@@ -1,8 +1,7 @@
 package com.mmfinfotech.streameApp.util.retrofit
 
 import com.google.gson.JsonObject
-import com.mmfinfotech.streameApp.models.LatestClipResponse
-import com.mmfinfotech.streameApp.models.LoginResponse
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,7 +13,7 @@ interface MyApiEndpointInterface {
      * API  using for Signup
      * */
     @POST(AppConstants.Endpoint.signup)
-    fun callSignup(@Body jsonObject: JsonObject?): Call<JsonObject?>
+    fun callSignUp(@Body jsonObject: JsonObject?): Call<SignUpResponse?>
 
     /**
      * API using for SignIn
@@ -57,13 +56,13 @@ interface MyApiEndpointInterface {
      * Request for varify no
      **/
     @POST(AppConstants.Endpoint.verifycode)
-    fun callVerifyCode(@HeaderMap headers: Map<String, String>, @Body jsonObject: JsonObject?): Call<JsonObject?>
+    fun callVerifyCode(@HeaderMap headers: Map<String, String>, @Body jsonObject: JsonObject?): Call<LiveStreamHashTagCategoryResponse?>
 
     /**
      * Request for send the varification Code
      **/
     @POST(AppConstants.Endpoint.startverification)
-    fun callSendVarification(@HeaderMap headers: Map<String, String>, @Body jsonObject: JsonObject?): Call<JsonObject?>
+    fun callSendVarification(@HeaderMap headers: Map<String, String>, @Body jsonObject: JsonObject?): Call<CommonResponse?>
 
     /**
      * Request for add schedule
@@ -100,7 +99,7 @@ interface MyApiEndpointInterface {
      *
      **/
     @GET(AppConstants.Endpoint.streamStartData)
-    fun callStremeData(@HeaderMap headers: Map<String, String>): Call<JsonObject?>
+    fun callLiveStreamData(@HeaderMap headers: Map<String, String>): Call<LiveStreamHashTagCategoryResponse?>
 
     /**
      * Request for HotStream
@@ -255,7 +254,7 @@ interface MyApiEndpointInterface {
      * Setting Section Api SecretMode
      **/
     @GET(AppConstants.Endpoint.settingSecretMode)
-    fun callsettingSecret(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callSettingSecret(@HeaderMap header: Map<String, String>): Call<SecretModeResponse?>
 
     /**
      * setting Original Photos
@@ -267,7 +266,7 @@ interface MyApiEndpointInterface {
      * setting Private FollowerList
      * */
     @GET(AppConstants.Endpoint.settingPrivateFollowerList)
-    fun callsettingPrivateFollowerList(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callSettingPrivateFollowerList(@HeaderMap header: Map<String, String>): Call<PrivateFollowerListResponse?>
 
     /**
      * Setting private account
@@ -279,7 +278,7 @@ interface MyApiEndpointInterface {
      * Setting Private
      **/
     @GET(AppConstants.Endpoint.userLogout)
-    fun callLogout(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callLogout(@HeaderMap header: Map<String, String>): Call<CommonResponse?>
 
     /**
      * Setting  ContactUs

@@ -8,22 +8,22 @@ import android.os.Bundle
 import android.widget.Toast
 import com.google.android.material.chip.Chip
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.models.Hashtags
+import com.mmfinfotech.streameApp.models.LiveStreamHashTag
 import com.mmfinfotech.streameApp.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_hash_tages.*
 import kotlin.collections.ArrayList
 
 class HashTagesActivity : AppCompatActivity() {
-    private var hashTags: ArrayList<Hashtags?>? = ArrayList()
-    private var SelectedHashTags: ArrayList<Hashtags?>? = ArrayList()
+    private var hashTags: ArrayList<LiveStreamHashTag?>? = ArrayList()
+    private var SelectedHashTags: ArrayList<LiveStreamHashTag?>? = ArrayList()
     private var NewHastges: String? = null
 
     companion object {
         val HashTags = "HashTags"
         fun getInstance(
                 context: Context?,
-                selectedList: ArrayList<Hashtags?>? = ArrayList()
-                , choosenList: ArrayList<Hashtags?>?
+                selectedList: ArrayList<LiveStreamHashTag?>? = ArrayList()
+                , choosenList: ArrayList<LiveStreamHashTag?>?
         ) = Intent(context, HashTagesActivity::class.java).apply {
             putExtra(HashTags, selectedList)
             putExtra("List2", choosenList)
@@ -65,7 +65,7 @@ class HashTagesActivity : AppCompatActivity() {
     private fun setHashTagChipGroup() {
         for (i in 0 until hashTags?.size!!) {
             val chip = this.layoutInflater.inflate(R.layout.dynamic_chip_item, null, false) as Chip
-            chip.text = hashTags?.get(i)?.Tag
+            chip.text = hashTags?.get(i)?.tag_name
             for (j in 0 until SelectedHashTags?.size!!) {
                 if (SelectedHashTags?.get(j)?.id == hashTags?.get(i)?.id) {
                     chip.isChecked = true
@@ -79,7 +79,7 @@ class HashTagesActivity : AppCompatActivity() {
                     hashTags?.get(i)?.selectedValue = false
                     try {
                         for (j in 0 until SelectedHashTags?.size!!) {
-                            if (hashTags?.get(i)?.Tag?.equals(SelectedHashTags?.get(j)?.Tag)!!) {
+                            if (hashTags?.get(i)?.tag_name?.equals(SelectedHashTags?.get(j)?.tag_name)!!) {
                                 SelectedHashTags?.remove(SelectedHashTags?.get(j))
                             }
                         }
@@ -103,7 +103,7 @@ class HashTagesActivity : AppCompatActivity() {
                 if (Activity.RESULT_OK == resultCode) {
                     if (Activity.RESULT_OK == resultCode) {
                         NewHastges = data?.getStringExtra(AppConstants.IntentExtras.addNewHashTag).toString()
-                        hashTags?.add(Hashtags("", NewHastges, false))
+                        hashTags?.add(LiveStreamHashTag(0, NewHastges, false))
                         chipGroupHashTagList.removeAllViews()
                         setHashTagChipGroup()
                     }

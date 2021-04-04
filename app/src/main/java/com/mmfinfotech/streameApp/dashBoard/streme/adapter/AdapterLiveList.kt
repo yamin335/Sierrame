@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.models.Category
+import com.mmfinfotech.streameApp.models.LiveStreamCategory
 
 class AdapterLiveList(
     val context: Context?,
-    private val arrlive : ArrayList<Category?>?,
+    private val arrlive : ArrayList<LiveStreamCategory?>?,
     private val onLiveListListener : OnLiveListListner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val tag : String? = AdapterLiveList::class.java.simpleName
