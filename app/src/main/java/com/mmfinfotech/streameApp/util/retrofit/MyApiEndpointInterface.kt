@@ -104,8 +104,14 @@ interface MyApiEndpointInterface {
      * Request for HotStream
      *
      **/
+    @Multipart
     @POST(AppConstants.Endpoint.hotLive)
-    fun callHotTheme(@HeaderMap headers: Map<String, String>, @Query("page") page: String?, @Body jsonObj: JsonObject): Call<JsonObject?>
+    fun callHotTheme(
+        @HeaderMap headers: Map<String, String>,
+        @Query("page") page: String?,
+        @Part("user_category") userCategory: RequestBody,
+        @Part("category") category: RequestBody
+    ): Call<JsonObject?>
 
     /**
      * Request for follower
@@ -495,5 +501,23 @@ interface MyApiEndpointInterface {
     fun callDeleteClip(
         @HeaderMap header: Map<String, String>,
         @Path("clip_id") postId: String?
+    ): Call<JsonObject?>
+
+    @GET(AppConstants.Endpoint.postCommentDelete)
+    fun callPostCommentDelete(
+        @HeaderMap header: Map<String, String>,
+        @Path("post_id") postId: String?,
+        @Path("comment_id") commentId: String?
+    ): Call<JsonObject?>
+
+    @GET(AppConstants.Endpoint.blockUser)
+    fun callBlockUser(
+        @HeaderMap header: Map<String, String>,
+        @Path("user_id") userId: String?
+    ): Call<JsonObject?>
+
+    @GET(AppConstants.Endpoint.blockedUserList)
+    fun callBlockUserList(
+        @HeaderMap header: Map<String, String>
     ): Call<JsonObject?>
 }

@@ -16,9 +16,9 @@ import com.mmfinfotech.streameApp.model.Post
 import com.mmfinfotech.streameApp.util.getFormattedDate
 
 class AdapterTimeLine(
-        val context: Context?,
-        private val arrLivers: ArrayList<Post?>?,
-        private val onTimeLineListner: OnTimeLineListner
+    val context: Context?,
+    private val arrLivers: ArrayList<Post?>?,
+    private val onTimeLineListner: OnTimeLineListner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val tag: String? = AdapterTimeLine::class.java.simpleName
     val itemNoData: Int = 0
@@ -45,7 +45,7 @@ class AdapterTimeLine(
                 NoDataViewHolder(view)
             }
             else -> {
-                val view : View = LayoutInflater.from(parent.context)
+                val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.partial_item_row_no_data, parent, false)
                 NoDataViewHolder(view)
             }
@@ -55,40 +55,43 @@ class AdapterTimeLine(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is LiveSchedulViewHolder -> {
-                holder.ImageProfile.animation=AnimationUtils.loadAnimation(context,R.anim.anim)
+                holder.ImageProfile.animation = AnimationUtils.loadAnimation(context, R.anim.anim)
 
 
-                if (arrLivers?.get(position)?.added_on!= null)
+                if (arrLivers?.get(position)?.added_on != null)
                     holder.textViewTime.text = getFormattedDate(context, arrLivers?.get(position)?.update_on!!.toLong())
                 if (arrLivers?.get(position)?.like_status.equals("1")) {
                     holder.ImageButtonHeart.setImageResource(R.drawable.ic__fillheart_24);
                 } else {
-                  holder.ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
+                    holder.ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
                 }
                 holder.textViewName?.text = arrLivers?.get(position)?.user_name
                 holder.textViewTitles?.text = arrLivers?.get(position)?.title
                 holder.textViewSubTitle?.text = arrLivers?.get(position)?.description
 //                holder.textViewTime?.text = arrLivers?.get(position)?.added_on
-                 Glide.with(context!!)
-                    .load(arrLivers?.get(position)?.user_profile)
-                    .apply(
-                        RequestOptions().error(R.drawable.ic_user)
-                            .placeholder(R.drawable.ic_user)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    )
-                    .apply(RequestOptions.circleCropTransform())
-                     .placeholder(R.drawable.ic_user)
-                     .into(holder.ImageProfile!!)
 
-                Glide.with(context!!)
-                    .load(arrLivers?.get(position)?.file)
-                    .apply(
-                        RequestOptions().error(R.drawable.background_1)
-                            .placeholder(R.drawable.background_1)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    )
-                     .placeholder(R.drawable.background_1)
-                     .into(holder.imagePost!!)
+                context?.let { context ->
+                    Glide.with(context)
+                        .load(arrLivers?.get(position)?.user_profile)
+                        .apply(
+                            RequestOptions().error(R.drawable.ic_user)
+                                .placeholder(R.drawable.ic_user)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        )
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(R.drawable.ic_user)
+                        .into(holder.ImageProfile)
+
+                    Glide.with(context)
+                        .load(arrLivers?.get(position)?.file)
+                        .apply(
+                            RequestOptions().error(R.drawable.background_1)
+                                .placeholder(R.drawable.background_1)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        )
+                        .placeholder(R.drawable.background_1)
+                        .into(holder.imagePost)
+                }
             }
             is NoDataViewHolder -> {
             }
@@ -96,14 +99,14 @@ class AdapterTimeLine(
     }
 
     override fun getItemCount(): Int {
-            if (arrLivers?.size == 0) {
-                arrLivers?.add(null)
-            } else {
-                if (arrLivers?.contains(null) == true && arrLivers?.size > 1) arrLivers.remove(
-                        null
-                )
-            }
-            return (arrLivers?.size ?: 0)
+        if (arrLivers?.size == 0) {
+            arrLivers?.add(null)
+        } else {
+            if (arrLivers?.contains(null) == true && arrLivers?.size > 1) arrLivers.remove(
+                null
+            )
+        }
+        return (arrLivers?.size ?: 0)
 
     }
 
@@ -127,13 +130,13 @@ class AdapterTimeLine(
                 onTimeLineListner.onMoreClickingListner(adapterPosition)
             }
             ImageButtonHeart.setOnClickListener {
-                onTimeLineListner.onLikeClickingListner(adapterPosition,ImageButtonHeart)
+                onTimeLineListner.onLikeClickingListner(adapterPosition, ImageButtonHeart)
             }
             ImageButtonComments.setOnClickListener {
                 onTimeLineListner.onCommentClickingListner(adapterPosition)
             }
             ImageButtonMenuDots.setOnClickListener {
-                onTimeLineListner.onClickTimeLineListner(adapterPosition)
+                onTimeLineListner.onClickThreeDotsListner(adapterPosition)
             }
             ImageButtonShare.setOnClickListener {
                 onTimeLineListner.onShareClickingListner(adapterPosition)
@@ -144,11 +147,10 @@ class AdapterTimeLine(
     inner class NoDataViewHolder constructor(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnTimeLineListner {
-      fun  onClickTimeLineListner(p:Int)
-        fun onMoreClickingListner(p:Int)
-        fun onCommentClickingListner(p:Int)
+        fun onClickThreeDotsListner(p: Int)
+        fun onMoreClickingListner(p: Int)
+        fun onCommentClickingListner(p: Int)
         fun onLikeClickingListner(p: Int, ImageButtonHeart: ImageView)
-        fun onShareClickingListner(p:Int)
-
+        fun onShareClickingListner(p: Int)
     }
 }

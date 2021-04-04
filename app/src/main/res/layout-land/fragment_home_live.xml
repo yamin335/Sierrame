@@ -51,6 +51,25 @@
                     android:padding="@dimen/_10sdp" />
 
                 <TextView
+                    android:id="@+id/txtViewNewComer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:textAlignment="center"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:text="@string/txt_new_comer"
+                    android:textColor="@drawable/textview_selectore"
+                    android:textSize="@dimen/_12sdp" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/viewcolore"
+                    android:padding="@dimen/_10sdp" />
+
+                <TextView
                     android:id="@+id/txtViewHotTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

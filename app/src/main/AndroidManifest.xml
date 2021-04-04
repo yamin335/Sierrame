@@ -35,6 +35,7 @@
         android:theme="@style/Theme.Streame"
         android:usesCleartextTraffic="false"
         tools:replace="android:allowBackup">
+        <activity android:name=".dashBoard.profile.activity.BlockedUserActivity"></activity>
         <activity android:name=".dashBoard.activity.AnonymousCheeringActivity" />
         <activity android:name=".dashBoard.activity.CheeringLiveActivity" />
         <activity android:name=".dashBoard.profile.activity.LeaderBoardActivity" />
@@ -194,7 +195,6 @@
         <activity
             android:name=".agora.LiveActivityDemo"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".agora.LiveTwoActivity"
             android:screenOrientation="portrait" />

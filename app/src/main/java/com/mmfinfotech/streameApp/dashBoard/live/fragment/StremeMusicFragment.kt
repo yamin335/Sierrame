@@ -12,6 +12,7 @@ import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterStreameMusicLivi
 import com.mmfinfotech.streameApp.model.HomeLive
 import kotlinx.android.synthetic.main.fragment_streme_music.*
 
+@Deprecated(message = "Due to change in logic and UIs changes use" , replaceWith = ReplaceWith("CategoryFragment()"))
 class StremeMusicFragment : Fragment() {
     private val TAG = HotThemeFragment::class.java.simpleName
     private var mContext: Context? = null

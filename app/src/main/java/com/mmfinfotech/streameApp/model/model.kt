@@ -202,17 +202,17 @@ data class Schadule(
 /**
  * Hot theme Filters */
 data class HotThemeFilter(
-    val id: String?,
+    val id: Int?,
     val name: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
+        parcel.readInt(),
         parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
+        parcel.writeInt(id!!)
         parcel.writeString(name)
     }
 
@@ -695,6 +695,7 @@ data class CommentsChet(
     val user_profile: String?,
     val amazonaws: String?,
     val profile_status: String?,
+    val owner_id: Int?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
@@ -708,7 +709,8 @@ data class CommentsChet(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
@@ -725,6 +727,7 @@ data class CommentsChet(
         parcel.writeString(user_profile)
         parcel.writeString(amazonaws)
         parcel.writeString(profile_status)
+        parcel.writeInt(owner_id ?: 0)
     }
 
     override fun describeContents(): Int {
@@ -1086,3 +1089,48 @@ data class AnonymousCheering(
     val score : Int? = AppConstants.Defaults.integer,
     val updatedAt : String? = AppConstants.Defaults.string
 )
+
+data class BlockedUser(
+    val id: String?,
+    val blockedUserId: String?,
+    val blockedBy: String?,
+    val status: String?,
+    val blockedUserProfile: String?,
+    val blockedUserName: String?,
+    var blockedUserProfileStatus: String?
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(), // id
+        parcel.readString(), //user id
+        parcel.readString(), // by
+        parcel.readString(), //status
+        parcel.readString(), //userp
+        parcel.readString(), //username
+        parcel.readString(),
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(blockedUserId)
+        parcel.writeString(blockedBy)
+        parcel.writeString(status)
+        parcel.writeString(blockedUserProfile)
+        parcel.writeValue(blockedUserName)
+        parcel.writeValue(blockedUserProfileStatus)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Liver> {
+        override fun createFromParcel(parcel: Parcel): Liver {
+            return Liver(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Liver?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

@@ -35,7 +35,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.set
 
-
+@Deprecated(message = "Due to change in logic and UIs changes use", replaceWith = ReplaceWith("CategoryFragment()"))
 class HotThemeFragment : Fragment() {
     private val TAG = HotThemeFragment::class.java.simpleName
     private var mContext: Context? = null
@@ -45,8 +45,6 @@ class HotThemeFragment : Fragment() {
     private val gridLayoutManager = GridLayoutManager(activity, 2)
     private var arrAuto_msgsObj: java.util.ArrayList<AutoMessage?>? = null
     private var categoryId: String? = ""
-
-    //    private var mLayoutManager: LinearLayoutManager? = null
     private var intentFrom: String? = AppConstants.Defaults.string
     private var lastVisibleItem: Int? = null
     private var totalItemCount: Int? = null
@@ -78,7 +76,6 @@ class HotThemeFragment : Fragment() {
     }
 
     private fun setChipsData() {
-
         for (i in 0 until arrHotThemeFilters?.size!!) {
 //          val chip = Chip(mContext, null, R.style.Widget_MaterialComponents_Chip_Choice)
             val chip = this.layoutInflater.inflate(R.layout.dynamic_chip_item, null, false) as Chip
@@ -86,7 +83,7 @@ class HotThemeFragment : Fragment() {
 //            chip.isClickable = true
 //            chip.isCheckable = true
 
-            chip.isSelected = arrHotThemeFilters?.get(i)?.id == categoryId
+//            chip.isSelected = arrHotThemeFilters?.get(i)?.id == categoryId
 
 //            if(arrHotThemeFilters?.get(i)?.id == categoryId){
 //                chip.isSelected =true
@@ -97,7 +94,7 @@ class HotThemeFragment : Fragment() {
 //            }
 
             chip.setOnClickListener {
-                categoryId = arrHotThemeFilters?.get(i)?.id
+//                categoryId = arrHotThemeFilters?.get(i)?.id
                 Log.d("kak ", "hdfk ${categoryId}")
                 apiHotTheme(true, pageNo, categoryId)
             }
@@ -137,7 +134,9 @@ class HotThemeFragment : Fragment() {
         val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(
             MyApiEndpointInterface::class.java
         )
-        val callHotTheme: Call<JsonObject?>? = apiService?.callHotTheme(headers, pageNo.toString(), sendParameter)
+        val requestUserCategory: RequestBody = RequestBody.create(MediaType.parse("text/plain"), AppConstants.Defaults.string)
+        val requestCategory: RequestBody = RequestBody.create(MediaType.parse("text/plain"), AppConstants.Defaults.string)
+        val callHotTheme: Call<JsonObject?>? = apiService?.callHotTheme(headers, pageNo.toString(), requestUserCategory, requestCategory)
         (mContext as DashBoardActivity).callApi(true, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
@@ -156,10 +155,10 @@ class HotThemeFragment : Fragment() {
                         val dataCategoryArray = getJsonArrayFromJson(record, "category", JsonArray())
                         if (pageNo == 1) {
                             arrHotThemeFilters?.clear()
-                            arrHotThemeFilters?.add(HotThemeFilter("", "Liver"))
+                            arrHotThemeFilters?.add(HotThemeFilter(0, "Liver"))
                             for (i in 0 until dataCategoryArray?.size()!!) {
                                 val dataCategory: JsonObject? = getJsonObjFromJson(dataCategoryArray, i, JsonObject())
-                                val id = getStringFromJson(dataCategory, "id", AppConstants.Defaults.string)
+                                val id = getIntFromJson(dataCategory, "id", AppConstants.Defaults.integer)
                                 val name = getStringFromJson(dataCategory, "name", AppConstants.Defaults.string)
                                 arrHotThemeFilters?.add(HotThemeFilter(id, name))
                             }
@@ -259,7 +258,7 @@ class HotThemeFragment : Fragment() {
 //                        (mContext as DashBoardActivity).setConfig(data?.channel_id, data?.rtcToken, data?.rtmToken, data?.id)
 //                        startActivity(LiveActivity.getInstance(mContext, data?.id, false))
 //                    apiConnectLive(data?.id)
-                    if (data?.accessOption == AppConstants.BroadCastAccessOption.Private){
+                    if (data?.accessOption == AppConstants.BroadCastAccessOption.Private) {
                         createPrivateBroadCasting(mContext, getString(R.string.dialogDescriptionPassUserLiveJoin), false,
                             object : OnDialogPasswordListner {
                                 override fun onButtonClick(view: View?, s: String?) {
@@ -271,7 +270,7 @@ class HotThemeFragment : Fragment() {
 //
                                 }
                             })
-                    }else {
+                    } else {
 //                        AppToast.showToast(mContext, "Public Broadcast")
                         apiConnectLive(data?.id, "")
                     }
@@ -285,7 +284,7 @@ class HotThemeFragment : Fragment() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
         val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(MyApiEndpointInterface::class.java)
         val requestPassword: RequestBody = RequestBody.create(MediaType.parse("text/plain"), password ?: AppConstants.Defaults.string)
-        val callConnectlive: Call<JsonObject?>? = apiService?.callConnectLive(headers, stremeId, requestPassword )
+        val callConnectlive: Call<JsonObject?>? = apiService?.callConnectLive(headers, stremeId, requestPassword)
 
         (mContext as DashBoardActivity).callApi(true, callConnectlive, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
@@ -367,7 +366,7 @@ class HotThemeFragment : Fragment() {
                         val liversProfile: LiversProfile? = LiversProfile(
                             id, channelId, userId, title, description, hashTags, category,
                             startTime, endTime, status, addedOn, updateOn, streamerRanking,
-                            streamerStatus, followStatus,like_status, profileNotes, totalGifts,
+                            streamerStatus, followStatus, like_status, profileNotes, totalGifts,
                             streamerId, streamerName, streamerProfile, rtcToken, rtmToken, userAccount,
                             arrLiveUserConnected,
                             arrAutoMessage, arrLiveScheduleHotTheme

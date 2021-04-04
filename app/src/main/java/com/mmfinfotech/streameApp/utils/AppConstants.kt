@@ -107,11 +107,12 @@ class AppConstants {
     interface FragmentLiveIndex {
         companion object {
             const val FragmentLive = 1
-            const val FragmentLiveHotTheme = 2
-            const val FragmentLiveStremePlus = 3
-            const val FragmentLiveStremeMusic = 4
-            const val FragmentNotification = 5
-            const val FragmentLeaderBoard = 6
+            const val FragmentNeComer = 2
+            const val FragmentLiveHotTheme = 3
+            const val FragmentLiveStremePro = 4
+            const val FragmentLiveStremeMusic = 5
+            const val FragmentNotification = 6
+            const val FragmentLeaderBoard = 7
         }
     }
 
@@ -195,6 +196,9 @@ class AppConstants {
             const val rejectInvitation = "api/stream/reject"
             const val postDelete = "api/post/delete/{post_id}"
             const val clipDelete = "api/clip/delete/{clip_id}"
+            const val postCommentDelete = "api/post/comment_delete/{post_id}/{comment_id}"
+            const val blockUser = "api/user/block/{user_id}"
+            const val blockedUserList = "api/user/blockedUsers"
         }
     }
 

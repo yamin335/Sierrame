@@ -102,13 +102,13 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         switchSecretMode.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             callApiSecret()
         })
+        textViewBlockUser?.setOnClickListener { startActivity(BlockedUserActivity.getInstance(this@AdvanceSettingActivity)) }
     }
 
     private fun callApiLogout() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
-        val apiService: MyApiEndpointInterface? =
-                ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
+        val apiService: MyApiEndpointInterface? = ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callLogout: Call<JsonObject?>? = apiService?.callLogout(headers)
         callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
