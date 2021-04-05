@@ -93,7 +93,7 @@ class SearchBrodcasterActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         if (pageNo == 1) {
@@ -337,7 +337,7 @@ class SearchBrodcasterActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val message = getStringFromJson(mainObject, "message", "")
                         CompleteActionDialog(
                             this@SearchBrodcasterActivity,

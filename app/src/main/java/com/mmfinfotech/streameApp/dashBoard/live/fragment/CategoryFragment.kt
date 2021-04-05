@@ -1,7 +1,6 @@
 package com.mmfinfotech.streameApp.dashBoard.live.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.LiveActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterHotTheme
-import com.mmfinfotech.streameApp.model.*
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnDialogPasswordListner
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -138,7 +137,7 @@ class CategoryFragment : Fragment() {
         (context as DashBoardActivity).callApi(progress, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val bannerArray = getJsonArrayFromJson(record, "banner", JsonArray())
                         if (bannerArray?.size() ?: 0 > 0)
@@ -233,7 +232,7 @@ class CategoryFragment : Fragment() {
         (context as DashBoardActivity).callApi(true, callConnectlive, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val id: String = getStringFromJson(record, "id", AppConstants.Defaults.string)
                         val channelId: String = getStringFromJson(record, "channel_id", AppConstants.Defaults.string)

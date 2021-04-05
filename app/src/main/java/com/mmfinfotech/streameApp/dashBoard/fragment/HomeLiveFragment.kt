@@ -2,17 +2,13 @@ package com.mmfinfotech.streameApp.dashBoard.fragment
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.live.fragment.*
-import com.mmfinfotech.streameApp.util.retrofit.ApiClient
-import com.mmfinfotech.streameApp.util.retrofit.MyApiEndpointInterface
 import com.mmfinfotech.streameApp.utils.AppConstants
 import kotlinx.android.synthetic.main.fragment_home_live.*
 

@@ -3,7 +3,6 @@ package com.mmfinfotech.streameApp.dashBoard.streme.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.MediaController
 import com.google.gson.JsonObject
@@ -99,7 +98,7 @@ class AddClipActivity : DashBoardBaseActivity() {
         callApi(true, callPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         CompleteActionDialog(this@AddClipActivity, getString(R.string.txt_complete), View.OnClickListener { v ->
                             when (v?.id) {

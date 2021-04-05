@@ -176,7 +176,7 @@ class StremerFollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callstremerFollower, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
@@ -232,7 +232,7 @@ class StremerFollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callStreamerFollowing, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         for (i in 0 until dataArray!!.size()) {
@@ -283,7 +283,7 @@ class StremerFollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callFollowUnFollow, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         if (getStringFromJson(record, "follow_status", AppConstants.Defaults.string) == "0") {
                             arrFollowNLike?.remove(arrFollowNLike?.get(position!!))

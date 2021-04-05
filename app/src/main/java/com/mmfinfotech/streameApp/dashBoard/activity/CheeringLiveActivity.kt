@@ -104,7 +104,7 @@ class CheeringLiveActivity : NetworkBaseActivity() {
         callApi(true, callUserLeaderBoard, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val data = getJsonArrayFromJson(record, "data", JsonArray())
                         for (i in 0 until (data?.size() ?: 0)) {

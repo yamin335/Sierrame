@@ -106,7 +106,7 @@ class ClipsFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callMyPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         if (pageNo == 1) {

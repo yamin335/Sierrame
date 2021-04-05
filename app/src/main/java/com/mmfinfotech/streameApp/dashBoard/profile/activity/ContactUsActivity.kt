@@ -78,7 +78,7 @@ class ContactUsActivity : DashBoardBaseActivity() {
         callApi(true, callContactUs, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
 //                        ShowAlertInformation(this@ContactUsActivity, msg)

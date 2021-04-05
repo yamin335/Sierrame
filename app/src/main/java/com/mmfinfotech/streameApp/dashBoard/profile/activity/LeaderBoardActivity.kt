@@ -99,7 +99,7 @@ class LeaderBoardActivity : NetworkBaseActivity() {
         callApi(true, callUserLeaderBoard, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val rankes = getJsonArrayFromJson(record, "rankes", JsonArray())
                         for (i in 0 until (rankes?.size() ?: 0)) {

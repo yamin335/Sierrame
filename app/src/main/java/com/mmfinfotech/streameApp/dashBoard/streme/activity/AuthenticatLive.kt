@@ -179,7 +179,7 @@ class AuthenticatLive : BaseActivity() {
         callApi(true, callAddSchedule, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val channel =
                             getStringFromJson(record, "channel", AppConstants.Defaults.string)

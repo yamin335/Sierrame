@@ -1,6 +1,5 @@
 package com.mmfinfotech.streameApp.base
 
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -9,7 +8,6 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.JsonObject
@@ -65,61 +63,23 @@ open class BaseActivity : AppCompatActivity() {
     fun <T> callRemoteApi(
         showProgressDialog: Boolean?,
         call: Call<T?>?,
-        onApiResponse: ApiClient.ApiCallbackListener<T>?
+        onApiResponse: ApiClient.ApiCallbackListener<T>
     ) {
         if (showProgressDialog == true && dialog?.isShowing == false) dialog?.show()
+        var msg = resources.getString(R.string.something_went_wrong)
         call?.clone()?.enqueue(object : Callback<T?> {
             override fun onFailure(call: Call<T?>, t: Throwable) {
-                onApiResponse?.onFailed(ValidationError, t.message)
+                onApiResponse.onDataFetched(null, false, t.message ?: msg)
                 dialog?.dismissSafely()
                 ShowAlertRequestFailed(this@BaseActivity)
             }
 
             override fun onResponse(p0: Call<T?>, response: Response<T?>) {
-                val msg = response.message() ?: resources.getString(R.string.something_went_wrong)
+                msg = response.message() ?: msg
                 if (response.isSuccessful) {
-                    when (response.code().toString()) {
-                        Sccess -> {
-                            onApiResponse?.onDataFetched(response = response.body())
-                        }
-                        AppConstants.Defaults.string -> {
-                            ShowAlertFailed(
-                                this@BaseActivity,
-                                msg
-                            )
-                        }
-                        Anauthorized -> {
-                            appPreferences?.clearPreferences(this@BaseActivity)
-                            startActivity(Intent(this@BaseActivity, SplashActivity::class.java))
-                            finishAffinity()
-                        }
-                        NotFound -> {
-                            onApiResponse?.onFailed(NotFound, msg)
-                        }
-                        OtpExpire -> {
-                            onApiResponse?.onFailed(OtpExpire, msg)
-                        }
-                        NotVerify -> {
-                            val authToken: String? = response.headers().get(authtoken)
-                            if (authToken != null && !TextUtils.isEmpty(authToken))
-                                appPreferences?.setAuthToken(this@BaseActivity, authToken)
-                            onApiResponse?.onFailed(NotVerify, msg)
-                        }
-                        AnotherDevice -> {
-                            onApiResponse?.onFailed(AnotherDevice, msg)
-                        }
-                        ValidationError -> {
-                            onApiResponse?.onFailed(ValidationError, msg)
-                        }
-                        PerameterNotProper -> {
-                            onApiResponse?.onFailed(PerameterNotProper, msg)
-                        }
-                        else -> {
-                            ShowAlertFailed(this@BaseActivity, msg)
-                        }
-                    }
+                    onApiResponse.onDataFetched(response.body(), true, msg)
                 } else {
-                    ShowAlertFailed(this@BaseActivity, msg)
+                    onApiResponse.onDataFetched(response.body(), false, msg)
                 }
                 dialog?.dismissSafely()
             }
@@ -154,10 +114,10 @@ open class BaseActivity : AppCompatActivity() {
                     val status = getStringFromJson(mainObject, status, AppConstants.Defaults.string)
                     var msg = resources.getString(R.string.something_went_wrong)
                     when (status) {
-                        Sccess -> {
+                        Success -> {
                             msg =
                                 getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                            onApiResponse?.onSuccess(Sccess, mainObject)
+                            onApiResponse?.onSuccess(Success, mainObject)
                         }
                         AppConstants.Defaults.string -> {
                             ShowAlertFailed(
@@ -166,7 +126,7 @@ open class BaseActivity : AppCompatActivity() {
                             )
                             if (dialog?.isShowing == true) dialog?.dismiss()
                         }
-                        Anauthorized -> {
+                        UnAuthorized -> {
                             appPreferences?.clearPreferences(this@BaseActivity)
                             startActivity(Intent(this@BaseActivity, SplashActivity::class.java))
                             if (dialog?.isShowing == true) dialog?.dismiss()
@@ -191,8 +151,8 @@ open class BaseActivity : AppCompatActivity() {
                         ValidationError -> {
                             onApiResponse?.onSuccess(ValidationError, mainObject)
                         }
-                        PerameterNotProper -> {
-                            onApiResponse?.onSuccess(PerameterNotProper, mainObject)
+                        ParameterNotProper -> {
+                            onApiResponse?.onSuccess(ParameterNotProper, mainObject)
                         }
                         else -> {
                             msg =
@@ -235,7 +195,7 @@ open class BaseActivity : AppCompatActivity() {
                     var msg = resources.getString(R.string.something_went_wrong)
                     Log.v(tag, "Response Token refresh $mainObject")
                     when (status) {
-                        Sccess -> {
+                        Success -> {
                             val authToken: String? = response.headers().get(authtoken)
                             Log.v(tag, "auth token $authToken ")
                             if (authToken != null && !TextUtils.isEmpty(authToken))

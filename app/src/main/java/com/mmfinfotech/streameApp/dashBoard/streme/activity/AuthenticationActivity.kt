@@ -74,28 +74,33 @@ class AuthenticationActivity : DashBoardBaseActivity() {
         val apiService: MyApiEndpointInterface? = ApiClient(this@AuthenticationActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSignUp: Call<LiveStreamHashTagCategoryResponse?>? = apiService?.callVerifyCode(headers, sendParams)
         callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<LiveStreamHashTagCategoryResponse> {
-            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?) {
-                val uuid = response?.record?.uuid
-                val hashArray = response?.record?.hashtags ?: return
-                val categoryArray = response.record.category ?: return
+            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AuthenticationActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<LiveStreamHashTagCategoryResponse> {
+                    override fun onSuccess(response: LiveStreamHashTagCategoryResponse) {
+                        val uuid = response?.record?.uuid
+                        val hashArray = response?.record?.hashtags ?: return
+                        val categoryArray = response.record.category ?: return
 
-                for (tag in hashArray) {
-                    hasTagArray.add(tag)
-                }
+                        for (tag in hashArray) {
+                            hasTagArray.add(tag)
+                        }
 
-                for (category in categoryArray) {
-                    arrcategoryArray.add(category)
-                }
+                        for (category in categoryArray) {
+                            arrcategoryArray.add(category)
+                        }
 
-                if (intent?.action == ActionLive)
-                    startActivity(AuthenticatLive.getInstance(this@AuthenticationActivity, uuid, hasTagArray, arrcategoryArray))
+                        if (intent?.action == ActionLive)
+                            startActivity(AuthenticatLive.getInstance(this@AuthenticationActivity, uuid, hasTagArray, arrcategoryArray))
 //                        else if (intent?.action == ActionSettings)
 //                            startActivity(AuthenticationActivity.getInstance(this@AuthenticationActivity, AuthenticationActivity.ActionLive))
-                finish()
-            }
+                        finish()
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertInformation(this@AuthenticationActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AuthenticationActivity, message)
+                    }
+                })
             }
         })
     }
@@ -112,12 +117,17 @@ class AuthenticationActivity : DashBoardBaseActivity() {
                 ApiClient(this@AuthenticationActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSignUp: Call<CommonResponse?>? = apiService?.callSendVarification(headers, sendParams)
         callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<CommonResponse> {
-            override fun onDataFetched(response: CommonResponse?) {
-                ShowAlertInformation(this@AuthenticationActivity, response?.message)
-            }
+            override fun onDataFetched(response: CommonResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AuthenticationActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<CommonResponse> {
+                    override fun onSuccess(response: CommonResponse) {
+                        ShowAlertInformation(this@AuthenticationActivity, response.message)
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertInformation(this@AuthenticationActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AuthenticationActivity, message)
+                    }
+                })
             }
         })
     }

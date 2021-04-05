@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,8 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.model.BlockedUser
-import com.mmfinfotech.streameApp.model.Liver
+import com.mmfinfotech.streameApp.models.BlockedUser
 
 class BlockedUserAdapter(
     val context: Context?,

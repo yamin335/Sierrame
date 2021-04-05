@@ -13,7 +13,7 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.BlockedUserAdapter
-import com.mmfinfotech.streameApp.model.BlockedUser
+import com.mmfinfotech.streameApp.models.BlockedUser
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
@@ -72,7 +72,7 @@ class BlockedUserActivity : NetworkBaseActivity() {
         callApi(true, callBlockedUser, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         if (pageNo == 1) {
@@ -121,7 +121,7 @@ class BlockedUserActivity : NetworkBaseActivity() {
         callApi(true, callBlockUser, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val message: String = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
                         Toast.makeText(this@BlockedUserActivity, message, Toast.LENGTH_SHORT).show()
                         arrayBlockedUser?.removeAt(p)

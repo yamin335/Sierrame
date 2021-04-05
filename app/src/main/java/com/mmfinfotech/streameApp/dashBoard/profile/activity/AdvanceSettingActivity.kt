@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +23,6 @@ import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
-import com.mmfinfotech.streameApp.utils.dismissSafely
 import kotlinx.android.synthetic.main.activity_advance_setting.*
 import retrofit2.Call
 import java.util.*
@@ -116,15 +113,21 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callLogout: Call<CommonResponse?>? = apiService?.callLogout(headers)
         callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<CommonResponse> {
-            override fun onDataFetched(response: CommonResponse?) {
-                appPreferences?.clearPreferences(this@AdvanceSettingActivity)
-                appPreferences?.setAuthToken(this@AdvanceSettingActivity, AppConstants.Defaults.string)
-                startActivity(WelComeActivity.getInstance(this@AdvanceSettingActivity))
-                finishAffinity()
-            }
+            override fun onDataFetched(response: CommonResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AdvanceSettingActivity, response?.status, response?.message ?: message, response, object : ApiClient
+                .ApiResponseListener<CommonResponse> {
+                    override fun onSuccess(response: CommonResponse) {
+                        appPreferences?.clearPreferences(this@AdvanceSettingActivity)
+                        appPreferences?.setAuthToken(this@AdvanceSettingActivity, AppConstants.Defaults.string)
+                        startActivity(WelComeActivity.getInstance(this@AdvanceSettingActivity))
+                        finishAffinity()
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    }
+                })
             }
         })
     }
@@ -136,13 +139,18 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSecretMode: Call<SecretModeResponse?>? = apiService?.callSettingSecret(headers)
         callRemoteApi(true, callSecretMode, object : ApiClient.ApiCallbackListener<SecretModeResponse> {
-            override fun onDataFetched(response: SecretModeResponse?) {
-                ShowAlertInformation(this@AdvanceSettingActivity, response?.message)
-                appPreferences?.setSecretMode(this@AdvanceSettingActivity, response?.record?.secret_mode)
-            }
+            override fun onDataFetched(response: SecretModeResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AdvanceSettingActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<SecretModeResponse> {
+                    override fun onSuccess(response: SecretModeResponse) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, response.message)
+                        appPreferences?.setSecretMode(this@AdvanceSettingActivity, response.record?.secret_mode)
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    }
+                })
             }
         })
     }
@@ -156,7 +164,7 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         callApi(true, callOriginalPhoto, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
                         ShowAlertInformation(this@AdvanceSettingActivity, msg)
@@ -188,12 +196,17 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callPrivateFollow: Call<PrivateFollowerListResponse?>? = apiService?.callSettingPrivateFollowerList(headers)
         callRemoteApi(true, callPrivateFollow, object : ApiClient.ApiCallbackListener<PrivateFollowerListResponse> {
-            override fun onDataFetched(response: PrivateFollowerListResponse?) {
-                ShowAlertInformation(this@AdvanceSettingActivity, response?.message)
-            }
+            override fun onDataFetched(response: PrivateFollowerListResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AdvanceSettingActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<PrivateFollowerListResponse> {
+                    override fun onSuccess(response: PrivateFollowerListResponse) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, response.message)
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    }
+                })
             }
         })
     }
@@ -207,7 +220,7 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         callApi(true, callPrivateAccount, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
                         ShowAlertInformation(this@AdvanceSettingActivity, msg)

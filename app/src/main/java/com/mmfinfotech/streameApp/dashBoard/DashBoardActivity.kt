@@ -18,7 +18,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
@@ -247,7 +246,7 @@ class DashBoardActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val id: String? = getStringFromJson(record, "id", AppConstants.Defaults.string)
                         val channelId: String? = getStringFromJson(record, "channel_id", AppConstants.Defaults.string)
@@ -314,7 +313,7 @@ class DashBoardActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         finish()
                     }
@@ -386,45 +385,49 @@ class DashBoardActivity : DashBoardBaseActivity() {
         )
         val callStreamData: Call<LiveStreamHashTagCategoryResponse?>? = apiService?.callLiveStreamData(headers)
         callRemoteApi(true, callStreamData, object : ApiClient.ApiCallbackListener<LiveStreamHashTagCategoryResponse> {
-            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?) {
-                val uuid = response?.record?.uuid
-                val hashTags = response?.record?.hashtags ?: return
-                val categories = response.record.category ?: return
+            override fun onDataFetched(response: LiveStreamHashTagCategoryResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@DashBoardActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<LiveStreamHashTagCategoryResponse> {
+                    override fun onSuccess(response: LiveStreamHashTagCategoryResponse) {
+                        val uuid = response.record?.uuid
+                        val hashTags = response.record?.hashtags ?: return
+                        val categories = response.record.category ?: return
 
-                for (tag in hashTags) {
-                    hasTagArray.add(tag)
-                }
-
-                for (category in categories) {
-                    arrCategoryArray.add(category)
-                }
-                startActivity(
-                    AuthenticatLive.getInstance(
-                        this@DashBoardActivity,
-                        uuid,
-                        hasTagArray,
-                        arrCategoryArray
-                    )
-                )
-                dialog?.dismissSafely()
-            }
-
-            override fun onFailed(status: String, message: String?) {
-                when(status) {
-                    NotVerify -> {
-                        showAlertCoutionLiveStreame(
-                            this@DashBoardActivity
-                        ) { v ->
-                            when (v?.id) {
-                                R.id.buttonAuthentication -> {
-                                    startActivity(AuthenticationActivity.getInstance(this@DashBoardActivity, AuthenticationActivity.ActionLive))
-                                }
-                            }
+                        for (tag in hashTags) {
+                            hasTagArray.add(tag)
                         }
 
-                        Toast.makeText(this@DashBoardActivity, message, Toast.LENGTH_LONG).show()
+                        for (category in categories) {
+                            arrCategoryArray.add(category)
+                        }
+                        startActivity(
+                            AuthenticatLive.getInstance(
+                                this@DashBoardActivity,
+                                uuid,
+                                hasTagArray,
+                                arrCategoryArray
+                            )
+                        )
                     }
-                }
+
+                    override fun onFailed(status: String, message: String) {
+                        when(status) {
+                            NotVerify -> {
+                                showAlertCoutionLiveStreame(
+                                    this@DashBoardActivity
+                                ) { v ->
+                                    when (v?.id) {
+                                        R.id.buttonAuthentication -> {
+                                            startActivity(AuthenticationActivity.getInstance(this@DashBoardActivity, AuthenticationActivity.ActionLive))
+                                        }
+                                    }
+                                }
+
+                                Toast.makeText(this@DashBoardActivity, message, Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                })
             }
         })
     }

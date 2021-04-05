@@ -316,7 +316,7 @@ interface MyApiEndpointInterface {
     @POST(AppConstants.Endpoint.apiAddComment)
     fun callAddComments(
         @HeaderMap header: Map<String, String>,
-        @Body jsonObject: JsonObject?): Call<JsonObject?>
+        @Body jsonObject: JsonObject?): Call<CommentResponse?>
 
 
     /**

@@ -151,7 +151,7 @@ class UserMoreDetailActivity : DashBoardBaseActivity() {
         callApi(true, callstremerProfile, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
 //                        {
 //                        "streamer_id":"74","streamer_name":"soeda","streamer_profile":"https://staging-streame-bucket.s3.amazonaws.com/default/user.png",
 //                        "streamer_status":null,"streamer_ranking":101736,"about_streamer":null,
@@ -238,7 +238,7 @@ class UserMoreDetailActivity : DashBoardBaseActivity() {
         callApi(true, callFollowUnfollow, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val FollowStatus =
                             getStringFromJson(record, "follow_status", AppConstants.Defaults.string)

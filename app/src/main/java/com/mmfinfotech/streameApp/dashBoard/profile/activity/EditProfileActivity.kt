@@ -115,7 +115,7 @@ return ((validationEmptyField(this@EditProfileActivity, editTextTextweb) == true
         callApi(true, callChangeId, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         appPreferences?.setStremeID(this@EditProfileActivity, editTextStremeId?.text.toString())
                         ShowAlertSuccess(this@EditProfileActivity, getString(R.string.sucessfully_updated))
                     }
@@ -157,7 +157,7 @@ return ((validationEmptyField(this@EditProfileActivity, editTextTextweb) == true
         callApi(true, callChangeId, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         appPreferences?.setGander(this@EditProfileActivity, textViewGander?.text.toString())
                         appPreferences?.setEmail(this@EditProfileActivity, editTextEmail.text.toString())
                         appPreferences?.setBirthDay(this@EditProfileActivity, textViewBirthDay?.text.toString())

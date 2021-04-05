@@ -158,7 +158,7 @@ class CreditCardActivity : NetworkBaseActivity() {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 Log.v(tag, "Buy plan onSuccess $mainObject")
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         setResult(Activity.RESULT_OK)
                         finish()
                     }

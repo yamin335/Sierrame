@@ -144,7 +144,7 @@ class TimeLineFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callTimeLinePost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         if (isRefresh == true) arrTimeLInes?.clear()
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
@@ -222,7 +222,7 @@ class TimeLineFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
                         val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
                         if (status_changed.equals("1")) {
@@ -280,7 +280,7 @@ class TimeLineFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callBlockUser, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                         pageNo = 1

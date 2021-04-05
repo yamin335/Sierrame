@@ -115,7 +115,7 @@ class StremerPostFragment : Fragment() {
         (mContext as UserMoreDetailActivity).callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         if (pageNo == 1) {
                             arrayMyPost?.clear()
                         }

@@ -61,7 +61,11 @@ class ApiClient(private val ctx: Context?) {
     }
 
     interface ApiCallbackListener<T> {
-        fun onDataFetched(response: T?)
-        fun onFailed(status: String, message: String?)
+        fun onDataFetched(response: T?, isSuccess: Boolean, message: String)
+    }
+
+    interface ApiResponseListener<T> {
+        fun onSuccess(response: T)
+        fun onFailed(status: String, message: String)
     }
 }

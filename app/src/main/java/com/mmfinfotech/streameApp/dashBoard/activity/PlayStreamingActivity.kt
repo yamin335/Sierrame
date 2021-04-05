@@ -152,7 +152,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 if (dialog?.isShowing == true) dialog?.dismiss()
                 when (status) {
-                    Sccess -> { finish() }
+                    Success -> { finish() }
                     else -> {
                         val message = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
                         Toast.makeText(this@PlayStreamingActivity, message,Toast.LENGTH_SHORT).show()
@@ -174,7 +174,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         callApi(true, callFollowUnfollow, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val FollowStatus = getStringFromJson(record, "follow_status", AppConstants.Defaults.string)
                         if (FollowStatus.equals("1")) {
@@ -301,7 +301,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
                         if (status_changed.equals("1")) {
@@ -345,7 +345,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         callApi(true, callProfile, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val recordData = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val id = recordData?.get("id")?.asInt.toString()
                         val user_id = getStringFromJson(recordData, "user_id", AppConstants.Defaults.string)

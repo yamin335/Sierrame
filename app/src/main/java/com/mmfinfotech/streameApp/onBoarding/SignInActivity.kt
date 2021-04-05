@@ -123,29 +123,31 @@ class SignInActivity : OnBoardingBaseActivity() {
         val apiService: MyApiEndpointInterface? = ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSignIn: Call<LoginResponse?>? = apiService?.callLogin(body)
         callRemoteApi(true, callSignIn, object : ApiClient.ApiCallbackListener<LoginResponse> {
-            override fun onDataFetched(response: LoginResponse?) {
-                appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
-                appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
-                appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
-                appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
-                appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
-                appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
-                startActivity(DashBoardActivity.getInstance(this@SignInActivity))
-                finishAffinity()
-                dialog.dismissSafely()
-            }
+            override fun onDataFetched(response: LoginResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@SignInActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<LoginResponse> {
+                    override fun onSuccess(response: LoginResponse) {
+                        appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
+                        appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
+                        appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
+                        appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
+                        appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
+                        appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
+                        startActivity(DashBoardActivity.getInstance(this@SignInActivity))
+                        finishAffinity()
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                val msg = message ?: resources.getString(R.string.something_went_wrong)
-                when(status) {
-                    NotFound -> {
-                        Toast.makeText(this@SignInActivity, msg, Toast.LENGTH_LONG).show()
+                    override fun onFailed(status: String, message: String) {
+                        when(status) {
+                            NotFound -> {
+                                Toast.makeText(this@SignInActivity, message, Toast.LENGTH_LONG).show()
+                            }
+                            else -> {
+                                ShowAlertFailed(this@SignInActivity, message)
+                            }
+                        }
                     }
-                    else -> {
-                        ShowAlertFailed(this@SignInActivity, msg)
-                    }
-                }
-                dialog.dismissSafely()
+                })
             }
         })
     }
@@ -247,29 +249,31 @@ class SignInActivity : OnBoardingBaseActivity() {
         val apiService: MyApiEndpointInterface? = ApiClient(this@SignInActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSocialSignIn: Call<LoginResponse?>? = apiService?.callSocialLogin(sendParams)
         callRemoteApi(true, callSocialSignIn, object : ApiClient.ApiCallbackListener<LoginResponse> {
-            override fun onDataFetched(response: LoginResponse?) {
-                appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
-                appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
-                appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
-                appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
-                appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
-                appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
-                startActivity(DashBoardActivity.getInstance(this@SignInActivity))
-                finishAffinity()
-                dialog.dismissSafely()
-            }
+            override fun onDataFetched(response: LoginResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@SignInActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<LoginResponse> {
+                    override fun onSuccess(response: LoginResponse) {
+                        appPreferences?.setAuthToken(this@SignInActivity, response?.record?.token)
+                        appPreferences?.setEmail(this@SignInActivity, response?.record?.email)
+                        appPreferences?.setFullName(this@SignInActivity, response?.record?.name)
+                        appPreferences?.setGander(this@SignInActivity, response?.record?.gender)
+                        appPreferences?.setStremeID(this@SignInActivity, response?.record?.username)
+                        appPreferences?.setProfileImage(this@SignInActivity, response?.record?.profile)
+                        startActivity(DashBoardActivity.getInstance(this@SignInActivity))
+                        finishAffinity()
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                val msg = message ?: resources.getString(R.string.something_went_wrong)
-                when(status) {
-                    NotFound -> {
-                        Toast.makeText(this@SignInActivity, msg, Toast.LENGTH_LONG).show()
+                    override fun onFailed(status: String, message: String) {
+                        when(status) {
+                            NotFound -> {
+                                Toast.makeText(this@SignInActivity, message, Toast.LENGTH_LONG).show()
+                            }
+                            else -> {
+                                ShowAlertFailed(this@SignInActivity, message)
+                            }
+                        }
                     }
-                    else -> {
-                        ShowAlertFailed(this@SignInActivity, msg)
-                    }
-                }
-                dialog.dismissSafely()
+                })
             }
         })
     }

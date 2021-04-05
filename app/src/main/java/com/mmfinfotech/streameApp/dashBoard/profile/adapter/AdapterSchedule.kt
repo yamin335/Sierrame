@@ -85,7 +85,7 @@ class AdapterSchedule(
         (context as DashBoardActivity).callApi(true, callScheduleRemove, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
 //                        Toast.makeText(context, "${msg}", Toast.LENGTH_LONG).show()
                         arrSchadule?.remove(arrSchadule?.get(position))

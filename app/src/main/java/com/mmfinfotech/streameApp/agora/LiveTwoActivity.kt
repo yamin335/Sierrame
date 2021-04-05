@@ -215,7 +215,7 @@ class LiveTwoActivity : RtcBaseActivity() {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 if (dialog?.isShowing == true) dialog?.dismiss()
                 when (status) {
-                    Sccess -> {
+                    Success -> {
 //                        mRtmClient?.logout(null)
                         stopBroadcast()
                         finish()

@@ -91,7 +91,7 @@ class NotificationActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val id: String? = getStringFromJson(record, "id", AppConstants.Defaults.string)
                         val channelId: String? = getStringFromJson(record, "channel_id", AppConstants.Defaults.string)
@@ -158,7 +158,7 @@ class NotificationActivity : DashBoardBaseActivity() {
         callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         finish()
                     }

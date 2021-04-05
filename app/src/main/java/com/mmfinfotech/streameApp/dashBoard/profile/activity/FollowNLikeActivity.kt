@@ -184,7 +184,7 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callMypagFollower, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
@@ -240,7 +240,7 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callmypagFollowing, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
@@ -293,7 +293,7 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
         callApi(true, callFollowUnFollow, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         if (getStringFromJson(record, "follow_status", AppConstants.Defaults.string) == "0") {
                             arrFollowNLike?.remove(arrFollowNLike?.get(position!!))

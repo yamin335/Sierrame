@@ -86,7 +86,7 @@ class MyPostActivity : DashBoardBaseActivity() {
         callApi(true, callPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         CompleteActionDialog(this@MyPostActivity, getString(R.string.txt_complete), View.OnClickListener { v ->
                             when (v?.id) {

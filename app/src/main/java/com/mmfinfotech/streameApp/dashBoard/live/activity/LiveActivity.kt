@@ -184,7 +184,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         callApi(true, callFetchGifts, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val data = getJsonArrayFromJson(record, "data", JsonArray())
 
@@ -521,7 +521,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         callApi(true, callMemo, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
 //                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
                         liversProfile?.profileNotes = Memo
 
@@ -562,7 +562,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         callApi(true, callFollowUnfollow, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         liversProfile?.followStatus =
                             getStringFromJson(record, "follow_status", AppConstants.Defaults.string)
@@ -607,7 +607,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val status_changed: String? = getStringFromJson(
                             mainObject,
@@ -964,7 +964,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         callApi(true, callConnectlive, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
 //                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         mRtmClient?.logout(null)
                         finish()
@@ -1300,7 +1300,7 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 Log.v(tag, "send gift response == $mainObject")
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         getGiftsFromServer()
                         displayGif(gift?.image)
                         createAndSendMessage(

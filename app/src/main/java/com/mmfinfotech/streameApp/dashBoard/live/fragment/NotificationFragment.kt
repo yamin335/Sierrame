@@ -21,7 +21,7 @@ import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.ApiClient
 import com.mmfinfotech.streameApp.util.retrofit.MyApiEndpointInterface
 import com.mmfinfotech.streameApp.util.retrofit.OnApiResponse
-import com.mmfinfotech.streameApp.util.retrofit.Sccess
+import com.mmfinfotech.streameApp.util.retrofit.Success
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.SpaceItemDecoration
@@ -73,7 +73,7 @@ class NotificationFragment : Fragment() {
         (context as DashBoardActivity).callApi(true, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record: JsonObject? = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val data: JsonArray? = getJsonArrayFromJson(record, "data", JsonArray())
                         for (i in 0 until (data?.size() ?: 0)) {

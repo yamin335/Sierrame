@@ -116,7 +116,7 @@ class LiveInvitationActivity : BaseActivity() {
 //                        "fcm_token":"euW5gKjsa00jtDAchPeBqb:APA91bEsjcSokUF9fyqzmg2Si9xcRvxVtxLmywb-eQw00huicP5rIp5obSe0Hr1KavNraC_NlIjTgkb4s9eEYUOiVnO1APGiGRJWPsbh08CIG5DkemVzECqcT2-V8VfiMMOOxO7vHof8",
 //                        "streaming_user_id":"746"
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val stremerId = getStringFromJson(
                             record,
@@ -242,7 +242,7 @@ class LiveInvitationActivity : BaseActivity() {
         callApi(true, callAddSchedule, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val channel =
                             getStringFromJson(record, "channel", AppConstants.Defaults.string)

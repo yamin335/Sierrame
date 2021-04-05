@@ -1,10 +1,8 @@
 package com.mmfinfotech.streameApp.onBoarding
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import com.google.gson.JsonObject
@@ -59,7 +57,7 @@ class ForgotPasswordActivity : NetworkBaseActivity() {
         callApi(true, callSubscriptionPlanBuy, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
                         ShowAlertInformation(this@ForgotPasswordActivity, msg, object: View.OnClickListener{
                             override fun onClick(v: View?) {

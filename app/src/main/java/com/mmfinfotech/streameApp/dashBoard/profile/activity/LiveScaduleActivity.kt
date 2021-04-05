@@ -146,7 +146,7 @@ class LiveScaduleActivity : DashBoardBaseActivity() {
         callApi(true, callLiveSchedul, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         arrLiveScadule = ArrayList()
                         val record = getJsonArrayFromJson(mainObject, record, JsonArray())
                         for (i in 0 until record?.size()!!) {

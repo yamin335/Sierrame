@@ -138,7 +138,7 @@ class HotThemeFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val bannerArray = getJsonArrayFromJson(record, "banner", JsonArray())
                         if (bannerArray?.size() == 0) {
@@ -287,7 +287,7 @@ class HotThemeFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callConnectlive, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val id: String? = getStringFromJson(record, "id", AppConstants.Defaults.string)
                         val channelId: String? = getStringFromJson(record, "channel_id", AppConstants.Defaults.string)

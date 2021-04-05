@@ -131,7 +131,7 @@ class BuyCoinsBottomSheet : BottomSheetDialogFragment() {
         (context as LiveActivity).callApi(true, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonArrayFromJson(mainObject, record, JsonArray())
                         for (i in 0 until (record?.size() ?: 0)) {
                             val item = getJsonObjFromJson(record, i, JsonObject())

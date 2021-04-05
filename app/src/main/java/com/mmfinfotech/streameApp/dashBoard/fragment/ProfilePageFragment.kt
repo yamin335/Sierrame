@@ -255,7 +255,7 @@ class ProfilePageFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callChangeId, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         arrSchedule?.clear()
                         val record = getJsonArrayFromJson(mainObject, record, JsonArray())
                         for (i in 0 until record!!.size()) {
@@ -312,7 +312,7 @@ class ProfilePageFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callProfile, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val id = getStringFromJson(record, "id", AppConstants.Defaults.string)
                         val name = getStringFromJson(record, "name", AppConstants.Defaults.string)
@@ -384,7 +384,7 @@ class ProfilePageFragment : Fragment() {
         (context as DashBoardActivity).callApi(true, callAddSchedule, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonArrayFromJson(mainObject, record, JsonArray())
                         for (i in 0 until record!!.size()) {
                             val scheduleObject = getJsonObjFromJson(record, i, JsonObject())
@@ -452,7 +452,7 @@ class ProfilePageFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callProfile, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val prorile = getStringFromJson(record, "profile", AppConstants.Defaults.string)
                         (mContext as DashBoardActivity).appPreferences?.setProfileImage(mContext, prorile)

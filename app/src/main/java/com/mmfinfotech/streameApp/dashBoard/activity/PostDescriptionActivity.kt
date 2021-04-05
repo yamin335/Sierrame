@@ -78,7 +78,7 @@ class PostDescriptionActivity : DashBoardBaseActivity() {
                 if (dialog?.isShowing == true)
                     dialog?.dismiss()
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         finish()
                     }
                     else -> {
@@ -101,7 +101,7 @@ class PostDescriptionActivity : DashBoardBaseActivity() {
         callApi(true, callLogout, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
                         val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
                         if (status_changed.equals("1")) {
@@ -143,7 +143,7 @@ class PostDescriptionActivity : DashBoardBaseActivity() {
         callApi(true, callProfile, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val recordData = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val id = getStringFromJson(recordData, "id", AppConstants.Defaults.string)
                         val user_id = getStringFromJson(recordData, "user_id", AppConstants.Defaults.string)

@@ -90,23 +90,28 @@ class SignUpActivity : OnBoardingBaseActivity() {
             ApiClient(this@SignUpActivity).getClient()?.create(MyApiEndpointInterface::class.java)
         val callSignUp: Call<SignUpResponse?>? = apiService?.callSignUp(sendParams)
         callRemoteApi(true, callSignUp, object : ApiClient.ApiCallbackListener<SignUpResponse> {
-            override fun onDataFetched(response: SignUpResponse?) {
-                val token = response?.record?.token
-                if (token.isNullOrBlank()) {
-                    ShowAlertFailed(this@SignUpActivity, response?.message)
-                    return
-                }
-                appPreferences?.setAuthToken(this@SignUpActivity, token)
-                appPreferences?.setEmail(this@SignUpActivity, response.record.email)
-                appPreferences?.setFullName(this@SignUpActivity, response.record.name)
-                appPreferences?.setGander(this@SignUpActivity, response.record.gender)
-                appPreferences?.setStremeID(this@SignUpActivity, response.record.username)
-                startActivity(DashBoardActivity.getInstance(this@SignUpActivity))
-                finishAffinity()
-            }
+            override fun onDataFetched(response: SignUpResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@SignUpActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<SignUpResponse> {
+                    override fun onSuccess(response: SignUpResponse) {
+                        val token = response?.record?.token
+                        if (token.isNullOrBlank()) {
+                            ShowAlertFailed(this@SignUpActivity, response?.message)
+                            return
+                        }
+                        appPreferences?.setAuthToken(this@SignUpActivity, token)
+                        appPreferences?.setEmail(this@SignUpActivity, response.record.email)
+                        appPreferences?.setFullName(this@SignUpActivity, response.record.name)
+                        appPreferences?.setGander(this@SignUpActivity, response.record.gender)
+                        appPreferences?.setStremeID(this@SignUpActivity, response.record.username)
+                        startActivity(DashBoardActivity.getInstance(this@SignUpActivity))
+                        finishAffinity()
+                    }
 
-            override fun onFailed(status: String, message: String?) {
-                ShowAlertFailed(this@SignUpActivity, message)
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertFailed(this@SignUpActivity, message)
+                    }
+                })
             }
         })
     }

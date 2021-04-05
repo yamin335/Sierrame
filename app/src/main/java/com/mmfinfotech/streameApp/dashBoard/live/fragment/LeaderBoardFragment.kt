@@ -22,7 +22,7 @@ import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.ApiClient
 import com.mmfinfotech.streameApp.util.retrofit.MyApiEndpointInterface
 import com.mmfinfotech.streameApp.util.retrofit.OnApiResponse
-import com.mmfinfotech.streameApp.util.retrofit.Sccess
+import com.mmfinfotech.streameApp.util.retrofit.Success
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.SpaceItemDecoration
@@ -104,7 +104,7 @@ class LeaderBoardFragment : Fragment(), View.OnClickListener {
         (context as DashBoardActivity).callApi(true, callHotTheme, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, "record", JsonObject())
                         val rankArray = getJsonArrayFromJson(record, "rankes", JsonArray())
 

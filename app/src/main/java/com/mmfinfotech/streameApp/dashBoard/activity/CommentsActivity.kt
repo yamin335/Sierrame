@@ -10,16 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
-import com.mmfinfotech.streameApp.Test
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AdapterComments
+import com.mmfinfotech.streameApp.models.CommentResponse
 import com.mmfinfotech.streameApp.models.CommentsChet
-import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
-import com.mmfinfotech.streameApp.util.getJsonObjFromJson
-import com.mmfinfotech.streameApp.model.CommentsChet
-import com.mmfinfotech.streameApp.model.HotTheme
 import com.mmfinfotech.streameApp.util.*
-import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
@@ -28,25 +23,16 @@ import retrofit2.Call
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.set
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 class CommentsActivity : DashBoardBaseActivity() {
-    private val TAG: String? = CommentsActivity::class.java.simpleName
-
     private var arrComments: ArrayList<CommentsChet?>? = ArrayList()
     private var adapterComments: AdapterComments? = null
     private var mLayoutManager: LinearLayoutManager? = null
-    private var lastVisibleItem: Int? = null
-    private var totalItemCount: Int? = null
     private var loadData: Boolean = false
-    private val visibleThreshold = 1
     private var pageNo: Int? = 1
-    private var oldsize: Int? = null
-    private var query: String? = null
     private var refrenceId: String? = null
 
-    val handler: Handler? = Handler()
+    val handler: Handler = Handler()
 
     companion object {
         fun getInstance(context: Context?, refrenceId: String?) = Intent(context, CommentsActivity::class.java).apply {
@@ -135,33 +121,21 @@ class CommentsActivity : DashBoardBaseActivity() {
             MyApiEndpointInterface::class.java
         )
 
-        val callStreamPost: Call<JsonObject?>? = apiService?.callAddComments(headers, sendParams)
-        callApi(true, callStreamPost, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-//                        val user_id: String? = getStringFromJson(record, "user_id", AppConstants.Defaults.string)
-//                        val refrence_id: String? = getStringFromJson(record, "refrence_id", AppConstants.Defaults.string)
-//                        val type: String? = getStringFromJson(record, "type", AppConstants.Defaults.string)
-//                        val comment: String? = getStringFromJson(record, "comment", AppConstants.Defaults.string)
-//                        val status: String? = getStringFromJson(record, "status", AppConstants.Defaults.string)
-//                        val added_on: String? = getStringFromJson(record, "added_on", AppConstants.Defaults.string)
-//                        val update_on: String? = getStringFromJson(record, "update_on", AppConstants.Defaults.string)
+        val callStreamPost: Call<CommentResponse?>? = apiService?.callAddComments(headers, sendParams)
+        callRemoteApi(true, callStreamPost, object : ApiClient.ApiCallbackListener<CommentResponse> {
+            override fun onDataFetched(response: CommentResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@CommentsActivity, response?.status, response?.message ?: message, response, object : ApiClient.ApiResponseListener<CommentResponse> {
+                    override fun onSuccess(response: CommentResponse) {
                         edtTextComments.setText("")
                         callCommentsApi(refrenceId)
+                    }
 
+                    override fun onFailed(status: String, message: String) {
+                        Toast.makeText(this@CommentsActivity, message, Toast.LENGTH_LONG).show()
                     }
-                    ValidationError -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@CommentsActivity, msg, Toast.LENGTH_LONG).show()
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                })
             }
-
-            override fun onFailure() {}
         })
     }
 
@@ -176,7 +150,7 @@ class CommentsActivity : DashBoardBaseActivity() {
         callApi(true, callComments, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         if (pageNo == 1) {
@@ -251,7 +225,7 @@ class CommentsActivity : DashBoardBaseActivity() {
         callApi(true, callDeleteComment, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         arrComments?.removeAt(position)
                         adapterComments?.notifyItemRemoved(position)
                     }

@@ -194,7 +194,7 @@ class SearchFragment : Fragment() {
         (mContext as DashBoardActivity).callApi(true, callStreamPost, object : OnApiResponse {
             override fun onSuccess(status: String?, mainObject: JsonObject?) {
                 when (status) {
-                    Sccess -> {
+                    Success -> {
                         val record = getJsonObjFromJson(mainObject, record, JsonObject())
                         val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
                         if (pageNo == 1) {
@@ -242,25 +242,28 @@ class SearchFragment : Fragment() {
         )
         val callMyPost: Call<LatestClipResponse?>? = apiService?.callLatestClips(headers, pageNo.toString())
         (mContext as DashBoardActivity).callRemoteApi(true, callMyPost, object : ApiClient.ApiCallbackListener<LatestClipResponse> {
-            override fun onDataFetched(response: LatestClipResponse?) {
-                if (pageNo == 1) {
-                    arrSerch?.clear()
-                }
+            override fun onDataFetched(response: LatestClipResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(requireActivity(), response?.status, response?.message ?: message, response, object : ApiClient
+                .ApiResponseListener<LatestClipResponse> {
+                    override fun onSuccess(response: LatestClipResponse) {
+                        if (pageNo == 1) {
+                            arrSerch?.clear()
+                        }
+                        val clips = response.record?.data ?: return
+                        for (clip in clips) {
+                            arrSerch?.add(clip)
+                        }
+                        adapterSearch?.notifyDataSetChanged()
+                        (mContext as DashBoardActivity).dialog?.dismissSafely()
+                    }
 
-                val clips = response?.record?.data ?: return
-
-                for (clip in clips) {
-                    arrSerch?.add(clip)
-                }
-                adapterSearch?.notifyDataSetChanged()
-                (mContext as DashBoardActivity).dialog?.dismissSafely()
-            }
-
-            override fun onFailed(status: String, message: String?) {
-                if (pageNo == 1) {
-                    arrSerch?.clear()
-                }
-                (mContext as DashBoardActivity).dialog?.dismissSafely()
+                    override fun onFailed(status: String, message: String) {
+                        if (pageNo == 1) {
+                            arrSerch?.clear()
+                        }
+                    }
+                })
             }
         })
     }
