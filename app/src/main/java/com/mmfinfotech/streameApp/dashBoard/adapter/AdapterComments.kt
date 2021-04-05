@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +14,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.models.CommentsChet
+import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
+import com.mmfinfotech.streameApp.dashBoard.activity.CommentsActivity
+import com.mmfinfotech.streameApp.model.CommentsChet
 import com.mmfinfotech.streameApp.util.getFormattedDate
 
 class AdapterComments(
-        val context: Context?,
-        private val arrComments: ArrayList<CommentsChet?>?,
-        private val onCommentsLisner: OnCommentsListner
+    val context: Context?,
+    private val arrComments: ArrayList<CommentsChet?>?,
+    private val onCommentsListner: OnCommentsListner
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val tag: String? = AdapterComments::class.java.simpleName
     val itemNoData: Int = 0
@@ -45,7 +49,7 @@ class AdapterComments(
                 NoDataViewHolder(view)
             }
             else -> {
-                val view : View = LayoutInflater.from(parent.context)
+                val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.partial_item_row_no_data, parent, false)
                 NoDataViewHolder(view)
             }
@@ -55,22 +59,29 @@ class AdapterComments(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is LiveSchedulViewHolder -> {
-                holder.ImageProfile.animation=AnimationUtils.loadAnimation(context,R.anim.anim)
+                holder.ImageProfile.animation = AnimationUtils.loadAnimation(context, R.anim.anim)
 
-                if (arrComments?.get(position)?.update_on!= null)
+                if (arrComments?.get(position)?.update_on != null)
                     holder.textTime.text = getFormattedDate(context, arrComments?.get(position)?.update_on!!.toLong())
-                holder.TextViewName?.text =arrComments?.get(position)?.user_name
-                holder.textViewDesc?.text =arrComments?.get(position)?.comment
-                  Glide.with(context!!)
+                holder.TextViewName?.text = arrComments?.get(position)?.user_name
+                holder.textViewDesc?.text = arrComments?.get(position)?.comment
+                Glide.with(context!!)
                     .load(arrComments?.get(position)?.user_profile)
                     .apply(
                         RequestOptions().error(R.drawable.ic_user)
                             .placeholder(R.drawable.ic_user)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                     )
-                     .apply(RequestOptions.circleCropTransform())
-                     .placeholder(R.drawable.ic_user)
-                     .into(holder.ImageProfile!!)
+                    .apply(RequestOptions.circleCropTransform())
+                    .placeholder(R.drawable.ic_user)
+                    .into(holder.ImageProfile!!)
+
+                if (arrComments?.get(position)?.owner_id.toString() ==  (context as CommentsActivity).appPreferences?.getUserId (context) ||
+                    arrComments?.get(position)?.user_id == (context as CommentsActivity).appPreferences?.getUserId (context)){
+                    holder.imageButtonMessageDelete?.visibility = View.VISIBLE
+                }else {
+                    holder.imageButtonMessageDelete?.visibility = View.GONE
+                }
             }
             is NoDataViewHolder -> {
             }
@@ -78,32 +89,34 @@ class AdapterComments(
     }
 
     override fun getItemCount(): Int {
-            if (arrComments?.size == 0) {
-                arrComments?.add(null)
-            } else {
-                if (arrComments?.contains(null) == true && arrComments?.size > 1) arrComments.remove(
-                        null
-                )
-            }
-            return (arrComments?.size ?: 0)
+        if (arrComments?.size == 0) {
+            arrComments?.add(null)
+        } else {
+            if (arrComments?.contains(null) == true && arrComments?.size > 1) arrComments.remove(
+                null
+            )
+        }
+        return (arrComments?.size ?: 0)
 
     }
 
 
-    inner class LiveSchedulViewHolder constructor(view: View) :
-        RecyclerView.ViewHolder(view) {
+    inner class LiveSchedulViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
         var TextViewName: TextView = view.findViewById(R.id.textViewName)
         var textViewDesc: TextView = view.findViewById(R.id.textViewComments)
         var textTime: TextView = view.findViewById(R.id.textTime)
         var ImageProfile: ImageView = view.findViewById(R.id.imageViewProfile)
+        val imageButtonMessageDelete: ImageButton? = view.findViewById(R.id.imageButtonMessageDelete)
 
-
+        init {
+            imageButtonMessageDelete?.setOnClickListener { onCommentsListner.onDeleteClick(adapterPosition) }
+        }
     }
 
     inner class NoDataViewHolder constructor(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnCommentsListner {
-      fun  onCommentsClick(p:Int)
-
+        fun onCommentsClick(p: Int)
+        fun onDeleteClick(p: Int)
     }
 }

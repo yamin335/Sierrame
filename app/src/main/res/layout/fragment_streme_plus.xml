@@ -73,7 +73,6 @@
             android:src="@drawable/ic_orange_bg"
             app:layout_constraintBottom_toBottomOf="@+id/ImageViewProgram"
             app:layout_constraintEnd_toStartOf="@+id/ImageViewChillNight"
-
             app:layout_constraintTop_toTopOf="@+id/ImageViewProgram" />
 
         <ImageView
@@ -178,13 +177,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineHalfPart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5512996" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewStreaming"

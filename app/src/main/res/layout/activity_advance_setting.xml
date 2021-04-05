@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".dashBoard.profile.activity.AdvanceSettingActivity">
+
     <include
         android:id="@+id/includeToolbarAdvanceSetting"
         layout="@layout/partial_toolbar_back_title" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -34,7 +36,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/switchViewPrivateAllowlist" />
 
             <EditText
-                android:visibility="gone"
                 android:id="@+id/editprivateAllowListText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                 android:paddingBottom="@dimen/_10sdp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/switchViewPrivateAccount" />
@@ -83,8 +85,8 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:paddingVertical="@dimen/_10sdp"
-                android:text=""
                 android:singleLine="true"
+                android:text=""
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
@@ -94,7 +96,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewEditText" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewNotificationSetting"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -104,12 +105,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPhoneAuthentication" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewEntranceAnimation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -119,12 +120,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/switchSecretMode" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewBlacklist"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -134,12 +135,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEntranceAnimation" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewSelectRegion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -149,12 +150,12 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editprivateAllowListText" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,12 +163,12 @@
                 android:text="india"
                 android:textColor="@color/textSecondary"
                 android:textSize="@dimen/textSecondary"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/textViewUsageContract"
                 app:layout_constraintEnd_toEndOf="@+id/textViewSelectRegion"
                 app:layout_constraintTop_toBottomOf="@+id/editprivateAllowListText" />
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/textViewUsageContract"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -177,9 +178,24 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSelectRegion" />
+
+            <TextView
+                android:id="@+id/textViewBlockUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_10sdp"
+                android:text="@string/txt_block_user"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/textSecondary"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewUsageContract" />
 
             <TextView
                 android:id="@+id/textViewConactUs"
@@ -193,7 +209,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewUsageContract" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewBlockUser" />
 
             <TextView
                 android:id="@+id/textViewLogout"
@@ -227,7 +243,6 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchSaveTheOrignalPhoto"
-                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/_10sdp"
@@ -236,6 +251,7 @@
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
                 android:thumb="@drawable/selectore_custom_thumb"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewBlacklist"
@@ -260,7 +276,6 @@
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switchViewPrivateAccount"
-                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/_10sdp"
@@ -271,6 +286,7 @@
                 android:textSize="@dimen/textSecondary"
                 android:textStyle="bold"
                 android:thumb="@drawable/selectore_custom_thumb"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/EditprivateAllowListText"

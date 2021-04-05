@@ -232,4 +232,6 @@
     <string name="txt_desc_delete_post">Are you sure want to delete this post?</string>
     <string name="txt_desc_delete_clip">Are you sure want to delete this clip?</string>
     <string name="txt_alert">Alert</string>
+    <string name="txt_new_comer">New Comer</string>
+    <string name="txt_block_user">Block Users</string>
 </resources>

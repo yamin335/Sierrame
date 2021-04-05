@@ -106,6 +106,7 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         switchSecretMode.setOnCheckedChangeListener { buttonView, isChecked ->
             callApiSecret()
         }
+        textViewBlockUser?.setOnClickListener { startActivity(BlockedUserActivity.getInstance(this@AdvanceSettingActivity)) }
     }
 
     private fun callApiLogout() {

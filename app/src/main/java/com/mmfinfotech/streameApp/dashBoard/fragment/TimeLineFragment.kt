@@ -1,14 +1,18 @@
 package com.mmfinfotech.streameApp.dashBoard.fragment
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
@@ -48,7 +52,6 @@ class TimeLineFragment : Fragment() {
         super.onAttach(context)
         mContext = context
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,8 +104,8 @@ class TimeLineFragment : Fragment() {
         recyclerview_TimeLine_frag.adapter = adapterTimelines
         mLayoutManager = recyclerview_TimeLine_frag.layoutManager as LinearLayoutManager
         adapterTimelines = AdapterTimeLine(mContext, arrTimeLInes, object : AdapterTimeLine.OnTimeLineListner {
-            override fun onClickTimeLineListner(p: Int) {
-
+            override fun onClickThreeDotsListner(p: Int) {
+                showDotOptionsList(p)
             }
 
             override fun onMoreClickingListner(p: Int) {
@@ -129,7 +132,6 @@ class TimeLineFragment : Fragment() {
         })
         recyclerview_TimeLine_frag.adapter = adapterTimelines
     }
-
 
      fun callTimeLineApi( isRefresh: Boolean?,pageNo: Int?) {
         val headers = HashMap<String, String>()
@@ -244,5 +246,61 @@ class TimeLineFragment : Fragment() {
             }
         })
     }
+
+    fun showDotOptionsList(p: Int) {
+        context?.let { context ->
+            AlertDialog.Builder(context, R.style.MyDialog).create().apply {
+                window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
+                val view: View? = (context as Activity).layoutInflater.inflate(R.layout.dialog_three_dots, null).apply {
+                    findViewById<TextView>(R.id.textViewSpamReport).setOnClickListener {  }
+                    findViewById<TextView>(R.id.textViewBlock).setOnClickListener {
+                        dismiss()
+                        blockUser(p)
+                    }
+                    findViewById<TextView>(R.id.textViewCancel).setOnClickListener { dismiss() }
+                }
+                setView(view, 0, 0, 0, 0)
+                window?.setLayout(
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.WRAP_CONTENT
+                )
+                window?.setGravity(Gravity.BOTTOM)
+            }.run { show() }
+        }
+    }
+
+    private fun blockUser(p: Int) {
+        val userId = arrTimeLInes?.get(p)?.user_id
+
+        val headers = HashMap<String, String>()
+        headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
+        val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(MyApiEndpointInterface::class.java)
+
+        val callBlockUser: Call<JsonObject?>? = apiService?.callBlockUser(headers, userId)
+        (mContext as DashBoardActivity).callApi(true, callBlockUser, object : OnApiResponse {
+            override fun onSuccess(status: String?, mainObject: JsonObject?) {
+                when (status) {
+                    Sccess -> {
+                        val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        pageNo = 1
+                        callTimeLineApi(true,  pageNo)
+                    }
+                    NotVerify -> {
+//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
+                    }
+                    else -> {
+                    }
+                }
+                if (  (mContext as DashBoardActivity).dialog?.isShowing == true)
+                    (mContext as DashBoardActivity).dialog?.dismiss()
+            }
+
+            override fun onFailure() {
+
+            }
+        })
+    }
+
 
 }

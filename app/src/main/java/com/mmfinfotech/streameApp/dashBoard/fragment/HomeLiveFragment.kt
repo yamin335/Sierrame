@@ -1,6 +1,5 @@
 package com.mmfinfotech.streameApp.dashBoard.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -19,145 +18,90 @@ import kotlinx.android.synthetic.main.fragment_home_live.*
 
 class HomeLiveFragment : Fragment() {
     private val TAG = HomeLiveFragment::class.java.simpleName
-    private var mContext: Context? = null
     private var pageNo: Int? = 1
     var liveItemIndex: Int? = AppConstants.FragmentLiveIndex.FragmentLive
     private var mHandler: Handler? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mContext=context
-    }
+    private val index by lazy { 0 }
 
     override fun onCreateView(
-        inflater : LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_live, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_home_live, container, false).also {
+        it.findViewById<View>(R.id.txtViewEvents).isSelected = true
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        listener()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        mHandler= Handler()
-
-        val fragmentTransaction = (mContext as DashBoardActivity).supportFragmentManager.beginTransaction()
-//      fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-        fragmentTransaction.replace(R.id.liveFrames, LiveFragment(), "")
-        fragmentTransaction.commitAllowingStateLoss()
-        headersListners()
+        mHandler = Handler(Looper.getMainLooper())
         loadHomeFragment()
-        setLisners()
-//        callHotThemeList(false, true, pageNo)
     }
 
-    private fun getLiveFragment(): Fragment {
+    private fun listener() {
+        txtViewEvents.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLive
+            toggleHeaderSelection(it)
+        }
+        txtViewNewComer.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentNeComer
+            toggleHeaderSelection(it)
+        }
+        txtViewHotTheme.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveHotTheme
+            toggleHeaderSelection(it)
+        }
+        txtViewStreme.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveStremePro
+            toggleHeaderSelection(it)
+        }
+        txtViewStremeMusic.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveStremeMusic
+            toggleHeaderSelection(it)
+        }
+        img1?.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentNotification
+            toggleHeaderSelection(it)
+        }
+        img2?.setOnClickListener {
+            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLeaderBoard
+            toggleHeaderSelection(it)
+        }
+    }
+
+    private fun toggleHeaderSelection(view: View?) {
+        txtViewEvents?.isSelected = txtViewEvents?.id == view?.id
+        txtViewNewComer?.isSelected = txtViewNewComer?.id == view?.id
+        txtViewHotTheme?.isSelected = txtViewHotTheme?.id == view?.id
+        txtViewStreme?.isSelected = txtViewStreme?.id == view?.id
+        txtViewStremeMusic?.isSelected = txtViewStremeMusic?.id == view?.id
+        loadHomeFragment()
+    }
+
+    private fun loadHomeFragment() {
+        val mPendingRunnable = Runnable {
+            val fragment: Fragment = getFragments()
+            childFragmentManager.beginTransaction().apply {
+                replace(R.id.liveFrames, fragment, "")
+                commitAllowingStateLoss()
+            }
+        }
+        if (mPendingRunnable != null) mHandler?.post(mPendingRunnable)
+    }
+
+    private fun getFragments(): Fragment {
         return when (liveItemIndex) {
             AppConstants.FragmentLiveIndex.FragmentLive -> LiveFragment()
-            AppConstants.FragmentLiveIndex.FragmentLiveHotTheme -> HotThemeFragment()
-            AppConstants.FragmentLiveIndex.FragmentLiveStremePlus -> StremePlusFragment()
-            AppConstants.FragmentLiveIndex.FragmentLiveStremeMusic -> StremeMusicFragment()
+            AppConstants.FragmentLiveIndex.FragmentNeComer -> CategoryFragment.newInstance(0)
+            AppConstants.FragmentLiveIndex.FragmentLiveHotTheme -> CategoryFragment.newInstance(1)
+            AppConstants.FragmentLiveIndex.FragmentLiveStremePro -> CategoryFragment.newInstance(2)
+            AppConstants.FragmentLiveIndex.FragmentLiveStremeMusic -> CategoryFragment.newInstance(3)
             AppConstants.FragmentLiveIndex.FragmentNotification -> NotificationFragment.getInstance()
             AppConstants.FragmentLiveIndex.FragmentLeaderBoard -> LeaderBoardFragment.getInstance()
             else -> LiveFragment()
         }
     }
-
-    private fun loadHomeFragment() {
-        Log.v(TAG, "LoadHomeFragment method")
-          val mPendingRunnable = Runnable {
-             val fragment: Fragment? = getLiveFragment()
-                val fragmentTransaction = (mContext as DashBoardActivity).supportFragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.liveFrames, fragment!!, "")
-                fragmentTransaction.commitAllowingStateLoss()
-        }
-        if (mPendingRunnable != null) {
-            mHandler?.post(mPendingRunnable)
-        }
-    }
-
-    private fun headersListners() {
-        txtViewEvents.setOnClickListener {
-            txtViewEvents.isSelected = true
-            txtViewHotTheme.isSelected = false
-            txtViewStreme.isSelected = false
-            txtViewStremeMusic.isSelected = false
-//            startActivity(
-//                EventActivity.getInstance(
-//                    mContext))
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLive
-            loadHomeFragment()
-        }
-        txtViewHotTheme.setOnClickListener {
-            txtViewHotTheme.isSelected = true
-            txtViewEvents.isSelected = false
-            txtViewStreme.isSelected = false
-            txtViewStremeMusic.isSelected = false
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveHotTheme
-            loadHomeFragment()
-        }
-        txtViewStreme.setOnClickListener {
-            txtViewStreme.isSelected = true
-            txtViewHotTheme.isSelected = false
-            txtViewEvents.isSelected = false
-            txtViewStremeMusic.isSelected = false
-
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveStremePlus
-            loadHomeFragment()
-        }
-        txtViewStremeMusic.setOnClickListener {
-            txtViewStremeMusic.isSelected = true
-            txtViewHotTheme.isSelected = false
-            txtViewStreme.isSelected = false
-            txtViewEvents.isSelected = false
-
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLiveStremeMusic
-            loadHomeFragment()
-        }
-    }
-
-    private fun setLisners() {
-        img1?.setOnClickListener {
-//            Toast.makeText(context, "Image one", Toast.LENGTH_SHORT).show()
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentNotification
-            loadHomeFragment()
-        }
-        img2?.setOnClickListener {
-//            Toast.makeText(context, "Image two", Toast.LENGTH_SHORT).show()
-            liveItemIndex = AppConstants.FragmentLiveIndex.FragmentLeaderBoard
-            loadHomeFragment()
-        }
-    }
-
-    private fun callHotThemeList(showDialog:Boolean?, isRefresh:Boolean?, pageNo :Int?) {
-        showDialog==true
-        val sendParams: JsonObject? = JsonObject()
-        sendParams?.addProperty(
-            "user_id",
-        "")
-        sendParams?.addProperty("page_no", "1")
-
-
-        val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(
-            MyApiEndpointInterface::class.java
-        )
-//        val call: Call<JsonObject?>? = apiService?.call(sendParams)
-      /*  (mContext as DashBoardActivity).callApi(true, call, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Sccess -> {
-
-                        if ((mContext as DashBoardActivity).appPreferences?.isShowing == true)
-                            (mContext as DashBoardActivity).dialog?.dismiss()
-                    }
-                }
-            }
-
-            override fun onFailure() {
-
-            }
-        })
-    }
-    */
-}
 }
