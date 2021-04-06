@@ -109,15 +109,15 @@ class TimeLineFragment : Fragment() {
             }
 
             override fun onMoreClickingListner(p: Int) {
-                startActivity(PostDescriptionActivity.getInstance(mContext, arrTimeLInes?.get(p)?.id))
+                startActivity(PostDescriptionActivity.getInstance(mContext, arrTimeLInes?.get(p)?.id?.toString()))
             }
 
             override fun onCommentClickingListner(p: Int) {
-                startActivity(CommentsActivity.getInstance(mContext, arrTimeLInes?.get(p)?.id))
+                startActivity(CommentsActivity.getInstance(mContext, arrTimeLInes?.get(p)?.id?.toString()))
             }
 
             override fun onLikeClickingListner(p: Int, ImageButtonHeart: ImageView) {
-                callApiLikeDissLike(arrTimeLInes?.get(p)?.id,ImageButtonHeart)
+                callApiLikeDissLike(arrTimeLInes?.get(p)?.id?.toString(),ImageButtonHeart)
             }
 
             override fun onShareClickingListner(p: Int) {
@@ -170,22 +170,22 @@ class TimeLineFragment : Fragment() {
                             val like_count= getStringFromJson(recordData,"like_count",AppConstants.Defaults.string)
                             val comment_count= getStringFromJson(recordData,"comment_count",AppConstants.Defaults.string)
 
-                            arrTimeLInes?.add(Post(id,
+                            arrTimeLInes?.add(Post(id.toInt(),
                                 user_id,
                                 title,
                                 description,
                                 file,
                                 thumb,
                                 file_type,
-                                status,
+                                status.toInt(),
                                 added_on,
                                 update_on+"000",
                                 user_name,
                                 user_profile,
                                 profile_status,
                                 like_status,
-                                like_count,
-                                comment_count))
+                                like_count.toInt(),
+                                comment_count.toInt()))
                         }
                         adapterTimelines?.notifyDataSetChanged()
                         if (pageNo!! > 1) {

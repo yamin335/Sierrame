@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
+import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.PostDescriptionActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.UserMoreDetailActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterStremePost
 import com.mmfinfotech.streameApp.models.Post
+import com.mmfinfotech.streameApp.models.PostResponse
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
@@ -29,7 +31,6 @@ import kotlin.collections.set
 
 
 class StremerPostFragment : Fragment() {
-    private val TAG: String? = StremerPostFragment::class.java.simpleName
     private var mContext: Context? = null
     private var adapterStremePost: AdapterStremePost? = null
     private var StreamerId: String? = null
@@ -99,7 +100,7 @@ class StremerPostFragment : Fragment() {
                 arrayMyPost,
                 object : AdapterStremePost.OnPostLisner {
                     override fun onClick(position: Int) {
-                        startActivity(PostDescriptionActivity.getInstance(mContext, arrayMyPost?.get(position)?.id))
+                        startActivity(PostDescriptionActivity.getInstance(mContext, arrayMyPost?.get(position)?.id?.toString()))
 
                     }
                 })
@@ -111,68 +112,35 @@ class StremerPostFragment : Fragment() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
         val apiService: MyApiEndpointInterface? = ApiClient(mContext).getClient()?.create(
                 MyApiEndpointInterface::class.java)
-        val callStreamPost: Call<JsonObject?>? = apiService?.callStreamPost(headers, StreamerId.toString(), pageno.toString())
-        (mContext as UserMoreDetailActivity).callApi(true, callStreamPost, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        if (pageNo == 1) {
-                            arrayMyPost?.clear()
+        val callStreamPost: Call<PostResponse?>? = apiService?.callStreamPost(headers, StreamerId.toString(), pageno.toString())
+        (mContext as UserMoreDetailActivity).callRemoteApi(true, callStreamPost, object : ApiClient.ApiCallbackListener<PostResponse> {
+            override fun onDataFetched(response: PostResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(requireActivity(), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<PostResponse> {
+                        override fun onSuccess(response: PostResponse) {
+                            val posts = response.record?.data ?: return
+                            if (pageNo == 1) {
+                                arrayMyPost?.clear()
+                            }
+                            for (post in posts) {
+                                arrayMyPost?.add(post)
+                            }
+                            adapterStremePost?.notifyDataSetChanged()
+                            if (pageNo!! > 1) {
+                                loadData = false
+                            }
                         }
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
-                        for (i in 0 until dataArray?.size()!!) {
-                            val recordData = getJsonObjFromJson(dataArray, i, JsonObject())
-                            val id = recordData?.get("id")?.asInt.toString()
-                            val user_id= getStringFromJson(recordData,"user_id",AppConstants.Defaults.string)
-                            val title= getStringFromJson(recordData,"title",AppConstants.Defaults.string)
-                            val description= getStringFromJson(recordData,"description",AppConstants.Defaults.string)
-                            val file= getStringFromJson(recordData,"file",AppConstants.Defaults.string)
-                            val thumb= getStringFromJson(recordData,"thumb",AppConstants.Defaults.string)
-                            val file_type= getStringFromJson(recordData,"file_type",AppConstants.Defaults.string)
-                            val status= getStringFromJson(recordData,"status",AppConstants.Defaults.string)
-                            val added_on= getStringFromJson(recordData,"added_on",AppConstants.Defaults.string)
-                            val update_on= getStringFromJson(recordData,"update_on",AppConstants.Defaults.string)
-                            val user_name= getStringFromJson(recordData,"user_name",AppConstants.Defaults.string)
-                            val user_profile= getStringFromJson(recordData,"user_profile",AppConstants.Defaults.string)
-                            val profile_status= getStringFromJson(recordData,"profile_status",AppConstants.Defaults.string)
-                            val like_status= getStringFromJson(recordData,"like_status",AppConstants.Defaults.string)
-                            val like_count= getStringFromJson(recordData,"like_count",AppConstants.Defaults.string)
-                            val comment_count= getStringFromJson(recordData,"comment_count",AppConstants.Defaults.string)
 
-                            arrayMyPost?.add(Post(id,
-                                user_id,
-                                title,
-                                description,
-                                file,
-                                thumb,
-                                file_type,
-                                status,
-                                added_on,
-                                update_on,
-                                user_name,
-                                user_profile,
-                                profile_status,
-                                like_status,
-                                like_count,
-                                comment_count))
+                        override fun onFailed(status: String, message: String) {
+                            when (status) {
+                                NotFound -> {
+                                    arrayMyPost?.clear()
+                                }
+                            }
                         }
-                        adapterStremePost?.notifyDataSetChanged()
-                    }
-                    NotFound -> {
-                        arrayMyPost?.clear()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-
-                    else -> {
-                    }
-                }
-                if ((mContext as UserMoreDetailActivity).dialog?.isShowing == true)
-                    (mContext as UserMoreDetailActivity).dialog?.dismiss()
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 

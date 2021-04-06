@@ -82,3 +82,19 @@ data class SecretModeRecord(val secret_mode: String?)
 data class PrivateFollowerListResponse(val status: String?, val message: String?, val record: PrivateFollowerListRecord?)
 
 data class PrivateFollowerListRecord(val private_follow_list: String?)
+
+data class PrivateAccountResponse(val status: String?, val message: String?, val record: PrivateAccountRecord?)
+
+data class PrivateAccountRecord(val private_account: String?)
+
+data class ProfileResponse(val status: String?, val message: String?, val record: ProfileRecord?)
+
+data class ProfileRecord(val id: Int?, val name: String?, val username: String?, val country_code: String?,
+                  val phone: String?, val email: String?, val stream_id: Int?, val profile: String?,
+                  val phone_authentication: String?, val secret_mode: String?, val orignal_photo: String?,
+                  val private_follow_list: String?, val private_account: String?, val followings: Int?,
+                  val followers: Int?, val ranking: Double?, val like_count: Int?, val lavel: String?)
+
+data class AddScheduleResponse(val status: String?, val message: String?, val record: List<Schedule>?, val error: List<Any>?)
+
+data class ScheduleResponse(val status: String?, val message: String?, val record: List<Schedule>?)

@@ -9,7 +9,7 @@ import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 
 object ApiResponse {
-    fun <T> create(context: Activity, status: String?, msg: String, response: T?, listener: ApiClient.ApiResponseListener<T>) {
+    fun <T> create(activity: Activity, status: String?, msg: String, response: T?, listener: ApiClient.ApiResponseListener<T>) {
         val appPreferences = AppPreferences()
         if (response == null) {
             listener.onFailed(status ?: UnAuthorized, msg)
@@ -20,14 +20,14 @@ object ApiResponse {
                 }
                 AppConstants.Defaults.string -> {
                     ShowAlertFailed(
-                        context,
+                        activity,
                         msg
                     )
                 }
                 UnAuthorized -> {
-                    appPreferences.clearPreferences(context)
-                    context.startActivity(Intent(context, SplashActivity::class.java))
-                    finishAffinity(context)
+                    appPreferences.clearPreferences(activity)
+                    activity.startActivity(Intent(activity, SplashActivity::class.java))
+                    finishAffinity(activity)
                 }
                 NotFound -> {
                     listener.onFailed(NotFound, msg)
@@ -51,7 +51,7 @@ object ApiResponse {
                     listener.onFailed(ParameterNotProper, msg)
                 }
                 else -> {
-                    ShowAlertFailed(context, msg)
+                    ShowAlertFailed(activity, msg)
                 }
             }
         }

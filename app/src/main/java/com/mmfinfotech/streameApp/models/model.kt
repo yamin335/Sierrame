@@ -142,17 +142,9 @@ data class HomeLive(
     }
 }
 
-data class Schadule(
-    val id: String?,
-    val user_id: String?,
-    val title: String?,
-    val description: String?,
-    val date: String?,
-    val date_time: String?,
-    val status: String?,
-    val added_on: String?,
-    val update_on: String?,
-    val expire_status: String?,
+data class Schedule(
+    val id: String?, val user_id: String?, val title: String?, val description: String?, val date: String?,
+    val date_time: String?, val status: String?, val added_on: String?, val update_on: String?, val expire_status: String?,
     val staticMember: Boolean? = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -167,8 +159,7 @@ data class Schadule(
         parcel.readString(),
         parcel.readString(),
         parcel.readValue(Boolean::class.java.classLoader) as? Boolean
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
@@ -188,12 +179,12 @@ data class Schadule(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Schadule> {
-        override fun createFromParcel(parcel: Parcel): Schadule {
-            return Schadule(parcel)
+    companion object CREATOR : Parcelable.Creator<Schedule> {
+        override fun createFromParcel(parcel: Parcel): Schedule {
+            return Schedule(parcel)
         }
 
-        override fun newArray(size: Int): Array<Schadule?> {
+        override fun newArray(size: Int): Array<Schedule?> {
             return arrayOfNulls(size)
         }
     }
@@ -465,61 +456,55 @@ data class LiveHotThemeSchedule(
  * Streme Post Data
  *
  * */
+
+data class PostResponse(val status: String?, val message: String?, val record: PostRecord?)
+data class PostRecord(val data: List<Post>?, val currentPage: Int?, val last_page: Int?, val total_record: Int?, val per_page: Int?)
+
 data class Post(
-    val id: String?,
-    val user_id: String?,
-    val title: String?,
-    val description: String?,
-    val file: String?,
-    val thumb: String?,
-    val file_type: String?,
-    val status: String?,
-    val added_on: String?,
-    val update_on: String?,
-    val user_name: String?,
-    val user_profile: String?,
-    val profile_status: String?,
-    val like_status: String?,
-    val like_count: String?,
-    val comment_count: String?
+    val id: Int?, val user_id: String?, val title: String?,
+    val description: String?, val file: String?, val thumb: String?,
+    val file_type: String?, val status: Int?, val added_on: String?,
+    val update_on: String?, val user_name: String?, val user_profile: String?,
+    val profile_status: String?, val like_status: String?, val like_count: Int?,
+    val comment_count: Int?
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString()
+        parcel.readInt(),
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
+        parcel.writeInt(id ?: 0)
         parcel.writeString(user_id)
         parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeString(file)
         parcel.writeString(thumb)
         parcel.writeString(file_type)
-        parcel.writeString(status)
+        parcel.writeInt(status ?: 0)
         parcel.writeString(added_on)
         parcel.writeString(update_on)
         parcel.writeString(user_name)
         parcel.writeString(user_profile)
         parcel.writeString(profile_status)
         parcel.writeString(like_status)
-        parcel.writeString(like_count)
-        parcel.writeString(comment_count)
+        parcel.writeInt(like_count ?: 0)
+        parcel.writeInt(comment_count ?: 0)
     }
 
     override fun describeContents(): Int {

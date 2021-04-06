@@ -120,12 +120,12 @@ fun ShowAlertRequestFailed(context: Context?) {
  **/
 fun showScheduleDialog(
     context: Context?,
-    arrayList: ArrayList<Schadule?>?,
+    arrayList: ArrayList<Schedule?>?,
     listener: OnScaduleClickListners?
 ) {
     val jsonArrays: JsonArray? = JsonArray()
     var adapterSchedule: AdapterSchedule? = null
-    var arr: ArrayList<Schadule?>? = ArrayList()
+    var arr: ArrayList<Schedule?>? = ArrayList()
     arr = arrayList
     val alertDialog = AlertDialog.Builder(context!!).create()
     alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.WHITE))
@@ -154,21 +154,21 @@ fun showScheduleDialog(
         val day = calendar.get(Calendar.DAY_OF_MONTH)
         val datePickerDialog = DatePickerDialog(
             context!!,
-            DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            { view, year, month, dayOfMonth ->
                 val myYear = year
                 val myday = dayOfMonth
                 val myMonth = month.plus(1)
 
                 TimePickerDialog(
                     context!!,
-                    TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                    { view, hourOfDay, minute ->
                         val time =
                             (if (hourOfDay > 12) (if ((hourOfDay % 12) < 10) "0${hourOfDay % 12}" else hourOfDay % 12) else (if (hourOfDay < 10) "0$hourOfDay" else hourOfDay)).toString() + ":" + (if (minute < 10) "0$minute" else minute) + " " + if (hourOfDay >= 12) "PM" else "AM"
                         val date =
                             "${(if (myday < 10) "0$myday" else myday)}-${(if (myMonth < 10) "0$myMonth" else myMonth)}-${myYear} ${time}"
                         if (arrayList?.size!! <= 10) {
                             arr?.add(
-                                Schadule(
+                                Schedule(
                                     "", "", "", "", "", date, "",
                                     "", "", "", true
                                 )

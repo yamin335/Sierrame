@@ -44,7 +44,7 @@ interface MyApiEndpointInterface {
      * Request for Get All Schedule My
      * */
     @GET(AppConstants.Endpoint.scheduleMy)
-    fun callScheduleMy(@HeaderMap headers: Map<String, String>): Call<JsonObject?>
+    fun callScheduleMy(@HeaderMap headers: Map<String, String>): Call<ScheduleResponse?>
 
     /**
      * Request for Update User
@@ -69,7 +69,7 @@ interface MyApiEndpointInterface {
      **/
     @Multipart
     @POST(AppConstants.Endpoint.scheduleAdd)
-    fun callAddSchedule(@HeaderMap headers: Map<String, String>, @Part("schedule") schedule: RequestBody): Call<JsonObject?>
+    fun callAddSchedule(@HeaderMap headers: Map<String, String>, @Part("schedule") schedule: RequestBody): Call<AddScheduleResponse?>
 
     /**
      * Start Live Streming by mySelf***
@@ -178,7 +178,7 @@ interface MyApiEndpointInterface {
      *
      **/
     @GET(AppConstants.Endpoint.getProfile)
-    fun callGetProfile(@HeaderMap headers: Map<String, String>): Call<JsonObject?>
+    fun callGetProfile(@HeaderMap headers: Map<String, String>): Call<ProfileResponse?>
 
     /**
      * get Live Schedule of User
@@ -200,7 +200,7 @@ interface MyApiEndpointInterface {
         @HeaderMap header: Map<String, String>,
         @Path("stream_id") stremerId: String,
         @Query("page") page: String
-    ): Call<JsonObject?>
+    ): Call<PostResponse?>
 
     /**
      * This Calling For Stremer All Clips
@@ -278,7 +278,7 @@ interface MyApiEndpointInterface {
      * Setting private account
      * */
     @GET(AppConstants.Endpoint.settingPrivateAccount)
-    fun callsettingPrivateAccount(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callsettingPrivateAccount(@HeaderMap header: Map<String, String>): Call<PrivateAccountResponse?>
 
     /**
      * Setting Private

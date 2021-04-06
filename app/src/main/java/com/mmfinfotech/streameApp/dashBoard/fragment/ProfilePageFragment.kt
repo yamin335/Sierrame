@@ -29,8 +29,7 @@ import com.mmfinfotech.streameApp.dashBoard.profile.activity.*
 import com.mmfinfotech.streameApp.dashBoard.profile.fragment.ClipsFragment
 import com.mmfinfotech.streameApp.dashBoard.profile.fragment.PostFragment
 import com.mmfinfotech.streameApp.dashBoard.streme.activity.CameraActivity
-import com.mmfinfotech.streameApp.models.HomeLive
-import com.mmfinfotech.streameApp.models.Schadule
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.listners.OnScaduleClickListners
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -47,10 +46,9 @@ import kotlin.collections.ArrayList
 import kotlin.collections.set
 
 class ProfilePageFragment : Fragment() {
-    private val TAG: String? = ProfilePageFragment::class.java.simpleName
     private var mContext: Context? = null
     private var arrlist: ArrayList<HomeLive?>? = null
-    private var arrSchedule: ArrayList<Schadule?>? = null
+    private var arrSchedule: ArrayList<Schedule?>? = null
     private var imageFilePath: String? = null
     private var imageUri: Uri? = null
     private var removeImg: String? = ""
@@ -75,9 +73,9 @@ class ProfilePageFragment : Fragment() {
         setInit()
         fragmentGoesInThisTab()
         apiMyProfile()
-        apiMySchedul()
+        apiMySchedule()
         loadProfileImage((mContext as DashBoardActivity).appPreferences?.getProfileImage(mContext))
-        setListners()
+        setListeners()
     }
 
     private fun setInit() {
@@ -87,7 +85,7 @@ class ProfilePageFragment : Fragment() {
         imageViewRecording.setColorFilter(ContextCompat.getColor(mContext as DashBoardActivity, R.color.textSecondary), android.graphics.PorterDuff.Mode.MULTIPLY);
     }
 
-    private fun setListners() {
+    private fun setListeners() {
         imageEdit.setOnClickListener { startActivity(EditProfileActivity.getInstance(context)) }
         imageBack.setOnClickListener {  }
         imageViewPost.setOnClickListener {
@@ -105,39 +103,39 @@ class ProfilePageFragment : Fragment() {
             imageViewRecording.setColorFilter(ContextCompat.getColor(mContext as DashBoardActivity, R.color.textSecondary), android.graphics.PorterDuff.Mode.MULTIPLY);
         }
         imgProfile.setOnClickListener {
-            dialogSelectPhoto(mContext, View.OnClickListener { v ->
+            dialogSelectPhoto(mContext) { v ->
                 when (v?.id) {
                     R.id.textViewGallery -> {
                         if (checkHasPermission(mContext, Manifest.permission.CAMERA) == true &&
-                                checkHasPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == true &&
-                                checkHasPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) == true
+                            checkHasPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == true &&
+                            checkHasPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) == true
                         ) {
                             onGalleryClick()
                         } else {
                             requestPermissions(
-                                    arrayOf(
-                                            Manifest.permission.CAMERA,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                            Manifest.permission.READ_EXTERNAL_STORAGE
-                                    ),
-                                    AppConstants.Permission.multiplePermissions
+                                arrayOf(
+                                    Manifest.permission.CAMERA,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                ),
+                                AppConstants.Permission.multiplePermissions
                             )
                         }
                     }
                     R.id.textViewCamera -> {
                         if (checkHasPermission(mContext, Manifest.permission.CAMERA) == true &&
-                                checkHasPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == true &&
-                                checkHasPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) == true
+                            checkHasPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == true &&
+                            checkHasPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE) == true
                         ) {
                             getCamera()
                         } else {
                             requestPermissions(
-                                    arrayOf(
-                                            Manifest.permission.CAMERA,
-                                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                            Manifest.permission.READ_EXTERNAL_STORAGE
-                                    ),
-                                    AppConstants.Permission.multiplePermissions
+                                arrayOf(
+                                    Manifest.permission.CAMERA,
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                ),
+                                AppConstants.Permission.multiplePermissions
                             )
                         }
 
@@ -147,7 +145,7 @@ class ProfilePageFragment : Fragment() {
                         callUpdateProfile(imageFilePath, removeImg)
                     }
                 }
-            })
+            }
 
         }
         buttonPost.setOnClickListener {
@@ -170,7 +168,7 @@ class ProfilePageFragment : Fragment() {
         textvirewScadule.setOnClickListener {
             showScheduleDialog(mContext, arrSchedule, object : OnScaduleClickListners {
                 override fun onCancelClick(view: View?) {
-                    apiMySchedul()
+                    apiMySchedule()
                 }
 
                 override fun onSaveClicklistner(s: String?, jsonArray: JsonArray?) {
@@ -182,24 +180,16 @@ class ProfilePageFragment : Fragment() {
             arrlist?.add(HomeLive("", "", "Time 00:00:00000", "https://free4kwallpapers.com/uploads/originals/2020/02/09/neon-balls-wallpaper.jpg"))
             arrlist?.add(HomeLive("", "", "Time 00:00:00000", "https://free4kwallpapers.com/uploads/originals/2020/02/09/neon-balls-wallpaper.jpg"))
             arrlist?.add(HomeLive("", "", "Time 00:00:00000", "https://free4kwallpapers.com/uploads/originals/2020/02/09/neon-balls-wallpaper.jpg"))
-            showArmyDialog(mContext, arrlist, object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                }
-            })
+            showArmyDialog(mContext, arrlist) { }
         }
         textViewGurdian.setOnClickListener {
-            showGuardianDialog(mContext, object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    when (v?.id) {
-                        R.id.imageViewHelp -> {
-                            showGuardianRulesDialog(mContext, object : View.OnClickListener {
-                                override fun onClick(v: View?) {
-                                }
-                            })
-                        }
+            showGuardianDialog(mContext) { v ->
+                when (v?.id) {
+                    R.id.imageViewHelp -> {
+                        showGuardianRulesDialog(mContext) { }
                     }
                 }
-            })
+            }
         }
 
         textvirewRankingImage.setOnClickListener {
@@ -246,59 +236,34 @@ class ProfilePageFragment : Fragment() {
                 .into(imgProfile)
     }
 
-    private fun apiMySchedul() {
+    private fun apiMySchedule() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
         val apiService: MyApiEndpointInterface? = ApiClient(mContext as DashBoardActivity).getClient()?.create(
                 MyApiEndpointInterface::class.java)
-        val callChangeId: Call<JsonObject?>? = apiService?.callScheduleMy(headers)
-        (mContext as DashBoardActivity).callApi(true, callChangeId, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
+        val callChangeId: Call<ScheduleResponse?>? = apiService?.callScheduleMy(headers)
+        (mContext as DashBoardActivity).callRemoteApi(true, callChangeId, object : ApiClient.ApiCallbackListener<ScheduleResponse> {
+            override fun onDataFetched(response: ScheduleResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(requireActivity(), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<ScheduleResponse> {
+                    override fun onSuccess(response: ScheduleResponse) {
                         arrSchedule?.clear()
-                        val record = getJsonArrayFromJson(mainObject, record, JsonArray())
-                        for (i in 0 until record!!.size()) {
-                            val scheduleObject = getJsonObjFromJson(record, i, JsonObject())
-                            val id = getStringFromJson(scheduleObject, "id", AppConstants.Defaults.string)
-                            val user_id = getStringFromJson(scheduleObject, "user_id", AppConstants.Defaults.string)
-                            val title = getStringFromJson(scheduleObject, "title", AppConstants.Defaults.string)
-                            val description = getStringFromJson(scheduleObject, "description", AppConstants.Defaults.string)
-                            val date = getStringFromJson(scheduleObject, "date", AppConstants.Defaults.string)
-                            val date_time = getStringFromJson(scheduleObject, "date_time", AppConstants.Defaults.string)
-                            val status = getStringFromJson(scheduleObject, "status", AppConstants.Defaults.string)
-                            val added_on = getStringFromJson(scheduleObject, "added_on", AppConstants.Defaults.string)
-                            val update_on = getStringFromJson(scheduleObject, "update_on", AppConstants.Defaults.string)
-                            val expire_status = getStringFromJson(scheduleObject, "expire_status", AppConstants.Defaults.string)
-
-                            arrSchedule?.add(Schadule(id,
-                                    user_id,
-                                    title,
-                                    description,
-                                    date,
-                                    date_time,
-                                    status,
-                                    added_on,
-                                    update_on,
-                                    expire_status))
+                        val records = response.record ?: return
+                        for (schedule in records) {
+                            arrSchedule?.add(schedule)
                         }
                     }
-                    NotFound -> {
-                        arrSchedule?.clear()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if ((mContext as DashBoardActivity).dialog?.isShowing == true)
-                    (mContext as DashBoardActivity).dialog?.dismiss()
-            }
 
-            override fun onFailure() {}
+                    override fun onFailed(status: String, message: String) {
+                        when (status) {
+                            NotFound -> {
+                                arrSchedule?.clear()
+                            }
+                        }
+                    }
+                })
+            }
         })
     }
 
@@ -308,65 +273,44 @@ class ProfilePageFragment : Fragment() {
 
         val apiService: MyApiEndpointInterface? = ApiClient(mContext as DashBoardActivity).getClient()?.create(
                 MyApiEndpointInterface::class.java)
-        val callProfile: Call<JsonObject?>? = apiService?.callGetProfile(headers)
-        (mContext as DashBoardActivity).callApi(true, callProfile, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val id = getStringFromJson(record, "id", AppConstants.Defaults.string)
-                        val name = getStringFromJson(record, "name", AppConstants.Defaults.string)
-                        val username = getStringFromJson(record, "username", AppConstants.Defaults.string)
-                        val country_code = getStringFromJson(record, "country_code", AppConstants.Defaults.string)
-                        val phone = getStringFromJson(record, "phone", AppConstants.Defaults.string)
-                        val email = getStringFromJson(record, "email", AppConstants.Defaults.string)
-                        val stream_id = getStringFromJson(record, "stream_id", AppConstants.Defaults.string)
-                        val profile = getStringFromJson(record, "profile", AppConstants.Defaults.string)
-                        val followings = getStringFromJson(record, "followings", AppConstants.Defaults.string)
-                        val followers = getStringFromJson(record, "followers", AppConstants.Defaults.string)
-                        val ranking = getStringFromJson(record, "ranking", AppConstants.Defaults.string)
-                        val likes = getIntFromJson(record, "like_count", AppConstants.Defaults.integer)
-                        val level = getStringFromJson(record, "lavel", AppConstants.Defaults.string)
+        val callProfile: Call<ProfileResponse?>? = apiService?.callGetProfile(headers)
+        (mContext as DashBoardActivity).callRemoteApi(true, callProfile, object : ApiClient.ApiCallbackListener<ProfileResponse> {
+            override fun onDataFetched(response: ProfileResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(requireActivity(), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<ProfileResponse> {
+                    override fun onSuccess(response: ProfileResponse) {
+                        val record = response.record ?: return
 
-                        val phoneAuthentication = getStringFromJson(record, "phone_authentication", AppConstants.Defaults.string)
-                        val secretMode = getStringFromJson(record, "secret_mode", AppConstants.Defaults.string)
-                        val privateFollowList = getStringFromJson(record, "private_follow_list", AppConstants.Defaults.string)
+                        (mContext as DashBoardActivity).appPreferences?.setUserID(mContext, record.id.toString())
+                        (mContext as DashBoardActivity).appPreferences?.setProfileImage(mContext, record.profile)
+                        (mContext as DashBoardActivity).appPreferences?.setPhone(mContext, record.phone)
 
-                        (mContext as DashBoardActivity).appPreferences?.setUserID(mContext, id)
-                        (mContext as DashBoardActivity).appPreferences?.setProfileImage(mContext, profile)
-                        (mContext as DashBoardActivity).appPreferences?.setPhone(mContext, phone)
+                        (mContext as DashBoardActivity).appPreferences?.setPhoneAuthentication(mContext, record.phone_authentication)
+                        (mContext as DashBoardActivity).appPreferences?.setPrivateFollowList(mContext, record.private_follow_list)
+                        (mContext as DashBoardActivity).appPreferences?.setSecretMode(mContext, record.secret_mode)
 
-                        (mContext as DashBoardActivity).appPreferences?.setPhoneAuthentication(mContext, phoneAuthentication)
-                        (mContext as DashBoardActivity).appPreferences?.setPrivateFollowList(mContext, privateFollowList)
-                        (mContext as DashBoardActivity).appPreferences?.setSecretMode(mContext, secretMode)
-
-                        textViewTitle.text = username
-                        textViewfollower.text = followers
-                        textViewLikeNo.text = likes.toString()
-                        val text = getString(R.string.like) + likes
-                        textviewLike?.text = text//"Like  $likes"
-                        textViewfollowing.text = followings
-                        textViewLevel.text = level
+                        textViewTitle.text = record.username
+                        textViewfollower.text = record.followers.toString()
+                        textViewLikeNo.text = record.like_count.toString()
+                        val text = getString(R.string.like) + record.like_count.toString()
+                        textviewLike?.text = text
+                        textViewfollowing.text = record.followings.toString()
+                        textViewLevel.text = record.lavel
 //                        textviewLike.text = "Like ${likes}"
 //                        textvirewRankingImage.text = "Ranking ${ranking}"
+                        fragmentGoesInThisTab()
                     }
-                    NotFound -> {
-                        arrSchedule?.clear()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if ((mContext as DashBoardActivity).dialog?.isShowing == true)
-                    (mContext as DashBoardActivity).dialog?.dismiss()
-                     fragmentGoesInThisTab()
-            }
 
-            override fun onFailure() {}
+                    override fun onFailed(status: String, message: String) {
+                        when (status) {
+                            NotFound -> {
+                                arrSchedule?.clear()
+                            }
+                        }
+                    }
+                })
+            }
         })
     }
 
@@ -378,61 +322,31 @@ class ProfilePageFragment : Fragment() {
                 scheduleArray.toString()
         )
         val apiService: MyApiEndpointInterface? = ApiClient(context).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callAddSchedule: Call<JsonObject?>? = apiService?.callAddSchedule(headers, array)
+        val callAddSchedule: Call<AddScheduleResponse?>? = apiService?.callAddSchedule(headers, array)
 
-        Log.d("hjg", "callChangeId ${callAddSchedule}")
-        (context as DashBoardActivity).callApi(true, callAddSchedule, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonArrayFromJson(mainObject, record, JsonArray())
-                        for (i in 0 until record!!.size()) {
-                            val scheduleObject = getJsonObjFromJson(record, i, JsonObject())
-                            val id = getStringFromJson(scheduleObject, "id", AppConstants.Defaults.string)
-                            val user_id = getStringFromJson(scheduleObject, "user_id", AppConstants.Defaults.string)
-                            val title = getStringFromJson(scheduleObject, "title", AppConstants.Defaults.string)
-                            val description = getStringFromJson(scheduleObject, "description", AppConstants.Defaults.string)
-                            val date = getStringFromJson(scheduleObject, "date", AppConstants.Defaults.string)
-                            val date_time = getStringFromJson(scheduleObject, "date_time", AppConstants.Defaults.string)
-                            val status = getStringFromJson(scheduleObject, "status", AppConstants.Defaults.string)
-                            val added_on = getStringFromJson(scheduleObject, "added_on", AppConstants.Defaults.string)
-                            val update_on = getStringFromJson(scheduleObject, "update_on", AppConstants.Defaults.string)
-                            val expire_status = getStringFromJson(scheduleObject, "expire_status", AppConstants.Defaults.string)
-//                            arrSchedule?.add(Schadule(id,
-//                                    user_id,
-//                                    title,
-//                                    description,
-//                                    date,
-//                                    date_time,
-//                                    status,
-//                                    added_on,
-//                                    update_on,
-//                                    expire_status))
-//                        }
+        (context as DashBoardActivity).callRemoteApi(true, callAddSchedule, object : ApiClient.ApiCallbackListener<AddScheduleResponse> {
+            override fun onDataFetched(response: AddScheduleResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(requireActivity(), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<AddScheduleResponse> {
+                        override fun onSuccess(response: AddScheduleResponse) {
+                            apiMySchedule()
+                            Toast.makeText(context, response.message, Toast.LENGTH_LONG).show()
                         }
-                        apiMySchedul()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(context, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(context, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if ((mContext as DashBoardActivity).dialog?.isShowing == true)
-                    (mContext as DashBoardActivity).dialog?.dismiss()
-            }
 
-            override fun onFailure() {}
+                        override fun onFailed(status: String, message: String) {
+                            when (status) {
+                                NotFound -> {
+                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+                    })
+            }
         })
     }
 
-    fun onGalleryClick() {
+    private fun onGalleryClick() {
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, AppConstants.RequestCode.imagePicker)
     }
@@ -502,9 +416,9 @@ class ProfilePageFragment : Fragment() {
 
     private fun fragmentGoesInThisTab() {
         val fragment: Fragment? = showFragment()
-        val fragmentTransaction = (mContext as DashBoardBaseActivity).supportFragmentManager?.beginTransaction()
-        fragmentTransaction?.replace(R.id.framePostClipsRecordingView, fragment!!, "")
-        fragmentTransaction?.commitAllowingStateLoss()
+        val fragmentTransaction = (mContext as DashBoardBaseActivity).supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.framePostClipsRecordingView, fragment!!, "")
+        fragmentTransaction.commitAllowingStateLoss()
     }
 
     private fun showFragment(): Fragment? {

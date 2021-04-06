@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
-import com.mmfinfotech.streameApp.models.Schadule
+import com.mmfinfotech.streameApp.models.Schedule
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
@@ -22,7 +22,7 @@ import java.util.HashMap
 
 class AdapterSchedule(
         val context: Context?,
-        private val arrSchadule: ArrayList<Schadule?>?,
+        private val arrSchadule: ArrayList<Schedule?>?,
         private val onScheduleListener: OnScheduleListners?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val tag: String? = AdapterSchedule::class.java.simpleName
@@ -57,12 +57,12 @@ class AdapterSchedule(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ArmyViewHolder -> {
-                holder.TextViewDate?.text = arrSchadule?.get(position)?.date_time
+                holder.textViewDate.text = arrSchadule?.get(position)?.date_time
 
-                holder.ImageViewCross.setOnClickListener {
+                holder.imageViewCross.setOnClickListener {
                     try {
                         if (arrSchadule?.get(position)?.staticMember == true) {
-                            arrSchadule?.remove(arrSchadule?.get(position))
+                            arrSchadule.remove(arrSchadule.get(position))
                             notifyDataSetChanged()
                         } else {
                             callRemoveSchedule(arrSchadule?.get(position)?.id, position)
@@ -114,9 +114,9 @@ class AdapterSchedule(
 
     override fun getItemCount(): Int {
         if (arrSchadule?.size == 0) {
-            arrSchadule?.add(null)
+            arrSchadule.add(null)
         } else {
-            if (arrSchadule?.contains(null) == true && arrSchadule?.size > 1) arrSchadule.remove(
+            if (arrSchadule?.contains(null) == true && arrSchadule.size > 1) arrSchadule.remove(
                     null
             )
         }
@@ -125,10 +125,10 @@ class AdapterSchedule(
 
     inner class ArmyViewHolder constructor(view: View) :
             RecyclerView.ViewHolder(view) {
-        var TextViewDate: TextView = view.findViewById(R.id.textDate)
+        var textViewDate: TextView = view.findViewById(R.id.textDate)
 
         //       var TextViewText : TextView = view.findViewById(R.id.textViewText)
-        var ImageViewCross: ImageView = view.findViewById(R.id.imageViewCross)
+        var imageViewCross: ImageView = view.findViewById(R.id.imageViewCross)
 
         init {
 

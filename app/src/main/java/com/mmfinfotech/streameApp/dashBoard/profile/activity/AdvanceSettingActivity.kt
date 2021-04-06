@@ -16,6 +16,7 @@ import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.CountryList
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.getCountryCodes
 import com.mmfinfotech.streameApp.dashBoard.streme.countryCodePicker.models.Country
 import com.mmfinfotech.streameApp.models.CommonResponse
+import com.mmfinfotech.streameApp.models.PrivateAccountResponse
 import com.mmfinfotech.streameApp.models.PrivateFollowerListResponse
 import com.mmfinfotech.streameApp.models.SecretModeResponse
 import com.mmfinfotech.streameApp.onBoarding.WelComeActivity
@@ -216,31 +217,20 @@ class AdvanceSettingActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@AdvanceSettingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callPrivateAccount: Call<JsonObject?>? = apiService?.callsettingPrivateAccount(headers)
-        callApi(true, callPrivateAccount, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
+        val callPrivateAccount: Call<PrivateAccountResponse?>? = apiService?.callsettingPrivateAccount(headers)
+        callRemoteApi(true, callPrivateAccount, object : ApiClient.ApiCallbackListener<PrivateAccountResponse> {
+            override fun onDataFetched(response: PrivateAccountResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AdvanceSettingActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<PrivateAccountResponse> {
+                    override fun onSuccess(response: PrivateAccountResponse) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, response.message)
                     }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@AdvanceSettingActivity, msg)
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
 
-            override fun onFailure() {
-
+                    override fun onFailed(status: String, message: String) {
+                        ShowAlertInformation(this@AdvanceSettingActivity, message)
+                    }
+                })
             }
         })
     }
