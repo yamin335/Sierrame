@@ -327,7 +327,7 @@ interface MyApiEndpointInterface {
     fun callLikeDisslike(
         @HeaderMap header: Map<String, String>,
         @Path("refrence_id") refrence_id: String?, @Path("type") type: String?
-    ): Call<JsonObject?>
+    ): Call<LikeDisLikeResponse?>
 
     /**
      * Search All Comments
@@ -335,8 +335,10 @@ interface MyApiEndpointInterface {
      * */
     @GET(AppConstants.Endpoint.apiAllComents)
     fun callGetAllComments(
-        @HeaderMap header: Map<String, String>, @Path("refrence_id") refrence_id: String?, @Path("type") type: String?
-    ): Call<JsonObject?>
+        @HeaderMap header: Map<String, String>,
+        @Path("refrence_id") refrence_id: String?,
+        @Path("type") type: String?
+    ): Call<CommentsResponse?>
 
     /**
      * This Calling For singlePost Details
@@ -354,7 +356,7 @@ interface MyApiEndpointInterface {
     fun callClipsDetails(
         @HeaderMap header: Map<String, String>,
         @Path("clip_id") page: String
-    ): Call<JsonObject?>
+    ): Call<ClipDetailsResponse?>
 
     /**
      * This Calling For My All Clips
@@ -474,10 +476,10 @@ interface MyApiEndpointInterface {
     fun callCheeringLive(
         @HeaderMap header: Map<String, String>,
         @Part("fetch") fetch: RequestBody?
-    ): Call<JsonObject?>
+    ): Call<CheeringResponse?>
 
     @POST(AppConstants.Endpoint.cheeringAnonymous)
-    fun callCheeringAnonymous(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callCheeringAnonymous(@HeaderMap header: Map<String, String>): Call<AnonymousCheeringResponse?>
 
     @Multipart
     @POST(AppConstants.Endpoint.rejectInvitation)
@@ -509,7 +511,7 @@ interface MyApiEndpointInterface {
         @HeaderMap header: Map<String, String>,
         @Path("post_id") postId: String?,
         @Path("comment_id") commentId: String?
-    ): Call<JsonObject?>
+    ): Call<CommonResponse?>
 
     @GET(AppConstants.Endpoint.blockUser)
     fun callBlockUser(

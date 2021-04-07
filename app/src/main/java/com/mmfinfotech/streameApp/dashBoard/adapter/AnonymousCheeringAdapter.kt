@@ -15,7 +15,7 @@ import com.mmfinfotech.streameApp.models.AnonymousCheering
 
 class AnonymousCheeringAdapter(
     val mContext: Context?,
-    val arrAnonymousCheering: ArrayList<AnonymousCheering?>?
+    private val arrAnonymousCheering: ArrayList<AnonymousCheering?>?
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val eventRecruitingData: Int = 0
     private val eventRecruitingNoData: Int = 1
@@ -51,10 +51,10 @@ class AnonymousCheeringAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is EventRecruitingViewHolder) {
             holder.name?.text = arrAnonymousCheering?.get(position)?.username
-            holder.coin?.text = arrAnonymousCheering?.get(position)?.spentCoins
+            holder.coin?.text = arrAnonymousCheering?.get(position)?.spent_coins
             if (mContext != null) {
                 Glide.with(mContext)
-                    .load(arrAnonymousCheering?.get(position)?.userProfile)
+                    .load(arrAnonymousCheering?.get(position)?.user_profile)
                     .apply(
                         RequestOptions().error(R.drawable.ic_dmmy_user)
                             .placeholder(R.drawable.ic_dmmy_user)

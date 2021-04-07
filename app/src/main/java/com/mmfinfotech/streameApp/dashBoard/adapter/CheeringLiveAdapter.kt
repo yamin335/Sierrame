@@ -52,8 +52,8 @@ class CheeringLiveAdapter(val context: Context?) : RecyclerView.Adapter<Recycler
             val item = array?.get(position)
 
             holder.name?.text = item?.username
-            holder.date?.text = item?.myStatus
-            holder.coinCount?.text = item?.spentCoins
+            holder.date?.text = item?.my_status
+            holder.coinCount?.text = item?.spent_coins
 
             if (showProfile == false) holder.profile?.visibility = View.GONE
             else holder.profile?.visibility = View.VISIBLE
@@ -62,7 +62,7 @@ class CheeringLiveAdapter(val context: Context?) : RecyclerView.Adapter<Recycler
             context?.let { context ->
                 holder.profile?.let { imageView ->
                     Glide.with(context)
-                        .load(item?.userProfile)
+                        .load(item?.user_profile)
                         .placeholder(R.drawable.ic_dmmy_user)
                         .apply(
                             RequestOptions().error(R.drawable.ic_dmmy_user)

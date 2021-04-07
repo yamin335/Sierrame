@@ -20,9 +20,8 @@ import com.mmfinfotech.streameApp.util.getFormattedDate
 class AdapterComments(
     val context: Context?,
     private val arrComments: ArrayList<CommentsChet?>?,
-    private val onCommentsListner: OnCommentsListner
+    private val onCommentsListner: OnCommentsListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val tag: String? = AdapterComments::class.java.simpleName
     val itemNoData: Int = 0
     val itemType: Int = 1
 
@@ -38,7 +37,7 @@ class AdapterComments(
             itemType -> {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.items_comments, parent, false)
-                LiveSchedulViewHolder(view)
+                LiveScheduleViewHolder(view)
             }
 
             itemNoData -> {
@@ -56,13 +55,13 @@ class AdapterComments(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is LiveSchedulViewHolder -> {
-                holder.ImageProfile.animation = AnimationUtils.loadAnimation(context, R.anim.anim)
+            is LiveScheduleViewHolder -> {
+                holder.imageProfile.animation = AnimationUtils.loadAnimation(context, R.anim.anim)
 
                 if (arrComments?.get(position)?.update_on != null)
-                    holder.textTime.text = getFormattedDate(context, arrComments?.get(position)?.update_on!!.toLong())
-                holder.TextViewName?.text = arrComments?.get(position)?.user_name
-                holder.textViewDesc?.text = arrComments?.get(position)?.comment
+                    holder.textTime.text = getFormattedDate(context, arrComments.get(position)?.update_on!!.toLong())
+                holder.textViewName.text = arrComments?.get(position)?.user_name
+                holder.textViewDesc.text = arrComments?.get(position)?.comment
                 Glide.with(context!!)
                     .load(arrComments?.get(position)?.user_profile)
                     .apply(
@@ -72,10 +71,10 @@ class AdapterComments(
                     )
                     .apply(RequestOptions.circleCropTransform())
                     .placeholder(R.drawable.ic_user)
-                    .into(holder.ImageProfile!!)
+                    .into(holder.imageProfile)
 
                 if (arrComments?.get(position)?.owner_id.toString() ==  (context as CommentsActivity).appPreferences?.getUserId (context) ||
-                    arrComments?.get(position)?.user_id == (context as CommentsActivity).appPreferences?.getUserId (context)){
+                    arrComments?.get(position)?.user_id.toString() == context.appPreferences?.getUserId (context)){
                     holder.imageButtonMessageDelete?.visibility = View.VISIBLE
                 }else {
                     holder.imageButtonMessageDelete?.visibility = View.GONE
@@ -88,9 +87,9 @@ class AdapterComments(
 
     override fun getItemCount(): Int {
         if (arrComments?.size == 0) {
-            arrComments?.add(null)
+            arrComments.add(null)
         } else {
-            if (arrComments?.contains(null) == true && arrComments?.size > 1) arrComments.remove(
+            if (arrComments?.contains(null) == true && arrComments.size > 1) arrComments.remove(
                 null
             )
         }
@@ -99,11 +98,11 @@ class AdapterComments(
     }
 
 
-    inner class LiveSchedulViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
-        var TextViewName: TextView = view.findViewById(R.id.textViewName)
+    inner class LiveScheduleViewHolder constructor(view: View) : RecyclerView.ViewHolder(view) {
+        var textViewName: TextView = view.findViewById(R.id.textViewName)
         var textViewDesc: TextView = view.findViewById(R.id.textViewComments)
         var textTime: TextView = view.findViewById(R.id.textTime)
-        var ImageProfile: ImageView = view.findViewById(R.id.imageViewProfile)
+        var imageProfile: ImageView = view.findViewById(R.id.imageViewProfile)
         val imageButtonMessageDelete: ImageButton? = view.findViewById(R.id.imageButtonMessageDelete)
 
         init {
@@ -113,7 +112,7 @@ class AdapterComments(
 
     inner class NoDataViewHolder constructor(view: View) : RecyclerView.ViewHolder(view)
 
-    interface OnCommentsListner {
+    interface OnCommentsListener {
         fun onCommentsClick(p: Int)
         fun onDeleteClick(p: Int)
     }

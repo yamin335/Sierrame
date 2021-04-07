@@ -46,6 +46,7 @@ import io.agora.rtc.IRtcEngineEventHandler
 import io.agora.rtc.video.VideoEncoderConfiguration.VideoDimensions
 import io.agora.rtm.*
 import kotlinx.android.synthetic.main.activity_live.*
+import kotlinx.android.synthetic.main.activity_play_streaming.*
 import kotlinx.android.synthetic.main.partial_message_input.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -599,43 +600,29 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
             ApiClient(this@LiveActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(
+        val callLogout: Call<LikeDisLikeResponse?>? = apiService?.callLikeDisslike(
             headers,
             liversProfile?.id,
             AppConstants.LikeTypes.TypeLiveStream
         )
-        callApi(true, callLogout, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val status_changed: String? = getStringFromJson(
-                            mainObject,
-                            "status_changed",
-                            AppConstants.Defaults.string
-                        )
-                        if (status_changed.equals("1")) {
-                            createHeartsAnimation(view)
-                            imageButtonLiveHeart.setColorFilter(null)
-                        } else {
-                            imageButtonLiveHeart.setColorFilter(resources.getColor(R.color.unselectedDrawables))
+        callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<LikeDisLikeResponse> {
+            override fun onDataFetched(response: LikeDisLikeResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@LiveActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<LikeDisLikeResponse> {
+                        override fun onSuccess(response: LikeDisLikeResponse) {
+                            if (response.status_changed.equals("1")) {
+                                createHeartsAnimation(view)
+                                imageButtonLiveHeart.colorFilter = null
+                            } else {
+                                imageButtonLiveHeart.setColorFilter(resources.getColor(R.color.unselectedDrawables))
 //                            ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
+                            }
                         }
 
-                    }
-
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
-
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                        }
+                    })
             }
         })
     }

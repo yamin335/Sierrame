@@ -98,3 +98,13 @@ data class ProfileRecord(val id: Int?, val name: String?, val username: String?,
 data class AddScheduleResponse(val status: String?, val message: String?, val record: List<Schedule>?, val error: List<Any>?)
 
 data class ScheduleResponse(val status: String?, val message: String?, val record: List<Schedule>?)
+
+data class ClipDetailsResponse(val status: String?, val message: String?, val record: ClipDetailsRecord?)
+
+data class ClipDetailsRecord(val id: Int?, val user_id: String?, val title: String?, val description: String?,
+                  val file: String?, val thumb: String?, val file_type: String?, val category: String?,
+                  val status: Int?, val added_on: String?, val update_on: String?, val user_name: String?,
+                  val user_profile: String?, val profile_status: String?, val users_score: Double?,
+                  val follow_status: String?, val like_status: String?, val like_count: Int?, val comment_count: Int?)
+
+data class LikeDisLikeResponse(val status: String?, val message: String?, val status_changed: String?)

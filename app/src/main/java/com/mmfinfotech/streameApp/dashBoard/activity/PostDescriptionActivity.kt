@@ -12,20 +12,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
+import com.mmfinfotech.streameApp.models.LikeDisLikeResponse
 import com.mmfinfotech.streameApp.util.getFormattedDate
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import kotlinx.android.synthetic.main.activity_play_streaming.*
 import kotlinx.android.synthetic.main.activity_post_discription.*
 import kotlinx.android.synthetic.main.activity_post_discription.view.*
 import retrofit2.Call
 import java.util.*
 
 class PostDescriptionActivity : DashBoardBaseActivity() {
-    private val TAG: String? = PostDescriptionActivity::class.java.simpleName
-
     //    private var PostData: Post? = null
     private var postId: String? = AppConstants.Defaults.string
     var likeCounts: Int? = 0
@@ -47,7 +47,7 @@ class PostDescriptionActivity : DashBoardBaseActivity() {
 
     private fun setListners() {
         ImageButtonBack.setOnClickListener { onBackPressed() }
-        ImageButtonHeart.setOnClickListener { callApiLikeDissLike() }
+        ImageButtonHeart.setOnClickListener { callApiLikeDisLike() }
         ImageButtonComments.setOnClickListener { startActivity(CommentsActivity.getInstance(this@PostDescriptionActivity, postId.toString())) }
         ImageButtonDelete?.setOnClickListener {
             val builder = AlertDialog.Builder(this@PostDescriptionActivity).apply {
@@ -92,42 +92,34 @@ class PostDescriptionActivity : DashBoardBaseActivity() {
         })
     }
 
-    private fun callApiLikeDissLike() {
+    private fun callApiLikeDisLike() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
             ApiClient(this@PostDescriptionActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(headers, postId, AppConstants.LikeTypes.TypePost)
-        callApi(true, callLogout, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
-                        val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
-                        if (status_changed.equals("1")) {
-                            ImageButtonHeart.setImageResource(R.drawable.ic__fillheart_24)
-                            likeCounts = likeCounts?.plus(1)
-                            val text = likeCounts.toString() + getString(R.string.like) //likeCounts.toString()+" Likes"
-                            textViewLikes.text = text
-                        } else {
-                            ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
-                            likeCounts = likeCounts?.minus(1)
-                            val text = likeCounts.toString() + getString(R.string.like)  // "${likeCounts.toString()} Likes"
-                            textViewLikes.text = text
+        val callLogout: Call<LikeDisLikeResponse?>? = apiService?.callLikeDisslike(headers, postId, AppConstants.LikeTypes.TypePost)
+        callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<LikeDisLikeResponse> {
+            override fun onDataFetched(response: LikeDisLikeResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@PostDescriptionActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<LikeDisLikeResponse> {
+                        override fun onSuccess(response: LikeDisLikeResponse) {
+                            if (response.status_changed.equals("1")) {
+                                ImageButtonHeart.setImageResource(R.drawable.ic__fillheart_24)
+                                likeCounts = likeCounts?.plus(1)
+                                val text = likeCounts.toString() + getString(R.string.like) //likeCounts.toString()+" Likes"
+                                textViewLikes.text = text
+                            } else {
+                                ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
+                                likeCounts = likeCounts?.minus(1)
+                                val text = likeCounts.toString() + getString(R.string.like)  // "${likeCounts.toString()} Likes"
+                                textViewLikes.text = text
+                            }
                         }
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
 
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                        }
+                    })
             }
         })
     }

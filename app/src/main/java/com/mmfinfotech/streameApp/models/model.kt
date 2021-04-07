@@ -594,52 +594,45 @@ data class Clips(
 
 }
 
+data class CommentsResponse(val status: String?, val message: String?, val record: CommentsRecord?)
+
+data class CommentsRecord(val data: List<CommentsChet>?, val currentPage: Int?,
+                          val last_page: Int?, val total_record: Int?, val per_page: Int?)
+
 data class CommentsChet(
-    val id: String?,
-    val user_id: String?,
-    val refrence_id: String?,
-    val comment: String?,
-    val type: String?,
-    val status: String?,
-    val added_on: String?,
-    val update_on: String?,
-    val user_name: String?,
-    val user_profile: String?,
-    val amazonaws: String?,
-    val profile_status: String?,
-    val owner_id: Int?
+    val id: Int?, val user_id: Int?, val refrence_id: String?,
+    val comment: String?, val owner_id: Int?, val type: Int?,
+    val status: Int?, val added_on: String?, val update_on: String?,
+    val user_name: String?, val user_profile: String?, val profile_status: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readString(),
-        parcel.readInt()
-    ) {
-    }
+        parcel.readString()
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(user_id)
+        parcel.writeInt(id ?: 0)
+        parcel.writeInt(user_id ?: 0)
         parcel.writeString(refrence_id)
         parcel.writeString(comment)
-        parcel.writeString(type)
-        parcel.writeString(status)
+        parcel.writeInt(owner_id ?: 0)
+        parcel.writeInt(type ?: 0)
+        parcel.writeInt(status ?: 0)
         parcel.writeString(added_on)
         parcel.writeString(update_on)
         parcel.writeString(user_name)
         parcel.writeString(user_profile)
-        parcel.writeString(amazonaws)
         parcel.writeString(profile_status)
-        parcel.writeInt(owner_id ?: 0)
     }
 
     override fun describeContents(): Int {
@@ -981,26 +974,21 @@ data class BabyCoin(
     val streamerId: Int? = AppConstants.Defaults.integer
 )
 
-data class Cheering(
-    val id: Int? = AppConstants.Defaults.integer,
-    val secretMode: Int? = AppConstants.Defaults.integer,
-    val myStatus: String? = AppConstants.Defaults.string,
-    val likeCount: String? = AppConstants.Defaults.string,
-    val spentCoins: String? = AppConstants.Defaults.string,
-    val username: String? = AppConstants.Defaults.string,
-    val userProfile: String? = AppConstants.Defaults.string,
-    val score: Int? = AppConstants.Defaults.integer
-)
+data class CheeringResponse(val status: String?, val message: String?, val record: CheeringRecord?)
 
-data class AnonymousCheering(
-    val id : Int? = AppConstants.Defaults.integer,
-    val spentCoins : String? = AppConstants.Defaults.string,
-    val myStatus : String? = AppConstants.Defaults.string,
-    val username : String? = AppConstants.Defaults.string,
-    val userProfile : String? = AppConstants.Defaults.string,
-    val score : Int? = AppConstants.Defaults.integer,
-    val updatedAt : String? = AppConstants.Defaults.string
-)
+data class CheeringRecord(val data: List<Cheering>?, val currentPage: Number?, val last_page: Number?, val total_record: Number?, val per_page: Number?)
+
+data class Cheering(val id: Int?, val secret_mode: String?, val my_status: String?,
+                    val like_count: Int?, val spent_coins: String?, val username: String?,
+                    val user_profile: String?, val score: Double?)
+
+data class AnonymousCheeringResponse(val status: String?, val message: String?, val record: AnonymousCheeringRecord?)
+
+data class AnonymousCheeringRecord(val data: List<AnonymousCheering>?, val currentPage: Number?,
+                                   val last_page: Number?, val total_record: Number?, val per_page: Number?)
+
+data class AnonymousCheering(val spent_coins: String?, val id: Int?, val my_status: String?,
+                             val username: String?, val user_profile: String?, val score: Double?, val updated_at: String?)
 
 data class BlockedUser(
     val id: String?,

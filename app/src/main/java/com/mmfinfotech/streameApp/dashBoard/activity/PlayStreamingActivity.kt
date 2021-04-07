@@ -27,7 +27,10 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
+import com.mmfinfotech.streameApp.models.CheeringResponse
+import com.mmfinfotech.streameApp.models.ClipDetailsResponse
 import com.mmfinfotech.streameApp.models.Clips
+import com.mmfinfotech.streameApp.models.LikeDisLikeResponse
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -111,7 +114,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
     private fun setListners() {
         tv_follow.setOnClickListener { followUnfollow() }
         closeIcon.setOnClickListener { onBackPressed() }
-        imageViewLike.setOnClickListener { callApiLikeDissLike() }
+        imageViewLike.setOnClickListener { callApiLikeDisLike() }
         imageButtonViewDelete?.setOnClickListener {
             val builder = AlertDialog.Builder(this@PlayStreamingActivity).apply {
                 setTitle(R.string.txt_alert)
@@ -291,45 +294,33 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         }, 100)
     }
 
-    private fun callApiLikeDissLike() {
-
+    private fun callApiLikeDisLike() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
         val apiService: MyApiEndpointInterface? =
             ApiClient(this@PlayStreamingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(headers, Clip?.id?.toString(), AppConstants.LikeTypes.TypeClips)
-        callApi(true, callLogout, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
-                        if (status_changed.equals("1")) {
-                            heart(imageViewLike)
-                            LikeCounts = LikeCounts?.plus(1)
-                            tvLikeCount.text = LikeCounts.toString()
-                            imageViewLike.colorFilter = null
-
-                        } else {
-                            LikeCounts = LikeCounts?.minus(1)
-                            tvLikeCount.text = LikeCounts.toString()
-                            imageViewLike.setColorFilter(resources.getColor(R.color.textSecondary))
-
+        val callLogout: Call<LikeDisLikeResponse?>? = apiService?.callLikeDisslike(headers, Clip?.id?.toString(), AppConstants.LikeTypes.TypeClips)
+        callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<LikeDisLikeResponse> {
+            override fun onDataFetched(response: LikeDisLikeResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@PlayStreamingActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<LikeDisLikeResponse> {
+                        override fun onSuccess(response: LikeDisLikeResponse) {
+                            if (response.status_changed.equals("1")) {
+                                heart(imageViewLike)
+                                LikeCounts = LikeCounts?.plus(1)
+                                tvLikeCount.text = LikeCounts.toString()
+                                imageViewLike.colorFilter = null
+                            } else {
+                                LikeCounts = LikeCounts?.minus(1)
+                                tvLikeCount.text = LikeCounts.toString()
+                                imageViewLike.setColorFilter(resources.getColor(R.color.textSecondary))
+                            }
                         }
-                    }
 
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
-
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                        }
+                    })
             }
         })
     }
@@ -341,85 +332,62 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         val apiService: MyApiEndpointInterface? = ApiClient(this@PlayStreamingActivity).getClient()?.create(
             MyApiEndpointInterface::class.java
         )
-        val callProfile: Call<JsonObject?>? = apiService?.callClipsDetails(headers, Clip?.id.toString())
-        callApi(true, callProfile, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val recordData = getJsonObjFromJson(mainObject, "record", JsonObject())
-                        val id = recordData?.get("id")?.asInt.toString()
-                        val user_id = getStringFromJson(recordData, "user_id", AppConstants.Defaults.string)
-                        val title = getStringFromJson(recordData, "title", AppConstants.Defaults.string)
-                        val description = getStringFromJson(recordData, "description", AppConstants.Defaults.string)
-                        val file = getStringFromJson(recordData, "file", AppConstants.Defaults.string)
-                        val thumb = getStringFromJson(recordData, "thumb", AppConstants.Defaults.string)
-                        val file_type = getStringFromJson(recordData, "file_type", AppConstants.Defaults.string)
-                        val status = getStringFromJson(recordData, "status", AppConstants.Defaults.string)
-                        val added_on = getStringFromJson(recordData, "added_on", AppConstants.Defaults.string)
-                        val update_on = getStringFromJson(recordData, "update_on", AppConstants.Defaults.string)
-                        val user_name = getStringFromJson(recordData, "user_name", AppConstants.Defaults.string)
-                        val user_profile = getStringFromJson(recordData, "user_profile", AppConstants.Defaults.string)
-                        val profile_status = getStringFromJson(recordData, "profile_status", AppConstants.Defaults.string)
-                        val like_status = getStringFromJson(recordData, "like_status", AppConstants.Defaults.string)
-                        val follow_status = getStringFromJson(recordData, "follow_status", AppConstants.Defaults.string)
-                        val like_count = recordData?.get("like_count")?.asInt
-                        val comment_count = getStringFromJson(recordData, "comment_count", AppConstants.Defaults.string)
+        val callProfile: Call<ClipDetailsResponse?>? = apiService?.callClipsDetails(headers, Clip?.id.toString())
+        callRemoteApi(true, callProfile, object : ApiClient.ApiCallbackListener<ClipDetailsResponse> {
+            override fun onDataFetched(response: ClipDetailsResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@PlayStreamingActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<ClipDetailsResponse> {
+                        override fun onSuccess(response: ClipDetailsResponse) {
 
-                        if (appPreferences?.getUserId(this@PlayStreamingActivity).equals(user_id, ignoreCase = true))
-                            imageButtonViewDelete?.visibility = View.VISIBLE
+                            val recordData = response.record ?: return
 
-                        if (user_id.equals(appPreferences?.getUserId(this@PlayStreamingActivity))) {
-                            linearLayout.visibility = View.GONE
-                        } else {
-                            linearLayout.visibility = View.VISIBLE
+                            if (appPreferences?.getUserId(this@PlayStreamingActivity).equals(recordData.user_id, ignoreCase = true))
+                                imageButtonViewDelete?.visibility = View.VISIBLE
 
+                            if (recordData.user_id.equals(appPreferences?.getUserId(this@PlayStreamingActivity))) {
+                                linearLayout.visibility = View.GONE
+                            } else {
+                                linearLayout.visibility = View.VISIBLE
+
+                            }
+
+                            textViewVideoTitle.text = Clip?.title
+                            textViewVideoDescription.text = Clip?.description
+                            live_room_name.text = Clip?.user_name
+                            live_room_broadcaster_uid.text = getString(R.string.txt_shot_movie)
+
+
+                            Glide.with(this@PlayStreamingActivity)
+                                .load(Clip?.user_profile)
+                                .placeholder(R.drawable.background_1)
+                                .apply(
+                                    RequestOptions().error(R.drawable.ic_dmmy_user)
+                                        .placeholder(R.drawable.ic_dmmy_user)
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                )
+                                .apply(RequestOptions.circleCropTransform())
+                                .into(live_name_board_icon)
+                            LikeCounts = recordData.like_count
+                            tvLikeCount.text = LikeCounts.toString()
+                            setPreview()
+                            if (recordData.like_status.equals("1")) {
+                                imageViewLike.colorFilter = null
+
+                            } else {
+                                imageViewLike.setColorFilter(resources.getColor(R.color.textSecondary))
+                            }
+                            if (recordData.follow_status.equals("1")) {
+                                tv_follow.text = getString(R.string.following) // "Following"
+                            } else {
+                                tv_follow.text = getString(R.string.follow) // "Follow"
+                            }
                         }
 
-                        textViewVideoTitle.text = Clip?.title
-                        textViewVideoDescription.text = Clip?.description
-                        live_room_name.text = Clip?.user_name
-                        live_room_broadcaster_uid.text = getString(R.string.txt_shot_movie)
-
-
-                        Glide.with(this@PlayStreamingActivity)
-                            .load(Clip?.user_profile)
-                            .placeholder(R.drawable.background_1)
-                            .apply(
-                                RequestOptions().error(R.drawable.ic_dmmy_user)
-                                    .placeholder(R.drawable.ic_dmmy_user)
-                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            )
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(live_name_board_icon)
-                        LikeCounts = like_count
-                        tvLikeCount.text = LikeCounts.toString()
-                        setPreview()
-                        if (like_status.equals("1")) {
-                            imageViewLike.colorFilter = null
-
-                        } else {
-                            imageViewLike.setColorFilter(resources.getColor(R.color.textSecondary))
+                        override fun onFailed(status: String, message: String) {
                         }
-                        if (follow_status.equals("1")) {
-                            tv_follow.text = getString(R.string.following) // "Following"
-                        } else {
-                            tv_follow.text = getString(R.string.follow) // "Follow"
-                        }
-                    }
-
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 

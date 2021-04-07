@@ -123,6 +123,7 @@ class AppConstants {
         companion object {
 //          const val url = "https://developer.mmfinfotech.com/streame/"
             const val url = "http://staging-api.streame-live.jp/"
+//            const val url = "https://streame.rtchubs.dev/"
         }
     }
 

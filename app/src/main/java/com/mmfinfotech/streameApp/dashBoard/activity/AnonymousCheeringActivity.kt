@@ -15,11 +15,12 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.base.NetworkBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AnonymousCheeringAdapter
+import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticatLive
+import com.mmfinfotech.streameApp.dashBoard.streme.activity.AuthenticationActivity
 import com.mmfinfotech.streameApp.models.AnonymousCheering
-import com.mmfinfotech.streameApp.util.getIntFromJson
-import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
-import com.mmfinfotech.streameApp.util.getJsonObjFromJson
-import com.mmfinfotech.streameApp.util.getStringFromJson
+import com.mmfinfotech.streameApp.models.AnonymousCheeringResponse
+import com.mmfinfotech.streameApp.models.LiveStreamHashTagCategoryResponse
+import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
@@ -71,40 +72,25 @@ class AnonymousCheeringActivity : NetworkBaseActivity() {
 
         val apiService: MyApiEndpointInterface? = ApiClient(this@AnonymousCheeringActivity).getClient()?.create(MyApiEndpointInterface::class.java)
 
-        val callCheeringAnonymous: Call<JsonObject?>? = apiService?.callCheeringAnonymous(headers)
+        val callCheeringAnonymous: Call<AnonymousCheeringResponse?>? = apiService?.callCheeringAnonymous(headers)
 
-        callApi(true, callCheeringAnonymous, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, "record", JsonObject())
-                        val data = getJsonArrayFromJson(record, "data", JsonArray())
-                        for (i in 0 until (data?.size() ?: 0)) {
-                            val item = getJsonObjFromJson(data, i, JsonObject())
-                            arrAnonymousCheering?.add(
-                                AnonymousCheering(
-                                    id = getIntFromJson(item, "id", AppConstants.Defaults.integer),
-                                    spentCoins = getStringFromJson(item, "spent_coins", AppConstants.Defaults.string),
-                                    myStatus = getStringFromJson(item, "my_status", AppConstants.Defaults.string),
-                                    username = getStringFromJson(item, "username", AppConstants.Defaults.string),
-                                    userProfile = getStringFromJson(item, "user_profile", AppConstants.Defaults.string),
-                                    score = getIntFromJson(item, "score", AppConstants.Defaults.integer),
-                                    updatedAt = getStringFromJson(item, "updated_at", AppConstants.Defaults.string)
-                                )
-                            )
+        callRemoteApi(true, callCheeringAnonymous, object : ApiClient.ApiCallbackListener<AnonymousCheeringResponse> {
+            override fun onDataFetched(response: AnonymousCheeringResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@AnonymousCheeringActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<AnonymousCheeringResponse> {
+                    override fun onSuccess(response: AnonymousCheeringResponse) {
+                        val data = response.record?.data ?: return
+                        for (item in data) {
+                            arrAnonymousCheering?.add(item)
                         }
                         recyclerViewAnonymousCheering.adapter?.notifyDataSetChanged()
                     }
-                    else -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@AnonymousCheeringActivity, msg, Toast.LENGTH_LONG).show()
+
+                    override fun onFailed(status: String, message: String) {
+                        Toast.makeText(this@AnonymousCheeringActivity, message, Toast.LENGTH_LONG).show()
                     }
-                }
-                if (dialog?.isShowing == true) dialog?.dismiss()
-            }
-
-            override fun onFailure() {
-
+                })
             }
         })
     }

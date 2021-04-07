@@ -22,6 +22,7 @@ import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.CommentsActivity
 import com.mmfinfotech.streameApp.dashBoard.activity.PostDescriptionActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AdapterTimeLine
+import com.mmfinfotech.streameApp.models.LikeDisLikeResponse
 import com.mmfinfotech.streameApp.models.Post
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
@@ -29,6 +30,7 @@ import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import kotlinx.android.synthetic.main.activity_play_streaming.*
 import kotlinx.android.synthetic.main.fragment_time_line.*
 import retrofit2.Call
 import java.util.HashMap
@@ -117,7 +119,7 @@ class TimeLineFragment : Fragment() {
             }
 
             override fun onLikeClickingListner(p: Int, ImageButtonHeart: ImageView) {
-                callApiLikeDissLike(arrTimeLInes?.get(p)?.id?.toString(),ImageButtonHeart)
+                callApiLikeDisLike(arrTimeLInes?.get(p)?.id?.toString(),ImageButtonHeart)
             }
 
             override fun onShareClickingListner(p: Int) {
@@ -213,36 +215,28 @@ class TimeLineFragment : Fragment() {
         })
     }
 
-    private fun callApiLikeDissLike(id: String?, ImageButtonHeart: ImageView) {
+    private fun callApiLikeDisLike(id: String?, ImageButtonHeart: ImageView) {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(mContext)}"
         val apiService: MyApiEndpointInterface? =
             ApiClient(mContext).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callLogout: Call<JsonObject?>? = apiService?.callLikeDisslike(headers, id, AppConstants.LikeTypes.TypePost)
-        (mContext as DashBoardActivity).callApi(true, callLogout, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val message: String? = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
-                        val status_changed: String? = getStringFromJson(mainObject, "status_changed", AppConstants.Defaults.string)
-                        if (status_changed.equals("1")) {
-                            ImageButtonHeart.setImageResource(R.drawable.ic__fillheart_24);
-                        } else {
-                            ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
+        val callLogout: Call<LikeDisLikeResponse?>? = apiService?.callLikeDisslike(headers, id, AppConstants.LikeTypes.TypePost)
+        (mContext as DashBoardActivity).callRemoteApi(true, callLogout, object : ApiClient.ApiCallbackListener<LikeDisLikeResponse> {
+            override fun onDataFetched(response: LikeDisLikeResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create((mContext as DashBoardActivity), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<LikeDisLikeResponse> {
+                        override fun onSuccess(response: LikeDisLikeResponse) {
+                            if (response.status_changed.equals("1")) {
+                                ImageButtonHeart.setImageResource(R.drawable.ic__fillheart_24);
+                            } else {
+                                ImageButtonHeart.setImageResource(R.drawable.ic_baseline_emptyheart);
+                            }
                         }
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (  (mContext as DashBoardActivity).dialog?.isShowing == true)
-                      (mContext as DashBoardActivity).dialog?.dismiss()
-            }
 
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                        }
+                    })
             }
         })
     }

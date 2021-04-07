@@ -12,8 +12,7 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.adapter.AdapterComments
-import com.mmfinfotech.streameApp.models.CommentResponse
-import com.mmfinfotech.streameApp.models.CommentsChet
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
@@ -53,7 +52,7 @@ class CommentsActivity : DashBoardBaseActivity() {
     private fun setAdapter() {
         recyclerview_comments_streme.adapter = adapterComments
         mLayoutManager = recyclerview_comments_streme.layoutManager as LinearLayoutManager
-        adapterComments = AdapterComments(this@CommentsActivity, arrComments, object : AdapterComments.OnCommentsListner {
+        adapterComments = AdapterComments(this@CommentsActivity, arrComments, object : AdapterComments.OnCommentsListener {
             override fun onCommentsClick(p: Int) {}
             override fun onDeleteClick(p: Int) {
                 deleteComment(p)
@@ -146,73 +145,52 @@ class CommentsActivity : DashBoardBaseActivity() {
             MyApiEndpointInterface::class.java
         )
 
-        val callComments: Call<JsonObject?>? = apiService?.callGetAllComments(headers, RefrenceId.toString(), AppConstants.LikeTypes.TypePost)
-        callApi(true, callComments, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
-                        if (pageNo == 1) {
-                            arrComments?.clear()
-                        }
-                        val arrTemp: ArrayList<CommentsChet?> = ArrayList()
-                        for (i in 0 until dataArray?.size()!!) {
-                            val recordData = getJsonObjFromJson(dataArray, i, JsonObject())
-                            val id = recordData?.get("id")?.asInt.toString()
-                            val user_id = getStringFromJson(recordData, "user_id", AppConstants.Defaults.string)
-                            val refrence_id = getStringFromJson(recordData, "refrence_id", AppConstants.Defaults.string)
-                            val owner_id = getIntFromJson(recordData, "owner_id", AppConstants.Defaults.integer)
-                            val comment = getStringFromJson(recordData, "comment", AppConstants.Defaults.string)
-                            val type = getStringFromJson(recordData, "type", AppConstants.Defaults.string)
-                            val status = getStringFromJson(recordData, "status", AppConstants.Defaults.string)
-                            val added_on = getStringFromJson(recordData, "added_on", AppConstants.Defaults.string)
-                            val update_on = recordData?.get("update_on")?.asInt.toString()
-                            val user_name = getStringFromJson(recordData, "user_name", AppConstants.Defaults.string)
-                            val user_profile = getStringFromJson(recordData, "user_profile", AppConstants.Defaults.string)
-                            val amazonaws = getStringFromJson(recordData, "amazonaws", AppConstants.Defaults.string)
-                            val profile_status = getStringFromJson(recordData, "profile_status", AppConstants.Defaults.string)
-
-                            arrTemp.add(
-                                CommentsChet(
-                                    id, user_id, refrence_id, comment, type, status, added_on, "${update_on}000", user_name,
-                                    user_profile, amazonaws, profile_status, owner_id
-                                )
-                            )
-                        }
-                        arrTemp.reverse()
-                        arrComments?.addAll(0, arrTemp)
+        val callComments: Call<CommentsResponse?>? = apiService?.callGetAllComments(headers, RefrenceId.toString(), AppConstants.LikeTypes.TypePost)
+        callRemoteApi(true, callComments, object : ApiClient.ApiCallbackListener<CommentsResponse> {
+            override fun onDataFetched(response: CommentsResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@CommentsActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<CommentsResponse> {
+                        override fun onSuccess(response: CommentsResponse) {
+                            val dataArray = response.record?.data ?: return
+                            if (pageNo == 1) {
+                                arrComments?.clear()
+                            }
+                            val arrTemp: ArrayList<CommentsChet?> = ArrayList()
+                            for (data in dataArray) {
+                                arrTemp.add(data)
+                            }
+                            arrTemp.reverse()
+                            arrComments?.addAll(0, arrTemp)
 //                        recyclerview_comments_streme.smoothScrollToPosition(
 ////                            arrComments?.size?.minus(1)!!
 ////                        )
-                        if (arrComments?.contains(null) == true) arrComments?.remove(null)
+                            if (arrComments?.contains(null) == true) arrComments?.remove(null)
 
-                        if (pageNo == 1) adapterComments?.notifyDataSetChanged()
-                        else {
+                            if (pageNo == 1) adapterComments?.notifyDataSetChanged()
+                            else {
 //                            if (oldsize != arrHome?.size!! )
 //                                adapterHome?.notifyItemRangeInserted(oldsize!!, arrHome?.size!! - 1)
+                                adapterComments?.notifyDataSetChanged()
+                            }
+
+                            if (pageNo!! > 1 && dataArray.isNotEmpty()) loadData = false
+
                             adapterComments?.notifyDataSetChanged()
+                            if ((pageNo ?: 0) > 1) {
+                                loadData = false
+                            }
                         }
 
-                        if (pageNo!! > 1 && dataArray.size() != 0) loadData = false
-
-                        adapterComments?.notifyDataSetChanged()
-                        if ((pageNo ?: 0) > 1) {
-                            loadData = false
+                        override fun onFailed(status: String, message: String) {
+                            when (status) {
+                                NotFound -> {
+                                    arrComments?.clear()
+                                }
+                            }
                         }
-                    }
-                    NotFound -> {
-                        arrComments?.clear()
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText((mContext as DashBoardActivity), "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true) dialog?.dismiss()
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 
@@ -221,25 +199,21 @@ class CommentsActivity : DashBoardBaseActivity() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@CommentsActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this).getClient()?.create(MyApiEndpointInterface::class.java)
 
-        val callDeleteComment: Call<JsonObject?>? = apiService?.callPostCommentDelete(headers, refrenceId, arrComments?.get(position)?.id)
-        callApi(true, callDeleteComment, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        arrComments?.removeAt(position)
-                        adapterComments?.notifyItemRemoved(position)
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@CommentsActivity, msg, Toast.LENGTH_LONG).show()
-                    }
-                    else -> Toast.makeText(this@CommentsActivity, getString(R.string.something_went_wrong), Toast.LENGTH_LONG).show()
-                }
-                if (dialog?.isShowing == true) dialog?.dismiss()
-            }
+        val callDeleteComment: Call<CommonResponse?>? = apiService?.callPostCommentDelete(headers, refrenceId, arrComments?.get(position)?.id?.toString())
+        callRemoteApi(true, callDeleteComment, object : ApiClient.ApiCallbackListener<CommonResponse> {
+            override fun onDataFetched(response: CommonResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@CommentsActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<CommonResponse> {
+                        override fun onSuccess(response: CommonResponse) {
+                            arrComments?.removeAt(position)
+                            adapterComments?.notifyItemRemoved(position)
+                        }
 
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@CommentsActivity, message, Toast.LENGTH_LONG).show()
+                        }
+                    })
             }
         })
     }
