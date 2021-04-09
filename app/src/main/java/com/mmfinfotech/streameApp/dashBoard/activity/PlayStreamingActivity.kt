@@ -27,10 +27,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
-import com.mmfinfotech.streameApp.models.CheeringResponse
-import com.mmfinfotech.streameApp.models.ClipDetailsResponse
-import com.mmfinfotech.streameApp.models.Clips
-import com.mmfinfotech.streameApp.models.LikeDisLikeResponse
+import com.mmfinfotech.streameApp.models.*
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -149,22 +146,23 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@PlayStreamingActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@PlayStreamingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callDeleteClip: Call<JsonObject?>? = apiService?.callDeleteClip(headers, Clip?.id?.toString())
+        val callDeleteClip: Call<ClipDeleteResponse?>? = apiService?.callDeleteClip(headers, Clip?.id?.toString())
 
-        callApi(true, callDeleteClip, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                if (dialog?.isShowing == true) dialog?.dismiss()
-                when (status) {
-                    Success -> { finish() }
-                    else -> {
-                        val message = getStringFromJson(mainObject, "message", AppConstants.Defaults.string)
-                        Toast.makeText(this@PlayStreamingActivity, message,Toast.LENGTH_SHORT).show()
-                    }
-                }
+        callRemoteApi(true, callDeleteClip, object : ApiClient.ApiCallbackListener<ClipDeleteResponse> {
+            override fun onDataFetched(response: ClipDeleteResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@PlayStreamingActivity, response?.success, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<ClipDeleteResponse> {
+                        override fun onSuccess(response: ClipDeleteResponse) {
+                            finish()
+                            Toast.makeText(this@PlayStreamingActivity, response.message, Toast.LENGTH_SHORT).show()
+                        }
 
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@PlayStreamingActivity, message, Toast.LENGTH_LONG).show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 
@@ -172,31 +170,27 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@PlayStreamingActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@PlayStreamingActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callFollowUnfollow: Call<JsonObject?>? = apiService?.callFollowUnFollow(headers, Clip?.user_id)
+        val callFollowUnFollow: Call<FollowUnFollowResponse?>? = apiService?.callFollowUnFollow(headers, Clip?.user_id)
 
-        callApi(true, callFollowUnfollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val FollowStatus = getStringFromJson(record, "follow_status", AppConstants.Defaults.string)
-                        if (FollowStatus.equals("1")) {
-                            tv_follow.text = getString(R.string.following)
-                        } else {
-                            tv_follow.text = getString(R.string.follow)
+        callRemoteApi(true, callFollowUnFollow, object : ApiClient.ApiCallbackListener<FollowUnFollowResponse> {
+            override fun onDataFetched(response: FollowUnFollowResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@PlayStreamingActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowUnFollowResponse> {
+                        override fun onSuccess(response: FollowUnFollowResponse) {
+                            if (response.record?.follow_status?.equals("1") == true) {
+                                tv_follow.text = getString(R.string.following)
+                            } else {
+                                tv_follow.text = getString(R.string.follow)
+                            }
                         }
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@PlayStreamingActivity, msg, Toast.LENGTH_LONG).show()
-                    }
 
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@PlayStreamingActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 
@@ -204,17 +198,17 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
         Handler().postDelayed({
             for (i in 0 until 10) {
                 val outLocation = IntArray(2)
-                view?.getLocationOnScreen(outLocation)
+                view.getLocationOnScreen(outLocation)
 
                 val display: Display? = windowManager.defaultDisplay
-                val size: Point? = Point()
+                val size = Point()
                 display?.getSize(size)
-                val width: Int? = size?.x
+                val width: Int = size.x
 //                val height: Int? = size?.y
 
                 val heart: Drawable? = ContextCompat.getDrawable(this@PlayStreamingActivity, R.drawable.ic_heart_animatn)
 
-                val imageView: ImageView? = ImageView(baseContext).apply {
+                val imageView: ImageView = ImageView(baseContext).apply {
                     setImageDrawable(heart)
                     val imageSizeMax = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50F, resources.displayMetrics).toInt()
                     val imageSizeMin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 25F, resources.displayMetrics).toInt()
@@ -224,19 +218,17 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
                             kotlin.random.Random.nextInt(imageSizeMin, imageSizeMax)
                         )
                     x = (outLocation[0].plus(
-                        view?.width?.div(2)?.minus(paramsImage.width.div(2))
-                            ?: 0
+                        view.width.div(2).minus(paramsImage.width.div(2))
                     )).toFloat()
                     y = (outLocation[1].minus(
-                        view?.height?.div(2)?.minus(paramsImage.height.div(2))
-                            ?: 0
+                        view.height.div(2).minus(paramsImage.height.div(2))
                     )).toFloat()
                     layoutParams = paramsImage
 
                 }
 
                 runOnUiThread { relativeLayout?.addView(imageView) }
-                val randomy = kotlin.random.Random.nextInt(width?.div(1.5)?.toInt() ?: 0, width ?: 0)
+                val randomy = kotlin.random.Random.nextInt(width.div(1.5).toInt(), width)
                 val animationY: ObjectAnimator? = ObjectAnimator.ofFloat(imageView, "translationY", randomy.toFloat()).apply {
                     duration = kotlin.random.Random.nextLong(2000, 6000)
                     startDelay = kotlin.random.Random.nextLong(10, 30)
@@ -245,7 +237,7 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
 //                val max = width?.div(4) ?: 0
 //                val min = width?.div(12) ?: 0
 //            val randomX = (Random.nextInt(max.plus(min)).minus(min)) * 10
-                val randomX = kotlin.random.Random.nextInt(width?.div(1.5)?.toInt() ?: 0, width ?: 0)
+                val randomX = kotlin.random.Random.nextInt(width.div(1.5).toInt(), width)
                 val animationX: ObjectAnimator? = ObjectAnimator.ofFloat(imageView, "translationX", randomX.toFloat()).apply {
                     duration = 1250
 //                duration = Random.nextLong(2000, 6000)
@@ -285,10 +277,10 @@ class PlayStreamingActivity : DashBoardBaseActivity() {
                     override fun onAnimationRepeat(animation: Animator?) {}
                 }
 
-                val animatorSet: AnimatorSet? = AnimatorSet()
-                animatorSet?.playTogether(animationX, animationY, fadeOut)
-                animatorSet?.addListener(animationListener)
-                animatorSet?.start()
+                val animatorSet = AnimatorSet()
+                animatorSet.playTogether(animationX, animationY, fadeOut)
+                animatorSet.addListener(animationListener)
+                animatorSet.start()
                 arrObject?.add(imageView)
             }
         }, 100)

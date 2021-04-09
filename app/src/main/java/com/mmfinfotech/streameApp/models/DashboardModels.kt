@@ -108,3 +108,20 @@ data class ClipDetailsRecord(val id: Int?, val user_id: String?, val title: Stri
                   val follow_status: String?, val like_status: String?, val like_count: Int?, val comment_count: Int?)
 
 data class LikeDisLikeResponse(val status: String?, val message: String?, val status_changed: String?)
+
+data class NotificationResponse(val status: String?, val message: String?, val record: NotificationRecord?)
+
+data class Notification(val id: Int?, val receiver: String?, val payload: String?, val type: Int?,
+                            val added_on: String?, val sender_id: Int?, val sender_name: String?,
+                            val sender_profile: String?, val notification: String?,
+                            val reference_id: String?, val content: Int?)
+
+data class NotificationRecord(val data: List<Notification>?)
+
+data class FollowerListResponse(val status: String?, val message: String?, val record: FollowerListRecord?)
+
+data class FollowerData(val id: Int?, val user_id: String?, val added_on: String?,
+                        val name: String?, val profile: String?, val profile_status: String?)
+
+data class FollowerListRecord(val data: List<FollowerData>?, val currentPage: Int?,
+                              val last_page: Int?, val total_record: Int?, val per_page: Int?)

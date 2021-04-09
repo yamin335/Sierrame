@@ -16,12 +16,14 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.AdapterStreamerFolloweNLike
+import com.mmfinfotech.streameApp.models.FollowUnFollowResponse
 import com.mmfinfotech.streameApp.models.Following
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.RecyclerTouchListener
+import kotlinx.android.synthetic.main.activity_live.*
 import kotlinx.android.synthetic.main.activity_stremer_follow_n_like.*
 import retrofit2.Call
 import java.util.*
@@ -278,31 +280,26 @@ class StremerFollowNLikeActivity : DashBoardBaseActivity() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@StremerFollowNLikeActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@StremerFollowNLikeActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callFollowUnFollow: Call<JsonObject?>? = apiService?.callFollowUnFollow(headers, id)
+        val callFollowUnFollow: Call<FollowUnFollowResponse?>? = apiService?.callFollowUnFollow(headers, id)
 
-        callApi(true, callFollowUnFollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        if (getStringFromJson(record, "follow_status", AppConstants.Defaults.string) == "0") {
-                            arrFollowNLike?.remove(arrFollowNLike?.get(position!!))
-                            adapterFollowLike?.notifyDataSetChanged()
+        callRemoteApi(true, callFollowUnFollow, object : ApiClient.ApiCallbackListener<FollowUnFollowResponse> {
+            override fun onDataFetched(response: FollowUnFollowResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@StremerFollowNLikeActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowUnFollowResponse> {
+                        override fun onSuccess(response: FollowUnFollowResponse) {
+                            if (response.record?.follow_status == "0") {
+                                arrFollowNLike?.remove(arrFollowNLike?.get(position!!))
+                                adapterFollowLike?.notifyDataSetChanged()
+                            }
                         }
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@StremerFollowNLikeActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
 
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@StremerFollowNLikeActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 }

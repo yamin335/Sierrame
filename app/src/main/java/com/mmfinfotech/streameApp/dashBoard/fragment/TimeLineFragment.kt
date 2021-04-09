@@ -36,10 +36,9 @@ import retrofit2.Call
 import java.util.HashMap
 
 class TimeLineFragment : Fragment() {
-    private val TAG : String? =TimeLineFragment::class.java.simpleName
     private var mContext: Context? = null
     private var arrTimeLInes: ArrayList<Post?>? = ArrayList()
-    private var adapterTimelines : AdapterTimeLine?= null
+    private var adapterTimeline : AdapterTimeLine?= null
     private var mLayoutManager : LinearLayoutManager? = null
     private var lastVisibleItem: Int? = null
     private var totalItemCount: Int? = null
@@ -47,7 +46,6 @@ class TimeLineFragment : Fragment() {
     private val visibleThreshold = 1
     private var pageNo: Int? = 1
     private var oldsize: Int? = null
-    private var query:String?=null
     val handler: Handler?= Handler()
 
     override fun onAttach(context: Context) {
@@ -89,7 +87,7 @@ class TimeLineFragment : Fragment() {
                         (arrTimeLInes?.size ?: 0) >= 20) {
                         loadData = true
                         arrTimeLInes?.add(null)
-                        adapterTimelines?.notifyDataSetChanged()
+                        adapterTimeline?.notifyDataSetChanged()
 //                        getDynDataFromServer(20, index - 1, true, true)
                         pageNo = pageNo?.inc()
                         oldsize = arrTimeLInes?.size
@@ -103,9 +101,9 @@ class TimeLineFragment : Fragment() {
     }
 
     private fun setAdapter() {
-        recyclerview_TimeLine_frag.adapter = adapterTimelines
+        recyclerview_TimeLine_frag.adapter = adapterTimeline
         mLayoutManager = recyclerview_TimeLine_frag.layoutManager as LinearLayoutManager
-        adapterTimelines = AdapterTimeLine(mContext, arrTimeLInes, object : AdapterTimeLine.OnTimeLineListner {
+        adapterTimeline = AdapterTimeLine(mContext, arrTimeLInes, object : AdapterTimeLine.OnTimeLineListner {
             override fun onClickThreeDotsListner(p: Int) {
                 showDotOptionsList(p)
             }
@@ -132,7 +130,7 @@ class TimeLineFragment : Fragment() {
                 startActivity(shareIntent)
             }
         })
-        recyclerview_TimeLine_frag.adapter = adapterTimelines
+        recyclerview_TimeLine_frag.adapter = adapterTimeline
     }
 
      fun callTimeLineApi( isRefresh: Boolean?,pageNo: Int?) {
@@ -189,7 +187,7 @@ class TimeLineFragment : Fragment() {
                                 like_count.toInt(),
                                 comment_count.toInt()))
                         }
-                        adapterTimelines?.notifyDataSetChanged()
+                        adapterTimeline?.notifyDataSetChanged()
                         if (pageNo!! > 1) {
                             loadData = false
                         }

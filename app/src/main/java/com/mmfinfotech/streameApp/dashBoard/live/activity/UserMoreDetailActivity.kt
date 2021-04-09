@@ -17,11 +17,13 @@ import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.fragment.StremerClipsFragment
 import com.mmfinfotech.streameApp.dashBoard.live.fragment.StremerPostFragment
 import com.mmfinfotech.streameApp.dashBoard.profile.activity.LeaderBoardActivity
+import com.mmfinfotech.streameApp.models.FollowUnFollowResponse
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
 import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
+import kotlinx.android.synthetic.main.activity_live.*
 import kotlinx.android.synthetic.main.activity_user_more_detail.*
 import retrofit2.Call
 import java.util.*
@@ -232,39 +234,28 @@ class UserMoreDetailActivity : DashBoardBaseActivity() {
             "Bearer ${AppPreferences().getAuthToken(this@UserMoreDetailActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@UserMoreDetailActivity).getClient()
             ?.create(MyApiEndpointInterface::class.java)
-        val callFollowUnfollow: Call<JsonObject?>? =
+        val callFollowUnFollow: Call<FollowUnFollowResponse?>? =
             apiService?.callFollowUnFollow(headers, StreamerId)
 
-        callApi(true, callFollowUnfollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val FollowStatus =
-                            getStringFromJson(record, "follow_status", AppConstants.Defaults.string)
-                        if (FollowStatus.equals("1")) {
-                            buttonStremeFollow.text = getString(R.string.following)
-                        } else {
-                            buttonStremeFollow.text = getString(R.string.follow)
+        callRemoteApi(true, callFollowUnFollow, object : ApiClient.ApiCallbackListener<FollowUnFollowResponse> {
+            override fun onDataFetched(response: FollowUnFollowResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@UserMoreDetailActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowUnFollowResponse> {
+                        override fun onSuccess(response: FollowUnFollowResponse) {
+                            if (response.record?.follow_status.equals("1")) {
+                                buttonStremeFollow.text = getString(R.string.following)
+                            } else {
+                                buttonStremeFollow.text = getString(R.string.follow)
+                            }
                         }
-                    }
-                    NotFound -> {
-                        val msg =
-                            getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@UserMoreDetailActivity, msg, Toast.LENGTH_LONG)
-                            .show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
 
-            override fun onFailure() {}
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@UserMoreDetailActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
+            }
         })
     }
 

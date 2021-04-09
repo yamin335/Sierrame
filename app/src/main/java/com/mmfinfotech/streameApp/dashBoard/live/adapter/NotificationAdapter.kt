@@ -43,7 +43,7 @@ class NotificationAdapter(
         if (holder is NotificationViewHolder) {
 
             holder.message?.text = arrNotifications?.get(position)?.notification
-            holder.date?.text = arrNotifications?.get(position)?.addedOn
+            holder.date?.text = arrNotifications?.get(position)?.added_on
 
             mContext?.let { context ->
                 holder.profile?.let { imageView ->
@@ -52,7 +52,7 @@ class NotificationAdapter(
 //                        .placeholder(R.drawable.placeholder_profile_circle)
 //                        .into(imageView)
                     Glide.with(context)
-                        .load(arrNotifications?.get(position)?.senderProfile)
+                        .load(arrNotifications?.get(position)?.sender_profile)
                         .apply(
                             RequestOptions().error(R.drawable.placeholder_profile_circle)
                                 .placeholder(R.drawable.placeholder_profile_circle)

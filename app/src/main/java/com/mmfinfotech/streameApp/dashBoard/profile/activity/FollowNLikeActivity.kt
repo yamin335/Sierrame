@@ -18,6 +18,8 @@ import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.baseActivity.DashBoardBaseActivity
 import com.mmfinfotech.streameApp.dashBoard.live.activity.UserMoreDetailActivity
 import com.mmfinfotech.streameApp.dashBoard.profile.adapter.AdapterCommonForThree
+import com.mmfinfotech.streameApp.models.FollowUnFollowResponse
+import com.mmfinfotech.streameApp.models.FollowerListResponse
 import com.mmfinfotech.streameApp.models.Following
 import com.mmfinfotech.streameApp.util.*
 import com.mmfinfotech.streameApp.util.retrofit.*
@@ -25,6 +27,7 @@ import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.RecyclerTouchListener
 import kotlinx.android.synthetic.main.activity_follow_n_like.*
+import kotlinx.android.synthetic.main.activity_play_streaming.*
 import retrofit2.Call
 import java.util.*
 import kotlin.collections.ArrayList
@@ -178,54 +181,32 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
     private fun callUserFollowerApi() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this)}"
-        val apiService: MyApiEndpointInterface? =
-                ApiClient(this@FollowNLikeActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callMypagFollower: Call<JsonObject?>? = apiService?.callMypagFollower(headers)
-        callApi(true, callMypagFollower, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText(this@FollowNLikeActivity, "${msg}", Toast.LENGTH_LONG).show()
-                        for (i in 0 until dataArray!!.size()) {
-                            val FollowingObject = getJsonObjFromJson(dataArray, i, JsonObject())
-                            val id = getStringFromJson(FollowingObject, "id", AppConstants.Defaults.string)
-                            val user_id = getStringFromJson(FollowingObject, "user_id", AppConstants.Defaults.string)
-                            val follow_id = getStringFromJson(FollowingObject, "follow_id", AppConstants.Defaults.string)
-                            val added_on = getStringFromJson(FollowingObject, "added_on", AppConstants.Defaults.string)
-                            val name = getStringFromJson(FollowingObject, "name", AppConstants.Defaults.string)
-                            val profile = getStringFromJson(FollowingObject, "profile", AppConstants.Defaults.string)
-                            val profile_status = getStringFromJson(FollowingObject, "profile_status", AppConstants.Defaults.string)
-
-                            arrFollowNLike?.add(Following(id,
-                                    user_id,
-                                    follow_id,
-                                    added_on,
-                                    name,
-                                    profile,
-                                    profile_status))
-
+        val apiService: MyApiEndpointInterface? = ApiClient(this@FollowNLikeActivity).getClient()?.create(MyApiEndpointInterface::class.java)
+        val callMyPageFollowers: Call<FollowerListResponse?>? = apiService?.callMypagFollower(headers)
+        callRemoteApi(true, callMyPageFollowers, object : ApiClient.ApiCallbackListener<FollowerListResponse> {
+            override fun onDataFetched(response: FollowerListResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@FollowNLikeActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowerListResponse> {
+                        override fun onSuccess(response: FollowerListResponse) {
+                            val followers = response.record?.data ?: return
+                            for (follower in followers) {
+                                arrFollowNLike?.add(Following(follower.id?.toString(),
+                                    follower.user_id,
+                                    "",
+                                    follower.added_on,
+                                    follower.name,
+                                    follower.profile,
+                                    follower.profile_status))
+                            }
+                            setAdapter(arrFollowNLike)
                         }
-                        setAdapter(arrFollowNLike)
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        ShowAlertInformation(this@FollowNLikeActivity, msg)
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
 
-            override fun onFailure() {
-
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@FollowNLikeActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
         })
     }
@@ -236,51 +217,33 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
 
         val apiService: MyApiEndpointInterface? =
                 ApiClient(this@FollowNLikeActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callmypagFollowing: Call<JsonObject?>? = apiService?.callMypagFollowing(headers)
-        callApi(true, callmypagFollowing, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        val dataArray = getJsonArrayFromJson(record, "data", JsonArray())
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-//                        Toast.makeText(this@FollowNLikeActivity, "${msg}", Toast.LENGTH_LONG).show()
-                        for (i in 0 until dataArray!!.size()) {
-                            val FollowingObject = getJsonObjFromJson(dataArray, i, JsonObject())
-                            val id = getStringFromJson(FollowingObject, "id", AppConstants.Defaults.string)
-                            val user_id = getStringFromJson(FollowingObject, "user_id", AppConstants.Defaults.string)
-                            val follow_id = getStringFromJson(FollowingObject, "follow_id", AppConstants.Defaults.string)
-                            val added_on = getStringFromJson(FollowingObject, "added_on", AppConstants.Defaults.string)
-                            val name = getStringFromJson(FollowingObject, "name", AppConstants.Defaults.string)
-                            val profile = getStringFromJson(FollowingObject, "profile", AppConstants.Defaults.string)
-                            val profile_status = getStringFromJson(FollowingObject, "profile_status", AppConstants.Defaults.string)
+        val callMyPagFollowings: Call<FollowerListResponse?>? = apiService?.callMypagFollowing(headers)
 
-                            arrFollowNLike?.add(Following(id,
-                                    user_id,
-                                    follow_id,
-                                    added_on,
-                                    name,
-                                    profile,
-                                    profile_status))
+        callRemoteApi(true, callMyPagFollowings, object : ApiClient.ApiCallbackListener<FollowerListResponse> {
+            override fun onDataFetched(response: FollowerListResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@FollowNLikeActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowerListResponse> {
+                        override fun onSuccess(response: FollowerListResponse) {
+                            val followers = response.record?.data ?: return
+                            for (follower in followers) {
+                                arrFollowNLike?.add(Following(follower.id?.toString(),
+                                    follower.user_id,
+                                    "",
+                                    follower.added_on,
+                                    follower.name,
+                                    follower.profile,
+                                    follower.profile_status))
+                            }
+                            setAdapter(arrFollowNLike)
                         }
 
-                        setAdapter(arrFollowNLike)
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@FollowNLikeActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@FollowNLikeActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 
@@ -288,33 +251,26 @@ class FollowNLikeActivity : DashBoardBaseActivity() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@FollowNLikeActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@FollowNLikeActivity).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callFollowUnFollow: Call<JsonObject?>? = apiService?.callFollowUnFollow(headers, id)
+        val callFollowUnFollow: Call<FollowUnFollowResponse?>? = apiService?.callFollowUnFollow(headers, id)
 
-        callApi(true, callFollowUnFollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        if (getStringFromJson(record, "follow_status", AppConstants.Defaults.string) == "0") {
-                            arrFollowNLike?.remove(arrFollowNLike?.get(position!!))
-                            adapterCommon?.notifyDataSetChanged()
+        callRemoteApi(true, callFollowUnFollow, object : ApiClient.ApiCallbackListener<FollowUnFollowResponse> {
+            override fun onDataFetched(response: FollowUnFollowResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@FollowNLikeActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowUnFollowResponse> {
+                        override fun onSuccess(response: FollowUnFollowResponse) {
+                            if (response.record?.follow_status == "0") {
+                                arrFollowNLike?.remove(arrFollowNLike?.get(position!!))
+                                adapterCommon?.notifyDataSetChanged()
+                            }
                         }
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(mainObject, message, AppConstants.Defaults.string)
-                        Toast.makeText(this@FollowNLikeActivity, "${msg}", Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
-            }
 
-            override fun onFailure() {}
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@FollowNLikeActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
+            }
         })
     }
 }

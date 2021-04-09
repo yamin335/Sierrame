@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,18 +14,18 @@ import com.google.gson.JsonObject
 import com.mmfinfotech.streameApp.R
 import com.mmfinfotech.streameApp.dashBoard.DashBoardActivity
 import com.mmfinfotech.streameApp.dashBoard.live.adapter.NotificationAdapter
+import com.mmfinfotech.streameApp.models.FollowUnFollowResponse
 import com.mmfinfotech.streameApp.models.Notification
+import com.mmfinfotech.streameApp.models.NotificationResponse
 import com.mmfinfotech.streameApp.util.getIntFromJson
 import com.mmfinfotech.streameApp.util.getJsonArrayFromJson
 import com.mmfinfotech.streameApp.util.getJsonObjFromJson
 import com.mmfinfotech.streameApp.util.getStringFromJson
-import com.mmfinfotech.streameApp.util.retrofit.ApiClient
-import com.mmfinfotech.streameApp.util.retrofit.MyApiEndpointInterface
-import com.mmfinfotech.streameApp.util.retrofit.OnApiResponse
-import com.mmfinfotech.streameApp.util.retrofit.Success
+import com.mmfinfotech.streameApp.util.retrofit.*
 import com.mmfinfotech.streameApp.utils.AppConstants
 import com.mmfinfotech.streameApp.utils.AppPreferences
 import com.mmfinfotech.streameApp.utils.SpaceItemDecoration
+import kotlinx.android.synthetic.main.activity_play_streaming.*
 import kotlinx.android.synthetic.main.fragment_notification.*
 import retrofit2.Call
 import java.util.*
@@ -69,45 +70,26 @@ class NotificationFragment : Fragment() {
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(context)}"
 
         val apiService: MyApiEndpointInterface? = ApiClient(context).getClient()?.create(MyApiEndpointInterface::class.java)
-        val callHotTheme: Call<JsonObject?>? = apiService?.callAllNotification(headers)
-        (context as DashBoardActivity).callApi(true, callHotTheme, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record: JsonObject? = getJsonObjFromJson(mainObject, "record", JsonObject())
-                        val data: JsonArray? = getJsonArrayFromJson(record, "data", JsonArray())
-                        for (i in 0 until (data?.size() ?: 0)) {
-                            val item: JsonObject? = getJsonObjFromJson(data, i, JsonObject())
-                            val id: Int = getIntFromJson(item, "id", AppConstants.Defaults.integer)
-                            val receiver: Int = getIntFromJson(item, "receiver", AppConstants.Defaults.integer)
-                            val payload: String = getStringFromJson(item, "payload", AppConstants.Defaults.string)
-                            val type: Int = getIntFromJson(item, "type", AppConstants.Defaults.integer)
-                            val addedOn: String = getStringFromJson(item, "added_on", AppConstants.Defaults.string)
-                            val senderId: Int = getIntFromJson(item, "sender_id", AppConstants.Defaults.integer)
-                            val senderName: String = getStringFromJson(item, "sender_name", AppConstants.Defaults.string)
-                            val senderProfile: String = getStringFromJson(item, "sender_profile", AppConstants.Defaults.string)
-                            val notification: String = getStringFromJson(item, "notification", AppConstants.Defaults.string)
-                            val referenceId: Int = getIntFromJson(item, "reference_id", AppConstants.Defaults.integer)
-                            val content: Int = getIntFromJson(item, "content", AppConstants.Defaults.integer)
-                            arrNotification?.add(
-                                Notification(
-                                    id = id, receiver = receiver, payload = payload, type = type, addedOn = addedOn,
-                                    senderId = senderId, senderName = senderName, senderProfile = senderProfile,
-                                    notification = notification, referenceId = referenceId, content = content,
-                                )
-                            )
+        val callAllNotification: Call<NotificationResponse?>? = apiService?.callAllNotification(headers)
+        (context as DashBoardActivity).callRemoteApi(true, callAllNotification, object : ApiClient.ApiCallbackListener<NotificationResponse> {
+            override fun onDataFetched(response: NotificationResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create((context as DashBoardActivity), response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<NotificationResponse> {
+                        override fun onSuccess(response: NotificationResponse) {
+                            val notifications = response.record?.data ?: return
+                            for (notification in notifications) {
+                                arrNotification?.add(notification)
+                            }
+                            recyclerviewNotification?.adapter?.notifyDataSetChanged()
                         }
-                        recyclerviewNotification?.adapter?.notifyDataSetChanged()
-                    }
-                    else -> {
 
-                    }
-                }
-                if ((context as DashBoardActivity).dialog?.isShowing == true)
-                    (context as DashBoardActivity).dialog?.dismiss()
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(requireContext(), message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 }

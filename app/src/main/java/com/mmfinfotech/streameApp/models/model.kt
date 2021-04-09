@@ -874,20 +874,6 @@ data class Gift(
     }
 }
 
-data class Notification(
-    val id: Int? = AppConstants.Defaults.integer,
-    val receiver: Int? = AppConstants.Defaults.integer,
-    val payload: String? = AppConstants.Defaults.string,
-    val type: Int? = AppConstants.Defaults.integer,
-    val addedOn: String? = AppConstants.Defaults.string,
-    val senderId: Int? = AppConstants.Defaults.integer,
-    val senderName: String? = AppConstants.Defaults.string,
-    val senderProfile: String? = AppConstants.Defaults.string,
-    val notification: String? = AppConstants.Defaults.string,
-    val referenceId: Int? = AppConstants.Defaults.integer,
-    val content: Int? = AppConstants.Defaults.integer
-)
-
 data class Rank(
     val id: Int? = AppConstants.Defaults.integer,
     val spentCoins: String? = AppConstants.Defaults.string,
@@ -1036,3 +1022,7 @@ data class BlockedUser(
 }
 
 data class CommonResponse(val status: String?, val message: String?)
+data class ClipDeleteResponse(val success: String?, val message: String?)
+
+data class FollowUnFollowResponse(val status: String?, val message: String?, val record: FollowUnFollowRecord?)
+data class FollowUnFollowRecord(val follow_status: String?)

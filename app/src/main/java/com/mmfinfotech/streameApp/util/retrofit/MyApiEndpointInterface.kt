@@ -119,21 +119,21 @@ interface MyApiEndpointInterface {
      *
      **/
     @GET(AppConstants.Endpoint.mypagFollower)
-    fun callMypagFollower(@HeaderMap headers: Map<String, String>): Call<JsonObject?>
+    fun callMypagFollower(@HeaderMap headers: Map<String, String>): Call<FollowerListResponse?>
 
     /**
      * Request for followeing
      *
      **/
     @GET(AppConstants.Endpoint.mypagFollowing)
-    fun callMypagFollowing(@HeaderMap headers: Map<String, String>): Call<JsonObject?>
+    fun callMypagFollowing(@HeaderMap headers: Map<String, String>): Call<FollowerListResponse?>
 
     /**
      * Request for Follow the Streamer and Unfollow the Streamer
      *
      **/
     @GET(AppConstants.Endpoint.unfolllowFollow)
-    fun callFollowUnFollow(@HeaderMap headers: Map<String, String>, @Path("follow_id") id: String?): Call<JsonObject?>
+    fun callFollowUnFollow(@HeaderMap headers: Map<String, String>, @Path("follow_id") id: String?): Call<FollowUnFollowResponse?>
 
     /**
      * Request for connectLive from HotTheme
@@ -412,7 +412,7 @@ interface MyApiEndpointInterface {
      * This Calling For All notification (Home Screen)
      * */
     @GET(AppConstants.Endpoint.likesAndComments)
-    fun callAllNotification(@HeaderMap header: Map<String, String>): Call<JsonObject?>
+    fun callAllNotification(@HeaderMap header: Map<String, String>): Call<NotificationResponse?>
 
     /**
      * This Calling For Main Leader Board
@@ -504,7 +504,7 @@ interface MyApiEndpointInterface {
     fun callDeleteClip(
         @HeaderMap header: Map<String, String>,
         @Path("clip_id") postId: String?
-    ): Call<JsonObject?>
+    ): Call<ClipDeleteResponse?>
 
     @GET(AppConstants.Endpoint.postCommentDelete)
     fun callPostCommentDelete(

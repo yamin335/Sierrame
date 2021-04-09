@@ -549,49 +549,37 @@ class LiveActivity : RtcBaseActivity(), OnMessageInputLayoutListener, GiftBottom
         })
     }
 
-    fun callFollowUnFollow() {
+    private fun callFollowUnFollow() {
         val headers = HashMap<String, String>()
         headers["Authorization"] = "Bearer ${AppPreferences().getAuthToken(this@LiveActivity)}"
         val apiService: MyApiEndpointInterface? = ApiClient(this@LiveActivity).getClient()?.create(
             MyApiEndpointInterface::class.java
         )
-        val callFollowUnfollow: Call<JsonObject?>? = apiService?.callFollowUnFollow(
+        val callFollowUnFollow: Call<FollowUnFollowResponse?>? = apiService?.callFollowUnFollow(
             headers,
             liversProfile?.streamerId
         )
 
-        callApi(true, callFollowUnfollow, object : OnApiResponse {
-            override fun onSuccess(status: String?, mainObject: JsonObject?) {
-                when (status) {
-                    Success -> {
-                        val record = getJsonObjFromJson(mainObject, record, JsonObject())
-                        liversProfile?.followStatus =
-                            getStringFromJson(record, "follow_status", AppConstants.Defaults.string)
+        callRemoteApi(true, callFollowUnFollow, object : ApiClient.ApiCallbackListener<FollowUnFollowResponse> {
+            override fun onDataFetched(response: FollowUnFollowResponse?, isSuccess: Boolean, message: String) {
+                if (!isSuccess) return
+                ApiResponse.create(this@LiveActivity, response?.status, response?.message ?: message,
+                    response, object : ApiClient.ApiResponseListener<FollowUnFollowResponse> {
+                        override fun onSuccess(response: FollowUnFollowResponse) {
+                            liversProfile?.followStatus = response.record?.follow_status
 
-                        textViewLiversFollowStatus?.text =
-                            if (liversProfile?.followStatus.equals("1"))
-                                resources.getString(R.string.following) else resources.getString(R.string.txt_follow)
+                            textViewLiversFollowStatus?.text = if (liversProfile?.followStatus.equals("1"))
+                                resources.getString(R.string.following)
+                            else
+                                resources.getString(R.string.txt_follow)
+                        }
 
-                    }
-                    NotFound -> {
-                        val msg = getStringFromJson(
-                            mainObject,
-                            message,
-                            AppConstants.Defaults.string
-                        )
-                        Toast.makeText(this@LiveActivity, msg, Toast.LENGTH_LONG).show()
-                    }
-                    NotVerify -> {
-//                        appPreferences?.setEmail(this@EditProfileActivity,SocialDetail.socialemail)
-                    }
-                    else -> {
-                    }
-                }
-                if (dialog?.isShowing == true)
-                    dialog?.dismiss()
+                        override fun onFailed(status: String, message: String) {
+                            Toast.makeText(this@LiveActivity, message, Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    })
             }
-
-            override fun onFailure() {}
         })
     }
 
